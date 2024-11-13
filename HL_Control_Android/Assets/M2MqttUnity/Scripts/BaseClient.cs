@@ -16,6 +16,7 @@ namespace M2MqttUnity
 	public class BaseClient : M2MqttUnityClient
 	{
 		public GameObject MySceneOriginGO;
+		public PlayerVisualizer playerVisualizer;
 
 		public delegate void MessageReceivedDelegate(string topic, string message);
 		private Dictionary<string, MessageReceivedDelegate> m_messageHandlers = new Dictionary<string, MessageReceivedDelegate>();
@@ -174,6 +175,14 @@ namespace M2MqttUnity
 			}
 			Debug.Log(tmp);
 
+			if (_topic == "M2MQTT/player/position")
+            {
+				playerVisualizer.PlayerUpdatePosition(message);
+			}
+			if (_topic == "M2MQTT/player/rotation")
+			{
+				playerVisualizer.PlayerUpdateRotation(message);
+			}
 			// if (_topic == "M2MQTT/Avatar")
 			// {
 			// 	double[] output = GetDoublesBlock(message);
@@ -192,16 +201,18 @@ namespace M2MqttUnity
 
 			// 	absPosition = new Vector2((float)test_1, (float)test_2);
 			// }
-
-			foreach (string topicKey in m_messageHandlers.Keys)
-			{
-				//if (m_messageHandlers.ContainsKey(_topic))
-				if (_topic.Contains(topicKey))
+			if (_topic == "M2MQTT/function")
+            {
+				foreach (string topicKey in m_messageHandlers.Keys)
 				{
-					MessageReceivedDelegate messageReceivedDelegate = m_messageHandlers[topicKey];
-					if (messageReceivedDelegate != null)
+					//if (m_messageHandlers.ContainsKey(_topic))
+					if (_topic.Contains(topicKey))
 					{
-						messageReceivedDelegate(_topic, msg);
+						MessageReceivedDelegate messageReceivedDelegate = m_messageHandlers[topicKey];
+						if (messageReceivedDelegate != null)
+						{
+							messageReceivedDelegate(_topic, msg);
+						}
 					}
 				}
 			}
