@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 192.168.216.103
+  brokerAddress: localhost
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -1009,16 +1009,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 613489808}
+      - m_Target: {fileID: 613489810}
         m_TargetAssemblyTypeName: M2MqttUnity.BaseClient, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: CallMethodByName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ExampleMethod1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1661632935

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -116,22 +117,39 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/Poses", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
-        public void SendVoidFunctionCall(string functionName)
-        {
-            var aa = GetBytesString(functionName.ToCharArray());
-            client.Publish("M2MQTT/Avatar", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-        }
+		public void CallMethodByName(string methodName)
+		{
+			Type type = this.GetType();
 
-        public void SendPosition(string thisObject, double[] position, double[] rotation)
-        {
-            var name = GetBytesString(thisObject.ToCharArray());
-            var pos = GetBytesBlock(position);
-            var rot = GetBytesBlock(rotation);
+			MethodInfo method = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-            client.Publish("M2MQTT/Positions", name, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-            client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-            client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-        }
+			if (method != null)
+			{
+				method.Invoke(this, null);
+			}
+			else
+			{
+				Debug.Log($"Method {methodName} not found");
+			}
+		}
+
+		public void SendVoidFunctionCall(string functionName)
+		{
+			var aa = GetBytesString(functionName.ToCharArray());
+			client.Publish("M2MQTT/Avatar", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			CallMethodByName(functionName);
+		}
+
+		public void SendPosition(string thisObject, double[] position, double[] rotation)
+		{
+			var name = GetBytesString(thisObject.ToCharArray());
+			var pos = GetBytesBlock(position);
+			var rot = GetBytesBlock(rotation);
+
+			client.Publish("M2MQTT/Positions", name, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
 
 		static byte[] GetBytesBlock(double[] values)
 		{
