@@ -140,15 +140,16 @@ namespace M2MqttUnity
 			CallMethodByName(functionName);
 		}
 
-		public void SendPosition(string thisObject, double[] position, double[] rotation)
+		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
-			var name = GetBytesString(thisObject.ToCharArray());
-			var pos = GetBytesBlock(position);
-			var rot = GetBytesBlock(rotation);
+			double[] p = { position[1], position[2], position[3] };
+			double[] r = { rotation[1], rotation[2], rotation[3], rotation[4] };
+			var name = GetBytesString(thisObject.name.ToCharArray());
+			var pos = GetBytesBlock(p);
+			var rot = GetBytesBlock(r);
 
-			client.Publish("M2MQTT/Positions", name, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-			client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-			client.Publish("M2MQTT/Positions", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
 		static byte[] GetBytesBlock(double[] values)
