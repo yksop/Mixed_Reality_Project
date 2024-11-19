@@ -22,7 +22,20 @@ public class DataRobotExchange : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Compute & Send impacto points
         CalcolaPuntiImpattoCircolari();
+        
+        baseClient.SendPosRot(
+            Robottino,
+                Robottino.transform.position - Center.transform.position,
+                    Robottino.transform.rotation   
+        );
+        
+        baseClient.SendPosRot(
+            Player,
+                Player.transform.position - Center.transform.position,
+                    Player.transform.rotation   
+        );
     }
 
     // Funzione che calcola la posizione del robot rispetto al centro e salva i valori in un array di byte[]
@@ -44,27 +57,34 @@ public class DataRobotExchange : MonoBehaviour
         return byteArray.ToArray();
     }
 
-    // Funzione che calcola la direzione del robot rispetto al centro e salva i valori in un array di byte[]
-    public byte[] CalcolaDirezione()
+    public byte[] CalcolaDirezioneGuardataEQuaternion()
     {
-        // Ottiene la direzione relativa del robot rispetto al centro solo sul piano X,Z
-        Vector3 direzioneRelativa = Robottino.transform.position - Center.transform.position;
+        // Direzione "forward" del robot (dove sta guardando), normalizzata sul piano X,Z
+        Vector3 direzioneGuardata = new Vector3(Robottino.transform.forward.x, 0, Robottino.transform.forward.z).normalized;
 
-        // Normalizza la direzione per ottenere un vettore unitario
-        direzioneRelativa = direzioneRelativa.normalized;
+        // Rotazione del robot in quaternion
+        Quaternion rotazioneGuardata = Robottino.transform.rotation;
 
-        // Lista di byte per memorizzare solo X e Z della direzione
+        // Lista di byte per memorizzare dati
         List<byte> byteArray = new List<byte>();
 
-        // Converte la coordinata X della direzione
-        byteArray.AddRange(BitConverter.GetBytes(direzioneRelativa.x));
+        // Converte la coordinata X della direzione guardata
+        byteArray.AddRange(BitConverter.GetBytes(direzioneGuardata.x));
 
-        // Converte la coordinata Z della direzione
-        byteArray.AddRange(BitConverter.GetBytes(direzioneRelativa.z));
+        // Converte la coordinata Z della direzione guardata
+        byteArray.AddRange(BitConverter.GetBytes(direzioneGuardata.z));
 
-        // Ritorna l'array di byte con solo X e Z della direzione
+        // Converte i componenti del quaternion (x, y, z, w)
+        byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.x));
+        byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.y));
+        byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.z));
+        byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.w));
+
+        // Ritorna l'array di byte con X, Z della direzione guardata e il quaternion
         return byteArray.ToArray();
     }
+
+
 
 
     // Funzione per calcolare i punti di impatto dei raycast in un array di byte[]
