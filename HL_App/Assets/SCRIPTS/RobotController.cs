@@ -56,7 +56,7 @@ public class RobotController : MonoBehaviour
             //isMoving = false;
             //new Vector3 CurrentPos = transform.position;
             //targetPosition = newVector3(transform.position.x + 2, transform.position.y, transform.position.z );
-            targetPosition = SetNewTargetPosition();
+            targetPosition = SetNewTargetPositionRandom();
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
             Debug.Log("Robot fermo: oltre il range di distanza dall'origine.");
             //return; // Esci dalla funzione Update
@@ -142,7 +142,7 @@ public class RobotController : MonoBehaviour
 
             // Imposta una posizione target in direzione opposta al player, sempre nel piano XZ
             targetPosition = transform.position + directionAwayFromPlayer * stopDistance * 2;
-            //targetPosition = SetNewTargetPosition();
+            //targetPosition = SetNewTargetPositionRandom();
             // Inizia a muoversi verso la posizione target
             isMoving = true;
 
@@ -190,7 +190,7 @@ public class RobotController : MonoBehaviour
 
             Debug.Log("Il robot ha guardato il player ed è spaventato.");
             /* 
-            targetPosition = SetNewTargetPosition();
+            targetPosition = SetNewTargetPositionRandom();
             isMoving = true; */
         }
         else
@@ -227,7 +227,7 @@ public class RobotController : MonoBehaviour
             //Vector3 previousTargetPosition = targetPosition;
 
             // Imposta una nuova posizione target
-            targetPosition = SetNewTargetPosition();
+            targetPosition = SetNewTargetPositionRandom();
 
             // Aspetta 0.5 secondi prima di cambiare direzione
             yield return new WaitForSeconds(changeDirectionInterval);
@@ -302,7 +302,7 @@ public class RobotController : MonoBehaviour
     {
         
         ChangeEyeOffset(EyePosition.normal);
-        targetPosition = SetNewTargetPosition();
+        targetPosition = SetNewTargetPositionRandom();
         isMoving = true;
         //MoveRobot(targetPosition);
         animator.SetBool("isWalking", true);
@@ -435,8 +435,13 @@ public class RobotController : MonoBehaviour
         }
     }
 
+    private Vector3 SetNewTargetPosition(Vector3 newPos) /////////////// probabile prende byte in input ////////
+    {
+        targetPosition = newPos;
+        return targetPosition;
+    }
 
-    private Vector3 SetNewTargetPosition()
+    private Vector3 SetNewTargetPositionRandom()
     {
         // Genera una nuova posizione casuale all'interno del raggio
         float x = Random.Range(-moveRange, moveRange);
