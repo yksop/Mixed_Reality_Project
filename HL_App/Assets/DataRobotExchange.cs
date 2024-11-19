@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using M2MqttUnity;
 
 public class DataRobotExchange : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DataRobotExchange : MonoBehaviour
     public GameObject Player;    // Riferimento al player
     public float maxDistance = 10f; // Distanza massima del raycast
     private int layerMask; // Layer mask per il raycast
+
+    public BaseClient baseClient;
 
     private void Start()
     {
@@ -41,11 +44,34 @@ public class DataRobotExchange : MonoBehaviour
         return byteArray.ToArray();
     }
 
+    // Funzione che calcola la direzione del robot rispetto al centro e salva i valori in un array di byte[]
+    public byte[] CalcolaDirezione()
+    {
+        // Ottiene la direzione relativa del robot rispetto al centro solo sul piano X,Z
+        Vector3 direzioneRelativa = Robottino.transform.position - Center.transform.position;
+
+        // Normalizza la direzione per ottenere un vettore unitario
+        direzioneRelativa = direzioneRelativa.normalized;
+
+        // Lista di byte per memorizzare solo X e Z della direzione
+        List<byte> byteArray = new List<byte>();
+
+        // Converte la coordinata X della direzione
+        byteArray.AddRange(BitConverter.GetBytes(direzioneRelativa.x));
+
+        // Converte la coordinata Z della direzione
+        byteArray.AddRange(BitConverter.GetBytes(direzioneRelativa.z));
+
+        // Ritorna l'array di byte con solo X e Z della direzione
+        return byteArray.ToArray();
+    }
+
+
     // Funzione per calcolare i punti di impatto dei raycast in un array di byte[]
     //public byte[][] CalcolaPuntiImpattoCircolari()
     public void CalcolaPuntiImpattoCircolari()
     {
-        List<byte[]> puntiImpattoBytes = new List<byte[]>();
+        List<byte> puntiImpattoBytes = new List<byte>();
 
         // Posizione di partenza del raycast, un metro sopra il centro
         //Vector3 startPosition = Center.transform.position + new Vector3(0, 1, 0);
@@ -80,7 +106,9 @@ public class DataRobotExchange : MonoBehaviour
         }
 
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
-        return puntiImpattoBytes.ToArray();
         
+        baseClient.SendRoom(puntiImpattoBytes.ToArray());
+
     }
 }
+
