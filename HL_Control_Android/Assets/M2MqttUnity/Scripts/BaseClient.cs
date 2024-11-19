@@ -200,12 +200,28 @@ namespace M2MqttUnity
 			Debug.Log(tmp);
 
 			if (_topic == "M2MQTT/player/position")
-            {
+			{
 				playerVisualizer.PlayerUpdatePosition(message);
 			}
 			if (_topic == "M2MQTT/player/rotation")
 			{
 				playerVisualizer.PlayerUpdateRotation(message);
+			}
+			if (_topic == "M2MQTT/room")
+			{
+				var elements = msg.Split(',');
+				var finalArray = new List<List<string>>();
+				for (int i = 0; i < elements.Length; i += 2)
+				{
+					finalArray.Add(new List<string> { elements[i], elements[i + 1] });
+				}
+
+				List<Vector3> positions = new List<Vector3>();
+				foreach (List<string> element in finalArray)
+				{
+					Vector3 pointpos = element.ToVector3();
+					positions.Add(pointpos);
+				}
 			}
 			// if (_topic == "M2MQTT/Avatar")
 			// {
@@ -226,7 +242,7 @@ namespace M2MqttUnity
 			// 	absPosition = new Vector2((float)test_1, (float)test_2);
 			// }
 			if (_topic == "M2MQTT/function")
-            {
+			{
 				foreach (string topicKey in m_messageHandlers.Keys)
 				{
 					//if (m_messageHandlers.ContainsKey(_topic))
@@ -241,6 +257,8 @@ namespace M2MqttUnity
 				}
 			}
 		}
+
+
 
 		private void OnDestroy()
 		{
