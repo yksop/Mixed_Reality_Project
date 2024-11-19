@@ -152,6 +152,11 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		public void SendRoom( byte[][] roomPoints )
+		{
+
+		}
+
 		static byte[] GetBytesBlock(double[] values)
 		{
 			var result = new byte[values.Length * sizeof(double)];
