@@ -152,7 +152,7 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
-		public void SendRoom( byte[][] roomPoints )
+		public void SendRoom(byte[][] roomPoints)
 		{
 
 		}
@@ -219,7 +219,7 @@ namespace M2MqttUnity
 				List<Vector3> positions = new List<Vector3>();
 				foreach (List<string> element in finalArray)
 				{
-					Vector3 pointpos = element.ToVector3();
+					Vector3 pointpos = new Vector3(float.Parse(element[0]), float.Parse(element[1]), 0);
 					positions.Add(pointpos);
 				}
 			}
