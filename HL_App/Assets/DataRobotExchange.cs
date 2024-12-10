@@ -108,8 +108,8 @@ public class DataRobotExchange : MonoBehaviour
             // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
             if (Physics.Raycast(startPosition, direction, out RaycastHit hit, maxDistance, layerMask))
             {
-                // Ottiene il punto di impatto
-                Vector3 puntoImpatto = hit.point;
+                // Ottiene il punto di impatto respect to vuforia marker
+                Vector3 puntoImpatto = hit.point - Center.transform.position;
                 /* 
                 // Converte solo le componenti X e Z in un array di byte
                 List<byte> puntoBytes = new List<byte>();
@@ -127,8 +127,7 @@ public class DataRobotExchange : MonoBehaviour
 
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
         
-        baseClient.SendRoom(puntiImpattoBytes.ToArray());
+        //baseClient.SendRoom(puntiImpattoBytes.ToArray());
 
     }
 }
-
