@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,31 +12,62 @@ public class PlayerVisualizer : MonoBehaviour
     Quaternion rotation;
     public GameObject player;
     public GameObject avatar;
+    public GameObject center;
+    public float movemetMultiplier = 30f;
     //public Material lineMaterial;
     private Color lineColor = Color.green;
 
     public void PlayerUpdatePosition(byte[] posB)
     {
-        Debug.Log(posB);
-        Vector3 pos = new Vector3(posB[0], posB[1], posB[2]);
-        player.transform.position = pos * 20;
+        Vector3 pos = BytesToVector3(posB);
+        player.transform.position = center.transform.position + pos * movemetMultiplier;
     }
     public void PlayerUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = new Quaternion(rotB[0], rotB[1], rotB[2], rotB[3]);
+        Quaternion rot = BytesToQuaternion(rotB);
         player.transform.rotation = rot;
     }
 
     public void AvatarUpdatePosition(byte[] posB)
     {
-        Vector3 pos = new Vector3(posB[0], posB[1], posB[2]);
-        avatar.transform.position = pos * 20;
+        Vector3 pos = BytesToVector3(posB);
+        avatar.transform.position = center.transform.position + pos * movemetMultiplier;
     }
     public void AvatarUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = new Quaternion(rotB[0], rotB[1], rotB[2], rotB[3]);
+        Quaternion rot = BytesToQuaternion(rotB);
         avatar.transform.rotation = rot;
     }
+    private Vector3 BytesToVector3(byte[] bytes)
+    {
+        if (bytes.Length != 24)
+        {
+            throw new ArgumentException("Byte array length must be 24 bytes (3 doubles).");
+        }
+
+        double x = BitConverter.ToDouble(bytes, 0);
+        double z = BitConverter.ToDouble(bytes, 8);
+        double y = BitConverter.ToDouble(bytes, 16);
+
+        return new Vector3((float)x, (float)y, (float)z);
+    }
+
+    private Quaternion BytesToQuaternion(byte[] bytes)
+    {
+        if (bytes.Length != 32)
+        {
+            throw new ArgumentException("Byte array length must be 32 bytes (4 doubles).");
+        }
+
+        double a = BitConverter.ToDouble(bytes, 0);
+        double b = BitConverter.ToDouble(bytes, 8);
+        double c = BitConverter.ToDouble(bytes, 16);
+        double d = BitConverter.ToDouble(bytes, 24);
+
+        return new Quaternion((float)a, (float)b, (float)c, (float)d);
+    }
+
+
     /*
     public void DrawRoom(List<Vector3> points)
     {

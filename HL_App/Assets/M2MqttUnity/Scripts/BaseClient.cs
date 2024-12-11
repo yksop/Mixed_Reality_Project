@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
+using System.Linq;
 
 
 namespace M2MqttUnity
@@ -89,6 +90,7 @@ namespace M2MqttUnity
 			{
 				//client.Publish(topic, System.Text.Encoding.UTF8.GetBytes("On_Connect message sent on topic "+topic), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 				Debug.Log("Auto test enabled");
+				ExampleSending();
 				//client.Publish("M2MQTT/TestTopic", System.Text.Encoding.UTF8.GetBytes(MySceneOriginGO.transform.localPosition.y.ToString()), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 				//client.Publish("M2MQTT/TestTopic", System.Text.Encoding.UTF8.GetBytes("3.44"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 				//client.Publish("M2MQTT/SetDepthOnStart", System.Text.Encoding.UTF8.GetBytes(MySceneOriginGO.transform.localPosition.x.ToString()), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
@@ -114,7 +116,7 @@ namespace M2MqttUnity
 			variablestest[1] = 2.1;
 			var aa = GetBytesBlock(variablestest);
 
-			client.Publish("M2MQTT/Poses", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/Test", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
 		public void CallMethodByName(string methodName)
@@ -142,14 +144,16 @@ namespace M2MqttUnity
 
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
-			double[] p = { position[0], position[1], position[2] };
-			double[] r = { rotation[0], rotation[1], rotation[2], rotation[3] };
+            double[] p = new double[] { position[0], position[1], position[2] };
+			double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
 			var name = thisObject.name;
-			var pos = GetBytesBlock(p);
-			var rot = GetBytesBlock(r);
-			Debug.Log(pos);
-			Debug.Log(rot);
-			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			byte[] pos = GetBytesBlock(p);
+            byte[] rot = GetBytesBlock(r);
+
+			//Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
+			//Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
+
+            client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
@@ -160,10 +164,8 @@ namespace M2MqttUnity
 
 		static byte[] GetBytesBlock(double[] values)
 		{
-			var result = new byte[values.Length * sizeof(double)];
-			Buffer.BlockCopy(values, 0, result, 0, result.Length);
-			return result;
-		}
+            return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
+        }
 
 		static byte[] GetBytesString(char[] values)
 		{
@@ -191,14 +193,14 @@ namespace M2MqttUnity
 			string tmp = "";
 			string msg = System.Text.Encoding.UTF8.GetString(message);
 
-			Debug.Log(" on topic:" + _topic);
+			//Debug.Log(" on topic:" + _topic);
 
 			char[] output = GetStringBlock(message);
 			foreach (char letter in output)
 			{
 				tmp = tmp + letter;
 			}
-			Debug.Log(tmp);
+			//Debug.Log(tmp);
 
 			if (_topic == "M2MQTT/player/position")
 			{

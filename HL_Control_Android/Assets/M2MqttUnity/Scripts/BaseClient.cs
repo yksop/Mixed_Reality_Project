@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
+using System.Linq;
 
 
 namespace M2MqttUnity
@@ -140,31 +141,28 @@ namespace M2MqttUnity
 			CallMethodByName(functionName);
 		}
 
-		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
-		{
-			double[] p = { position[0], position[1], position[2] };
-			double[] r = { rotation[0], rotation[1], rotation[2], rotation[3] };
-			var name = thisObject.name;
-			var pos = GetBytesBlock(p);
-			var rot = GetBytesBlock(r);
+        public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
+        {
+            double[] p = new double[] { position[0], position[1], position[2] };
+            double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
+            var name = thisObject.name;
+            byte[] pos = GetBytesBlock(p);
+            byte[] rot = GetBytesBlock(r);
+            Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
 
-			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
+            // Debug logs to verify byte array contents
+            //Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
+            //Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
 
-		public void SendRoom(byte[][] roomPoints)
-		{
+            client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+        }
+        static byte[] GetBytesBlock(double[] values)
+        {
+            return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
+        }
 
-		}
-
-		static byte[] GetBytesBlock(double[] values)
-		{
-			var result = new byte[values.Length * sizeof(double)];
-			Buffer.BlockCopy(values, 0, result, 0, result.Length);
-			return result;
-		}
-
-		static byte[] GetBytesString(char[] values)
+        static byte[] GetBytesString(char[] values)
 		{
 			var result = new byte[values.Length * sizeof(char)];
 			Buffer.BlockCopy(values, 0, result, 0, result.Length);
@@ -207,7 +205,15 @@ namespace M2MqttUnity
 			{
 				playerVisualizer.PlayerUpdateRotation(message);
 			}
-			if (_topic == "M2MQTT/room")
+            if (_topic == "M2MQTT/Jammo_Player/position")
+            {
+                playerVisualizer.AvatarUpdatePosition(message);
+            }
+            if (_topic == "M2MQTT/Jammo_Player/rotation")
+            {
+                playerVisualizer.AvatarUpdateRotation(message);
+            }
+            if (_topic == "M2MQTT/room")
 			{
 				var elements = msg.Split(',');
 				var finalArray = new List<List<string>>();
