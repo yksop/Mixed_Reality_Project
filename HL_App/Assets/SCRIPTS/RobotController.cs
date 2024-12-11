@@ -400,7 +400,7 @@ public class RobotController : MonoBehaviour
             footsteps.Play();
         }
         // Dimensioni del box per il BoxCast (rettangolare nel piano x-y)
-        Vector3 boxSize = new Vector3(0.5f, 0.1f, 0.5f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
+        Vector3 boxSize = new Vector3(0.2f, 0.5f, 0.2f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
         
         // // Calcola la direzione verso la posizione target
         Vector3 direction = (targetPosition - transform.position).normalized;
