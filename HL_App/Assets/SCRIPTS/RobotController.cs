@@ -396,7 +396,7 @@ public class RobotController : MonoBehaviour
 
 
         // Dimensioni del box per il BoxCast (rettangolare nel piano x-y)
-        Vector3 boxSize = new Vector3(0.5f, 0.1f, 0.5f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
+        Vector3 boxSize = new Vector3(0.2f, 0.5f, 0.2f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
         
         // Usa un BoxCast sul Layer della SLAM Mesh per rilevare ostacoli
         if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.5f, spatialAwareness))

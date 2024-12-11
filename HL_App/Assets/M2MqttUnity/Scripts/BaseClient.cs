@@ -142,8 +142,8 @@ namespace M2MqttUnity
 
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
-			double[] p = { position[1], position[2], position[3] };
-			double[] r = { rotation[1], rotation[2], rotation[3], rotation[4] };
+			double[] p = { position[0], position[1], position[2] };
+			double[] r = { rotation[0], rotation[1], rotation[2], rotation[3] };
 			var name = GetBytesString(thisObject.name.ToCharArray());
 			var pos = GetBytesBlock(p);
 			var rot = GetBytesBlock(r);
