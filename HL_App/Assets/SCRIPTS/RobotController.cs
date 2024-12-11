@@ -21,6 +21,16 @@ public class RobotController : MonoBehaviour
     private bool staScappando = false;
     public Transform centerPoint; // Il centro da cui il robot calcolerà le posizioni casuali
 
+    // PID CONTROLLER
+	[ SerializeField ] private PIDController z_controller; // controller of foward direction of character
+	[ SerializeField ] private PIDController yaw_controller; // controller of yaw rotation (forward direction) of character
+	[SerializeField] private Vector3 target_position; // target destination in play-space
+
+	[ SerializeField ] private bool is_PID_control;
+	private bool facing_target;
+	private bool at_target;
+
+
     
     public enum EyePosition { normal, happy, angry, dead} // stato occhi 
     Renderer[] characterMaterials;
@@ -61,6 +71,12 @@ public class RobotController : MonoBehaviour
             Debug.Log("Robot fermo: oltre il range di distanza dall'origine.");
             //return; // Esci dalla funzione Update
         } */
+
+        /* UNCOMMENT TO TEST PID Controller */
+
+        isMoving = is_PID_control? true : false;
+
+        /* UNCOMMENT TO TEST PID Controller */
 
         if (isMoving)
         {
@@ -383,21 +399,12 @@ public class RobotController : MonoBehaviour
         {
             footsteps.Play();
         }
-
-        // Calcola la direzione verso la posizione target
-        Vector3 direction = (targetPosition - transform.position).normalized;
-
-        // Ruota il robot verso la direzione di movimento
-        if (direction != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed * 5);
-        }
-
-
         // Dimensioni del box per il BoxCast (rettangolare nel piano x-y)
         Vector3 boxSize = new Vector3(0.5f, 0.1f, 0.5f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
         
+        // // Calcola la direzione verso la posizione target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
         // Usa un BoxCast sul Layer della SLAM Mesh per rilevare ostacoli
         if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.5f, spatialAwareness))
         {
@@ -410,14 +417,83 @@ public class RobotController : MonoBehaviour
             return;
         }
 
-        // Muovi il robot nella direzione della destinazione
-        Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.World);
+        // // Ruota il robot verso la direzione di movimento
+        // if (direction != Vector3.zero)
+        // {
+        //     Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed * 5);
+        // }
+
+        // // Muovi il robot nella direzione della destinazione
+        // Vector3 movement = direction * moveSpeed * Time.deltaTime;
+        // transform.Translate(movement, Space.World);
 
 
+		// Implementing PID controller to move and rotate player
+		// First transform target position into characters local coordinates
+		target_position.y = transform.position.y; // we do not implement any control in the vertical direction (i.e. only gravity)
+
+        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
+		// if (old_target_position.x != target_position.x || 
+		// 		old_target_position.z != target_position.z)
+		// {
+		// 	old_target_position = target_position;
+		// 	init_targ_dist = ( old_target_position - transform.position ).magnitude;
+		// }
+        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
+
+		Vector3 target_direction = ( target_position - transform.position ).normalized;
+
+		var current_angle = Vector3.SignedAngle ( Vector3.forward, transform.forward, Vector3.up );  // character argan angle
+		var target_angle = Vector3.SignedAngle ( Vector3.forward, target_direction, Vector3.up ); // target argan angle
+		float input_yaw = yaw_controller.UpdateAngle( Time.fixedDeltaTime, current_angle, target_angle );  // yaw_controller update
+
+		facing_target = Mathf.Abs( input_yaw ) < yaw_controller.threshold ? true : false;
+
+		float distance = ( target_position - transform.position ).magnitude;
+		float character_vel = moveSpeed;
+		float anim_blend = 0.5f;
+
+		float input_z = z_controller.UpdatePosition( Time.fixedDeltaTime, transform.position.z, transform.position.z + distance );
+
+		at_target =  Mathf.Abs( input_z ) < z_controller.threshold ? true : false;
+
+		if ( !at_target ) // walk/run to target after facing the direction of the target
+		{
+            if ( !facing_target ) // rotate until the character is facing the direction of the target
+            {
+                transform.Rotate (Vector3.up, input_yaw);
+                Debug.Log("Rotating to face the target");
+            }
+			var desired_move_direction = new Vector3(0, 0, input_z);
+			desired_move_direction = transform.TransformVector(desired_move_direction);
+
+        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
+			// float acc_t = velocity/0.1f;
+			// float n = Mathf.Ceil( acc_t / Time.fixedDeltaTime );
+
+			// Attempt at trapezoidal velocity profile for character
+			// if ( distance > 3 * init_targ_dist / 4 )
+			// {
+			// 	character_vel += (1+init_targ_dist-distance)/init_targ_dist * velocity / 20;
+			// 	anim_blend = init_targ_dist/10 * 0.5f;
+			// }
+			// else
+			// {
+			// 	character_vel = velocity;
+			// 	anim_blend = 1f;
+			// }
+        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
+
+			transform.Translate ( desired_move_direction * Time.deltaTime * character_vel, Space.World ); // robot walks to set target
+			// anim.SetFloat("Blend", anim_blend, StartAnimTime, Time.deltaTime);
+            animator.SetBool("isWalking", true); // Animation as robot walks to set target
+
+            Debug.Log("Moving to the target");
+		}
 
         // Verifica se il robot ha raggiunto la posizione target
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.0075f)
+        else //(Vector3.Distance(transform.position, targetPosition) <= 0.0075f)
         {
             isMoving = false; // Ferma il movimento
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
