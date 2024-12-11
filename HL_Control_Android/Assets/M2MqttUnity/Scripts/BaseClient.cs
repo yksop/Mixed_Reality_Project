@@ -142,9 +142,9 @@ namespace M2MqttUnity
 
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
-			double[] p = { position[1], position[2], position[3] };
-			double[] r = { rotation[1], rotation[2], rotation[3], rotation[4] };
-			var name = GetBytesString(thisObject.name.ToCharArray());
+			double[] p = { position[0], position[1], position[2] };
+			double[] r = { rotation[0], rotation[1], rotation[2], rotation[3] };
+			var name = thisObject.name;
 			var pos = GetBytesBlock(p);
 			var rot = GetBytesBlock(r);
 
@@ -199,11 +199,11 @@ namespace M2MqttUnity
 			}
 			Debug.Log(tmp);
 
-			if (_topic == "M2MQTT/player/position")
+			if (_topic == "M2MQTT/Main Camera/position")
 			{
 				playerVisualizer.PlayerUpdatePosition(message);
 			}
-			if (_topic == "M2MQTT/player/rotation")
+			if (_topic == "M2MQTT/Main Camera/rotation")
 			{
 				playerVisualizer.PlayerUpdateRotation(message);
 			}

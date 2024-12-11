@@ -862,7 +862,7 @@ MonoBehaviour:
   timeoutOnConnection: 30000
   autoConnect: 1
   MySceneOriginGO: {fileID: 1701159728}
-  playerVisualizer: {fileID: 0}
+  playerVisualizer: {fileID: 1381591807}
   autoTest: 1
   stopConnection: 0
   restart: 0
@@ -1339,7 +1339,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 527286285}
   avatar: {fileID: 1237828827}
-  lineMaterial: {fileID: 0}
 --- !u!1 &1661632932
 GameObject:
   m_ObjectHideFlags: 0

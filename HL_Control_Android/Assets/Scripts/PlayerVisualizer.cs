@@ -16,23 +16,24 @@ public class PlayerVisualizer : MonoBehaviour
 
     public void PlayerUpdatePosition(byte[] posB)
     {
-        Vector3 pos = new Vector3(posB[1], posB[2], posB[3]);
+        Debug.Log(posB);
+        Vector3 pos = new Vector3(posB[0], posB[1], posB[2]);
         player.transform.position = pos * 20;
     }
     public void PlayerUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = new Quaternion(rotB[1], rotB[2], rotB[3], rotB[4]);
+        Quaternion rot = new Quaternion(rotB[0], rotB[1], rotB[2], rotB[3]);
         player.transform.rotation = rot;
     }
 
     public void AvatarUpdatePosition(byte[] posB)
     {
-        Vector3 pos = new Vector3(posB[1], posB[2], posB[3]);
+        Vector3 pos = new Vector3(posB[0], posB[1], posB[2]);
         avatar.transform.position = pos * 20;
     }
     public void AvatarUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = new Quaternion(rotB[1], rotB[2], rotB[3], rotB[4]);
+        Quaternion rot = new Quaternion(rotB[0], rotB[1], rotB[2], rotB[3]);
         avatar.transform.rotation = rot;
     }
     /*

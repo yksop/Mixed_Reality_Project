@@ -144,10 +144,11 @@ namespace M2MqttUnity
 		{
 			double[] p = { position[0], position[1], position[2] };
 			double[] r = { rotation[0], rotation[1], rotation[2], rotation[3] };
-			var name = GetBytesString(thisObject.name.ToCharArray());
+			var name = thisObject.name;
 			var pos = GetBytesBlock(p);
 			var rot = GetBytesBlock(r);
-
+			Debug.Log(pos);
+			Debug.Log(rot);
 			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
