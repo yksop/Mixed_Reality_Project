@@ -5,6 +5,8 @@ public class MarkerSpawner : MonoBehaviour
 	public RectTransform parentImage;
 	public GameObject markerPrefab;
 
+	public Vector2 position;
+
 	public void Start()
 	{
 		if (parentImage == null)
@@ -17,7 +19,7 @@ public class MarkerSpawner : MonoBehaviour
 			Debug.Log("Parent image assigned!");
 		}
 
-		SpawnMarker(new Vector2(0.5f, 0.5f));
+		SpawnMarker(position);
 	}
 
 	public void SpawnMarker(Vector2 position)

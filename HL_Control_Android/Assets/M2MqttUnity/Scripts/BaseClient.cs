@@ -16,6 +16,8 @@ namespace M2MqttUnity
 	/// </summary>
 	public class BaseClient : M2MqttUnityClient
 	{
+		N_ROOM_POINTS = 360;
+		
 		public GameObject MySceneOriginGO;
 		public PlayerVisualizer playerVisualizer;
 
@@ -30,27 +32,14 @@ namespace M2MqttUnity
 		public string lastMsg;
 		static public Vector2 absPosition;
 
+		private int vectorRoomPoints[N_ROOM_POINTS];
+
 		private List<string> eventMessages = new List<string>();
 
-		public void RegisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
+		public void Start()
 		{
-			if (!m_messageHandlers.ContainsKey(topic))
-			{
-				m_messageHandlers.Add(topic, null);
-			}
 
-			m_messageHandlers[topic] += messageReceivedDelegate;
 		}
-
-
-		public void UnregisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
-		{
-			if (m_messageHandlers.ContainsKey(topic))
-			{
-				m_messageHandlers[topic] -= messageReceivedDelegate;
-			}
-		}
-
 
 		//Update method called every frame
 		protected override void Update()
@@ -77,6 +66,42 @@ namespace M2MqttUnity
 
 				}
 				eventMessages.Clear();
+			}
+		}
+
+		public void RegisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
+		{
+			if (!m_messageHandlers.ContainsKey(topic))
+			{
+				m_messageHandlers.Add(topic, null);
+			}
+
+			m_messageHandlers[topic] += messageReceivedDelegate;
+		}
+
+		public Vector2[] ConvertToVector2Array(int[] intArray)
+		{
+			if (intArray.Length % 2 != 0)
+			{
+				throw new System.ArgumentException("Array length must be even to convert to Vector2 array.");
+			}
+
+			Vector2[] vectorArray = new Vector2[intArray.Length / 2];
+
+			for (int i = 0; i < intArray.Length; i += 2)
+			{
+				vectorArray[i / 2] = new Vector2(intArray[i], intArray[i + 1]);
+			}
+
+			return vectorArray;
+		}
+
+
+		public void UnregisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
+		{
+			if (m_messageHandlers.ContainsKey(topic))
+			{
+				m_messageHandlers[topic] -= messageReceivedDelegate;
 			}
 		}
 

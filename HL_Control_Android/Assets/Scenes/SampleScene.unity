@@ -684,6 +684,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentImage: {fileID: 426257556}
   markerPrefab: {fileID: 47120242}
+  position: {x: 0.1, y: 0.1}
+--- !u!1 &482768066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482768068}
+  - component: {fileID: 482768067}
+  m_Layer: 0
+  m_Name: FunzioneTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &482768067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482768066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b210bfcc38a50d438b391fc468b9dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentImage: {fileID: 0}
+  markerPrefab: {fileID: 0}
+  position: {x: 0, y: 0}
+--- !u!4 &482768068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482768066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 578.7164, y: 380.763, z: -681.71216}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,9 +1524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b210bfcc38a50d438b391fc468b9dea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentImage: {fileID: 426257556}
-  markerPrefab: {fileID: 848522947}
-  position: {x: 2, y: 2}
+  parentImage: {fileID: 0}
+  markerPrefab: {fileID: 0}
+  position: {x: 0, y: 0}
 --- !u!1 &2050049971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,9 +1774,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 613489810}
+      - m_Target: {fileID: 482768066}
         m_TargetAssemblyTypeName: M2MqttUnity.BaseClient, Assembly-CSharp
-        m_MethodName: ExampleSending
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
