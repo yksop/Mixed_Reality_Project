@@ -127,7 +127,7 @@ public class DataRobotExchange : MonoBehaviour
 
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
         
-        //baseClient.SendRoom(puntiImpattoBytes.ToArray());
+        baseClient.SendRoom(puntiImpattoBytes.ToArray());
 
     }
 }
