@@ -81,7 +81,6 @@ namespace M2MqttUnity
 			}
 		}
 
-
 		protected override void OnConnected()
 		{
 			base.OnConnected();
@@ -141,28 +140,28 @@ namespace M2MqttUnity
 			CallMethodByName(functionName);
 		}
 
-        public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
-        {
-            double[] p = new double[] { position[0], position[1], position[2] };
-            double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
-            var name = thisObject.name;
-            byte[] pos = GetBytesBlock(p);
-            byte[] rot = GetBytesBlock(r);
-            Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
+		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
+		{
+			double[] p = new double[] { position[0], position[1], position[2] };
+			double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
+			var name = thisObject.name;
+			byte[] pos = GetBytesBlock(p);
+			byte[] rot = GetBytesBlock(r);
+			Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
 
-            // Debug logs to verify byte array contents
-            //Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
-            //Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
+			// Debug logs to verify byte array contents
+			//Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
+			//Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
 
-            client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-            client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-        }
-        static byte[] GetBytesBlock(double[] values)
-        {
-            return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
-        }
+			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+		static byte[] GetBytesBlock(double[] values)
+		{
+			return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
+		}
 
-        static byte[] GetBytesString(char[] values)
+		static byte[] GetBytesString(char[] values)
 		{
 			var result = new byte[values.Length * sizeof(char)];
 			Buffer.BlockCopy(values, 0, result, 0, result.Length);
@@ -205,15 +204,15 @@ namespace M2MqttUnity
 			{
 				playerVisualizer.PlayerUpdateRotation(message);
 			}
-            if (_topic == "M2MQTT/Jammo_Player/position")
-            {
-                playerVisualizer.AvatarUpdatePosition(message);
-            }
-            if (_topic == "M2MQTT/Jammo_Player/rotation")
-            {
-                playerVisualizer.AvatarUpdateRotation(message);
-            }
-            if (_topic == "M2MQTT/room")
+			if (_topic == "M2MQTT/Jammo_Player/position")
+			{
+				playerVisualizer.AvatarUpdatePosition(message);
+			}
+			if (_topic == "M2MQTT/Jammo_Player/rotation")
+			{
+				playerVisualizer.AvatarUpdateRotation(message);
+			}
+			if (_topic == "M2MQTT/room")
 			{
 				var elements = msg.Split(',');
 				var finalArray = new List<List<string>>();
@@ -229,24 +228,6 @@ namespace M2MqttUnity
 					positions.Add(pointpos);
 				}
 			}
-			// if (_topic == "M2MQTT/Avatar")
-			// {
-			// 	double[] output = GetDoublesBlock(message);
-
-			// 	double test_1 = 2;
-			// 	double test_2 = 2;
-
-			// 	for (int j = 0; j < output.Length; j++)
-			// 	{
-			// 		if (j == 0) test_1 = output[j];
-			// 		if (j == 1) test_2 = output[j];
-			// 	}
-
-			// 	Debug.Log("test_1 :" + test_1);
-			// 	Debug.Log("test_2 :" + test_2);
-
-			// 	absPosition = new Vector2((float)test_1, (float)test_2);
-			// }
 			if (_topic == "M2MQTT/function")
 			{
 				foreach (string topicKey in m_messageHandlers.Keys)
@@ -266,19 +247,25 @@ namespace M2MqttUnity
 
 		public void SendTrajectory(Vector2[] trajectoryPoints)
 		{
+			List<byte> byteList = new List<byte>();
 
+			foreach (Vector2 point in trajectoryPoints)
+			{
+				byte[] xBytes = BitConverter.GetBytes(point.x);
+				byte[] yBytes = BitConverter.GetBytes(point.y);
+
+				byteList.AddRange(xBytes);
+				byteList.AddRange(yBytes);
+			}
+
+			byte[] byteArray = byteList.ToArray();
+
+			client.Publish("M2MQTT/Trajectory", byteArray, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
-
-
 
 		private void OnDestroy()
 		{
 			Disconnect();
 		}
 	}
-
-
-
 }
-
-
