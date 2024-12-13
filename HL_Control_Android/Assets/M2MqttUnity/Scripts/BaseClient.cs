@@ -264,6 +264,11 @@ namespace M2MqttUnity
 			}
 		}
 
+		public void SendTrajectory(Vector2[] trajectoryPoints)
+		{
+
+		}
+
 
 
 		private void OnDestroy()

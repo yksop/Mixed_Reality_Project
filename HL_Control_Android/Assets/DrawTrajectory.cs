@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using M2MqttUnity;
 
 public class DrawTrajectory : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class DrawTrajectory : MonoBehaviour
 
     // Variabile per controllare se stiamo disegnando
     private bool isDrawing = false;
+
+    // BaseClient Class
+    public BaseClient baseClient;
 
     void Update()
     {
@@ -87,6 +92,7 @@ public class DrawTrajectory : MonoBehaviour
         }
 
         Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
+        SendPoints(relativePoints);
     }
 
     private void Draw(Vector2 inputPosition)
@@ -145,5 +151,10 @@ public class DrawTrajectory : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, center), canvas.worldCamera, out localCenter);
 
         return localCenter;
+    }
+
+    private void SendPoints(List<Vector2> relativePoints)
+    {
+        baseClient.SendTrajectory(relativePoints.ToArray());
     }
 }
