@@ -19,6 +19,7 @@ namespace M2MqttUnity
 	{
 		public GameObject MySceneOriginGO;
 		public PlayerVisualizer playerVisualizer;
+		public PointSpawner pointSpawner;
 
 		public delegate void MessageReceivedDelegate(string topic, string message);
 		private Dictionary<string, MessageReceivedDelegate> m_messageHandlers = new Dictionary<string, MessageReceivedDelegate>();
@@ -43,7 +44,6 @@ namespace M2MqttUnity
 			m_messageHandlers[topic] += messageReceivedDelegate;
 		}
 
-
 		public void UnregisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
 		{
 			if (m_messageHandlers.ContainsKey(topic))
@@ -51,7 +51,6 @@ namespace M2MqttUnity
 				m_messageHandlers[topic] -= messageReceivedDelegate;
 			}
 		}
-
 
 		//Update method called every frame
 		protected override void Update()
@@ -81,7 +80,6 @@ namespace M2MqttUnity
 			}
 		}
 
-
 		protected override void OnConnected()
 		{
 			base.OnConnected();
@@ -96,7 +94,6 @@ namespace M2MqttUnity
 				//client.Publish("M2MQTT/SetLateralOnStart", System.Text.Encoding.UTF8.GetBytes(MySceneOriginGO.transform.localPosition.z.ToString()), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			}
 		}
-
 
 		protected override void SubscribeTopics()
 		{
@@ -215,38 +212,8 @@ namespace M2MqttUnity
             }
             if (_topic == "M2MQTT/room")
 			{
-				var elements = msg.Split(',');
-				var finalArray = new List<List<string>>();
-				for (int i = 0; i < elements.Length; i += 2)
-				{
-					finalArray.Add(new List<string> { elements[i], elements[i + 1] });
-				}
-
-				List<Vector3> positions = new List<Vector3>();
-				foreach (List<string> element in finalArray)
-				{
-					Vector3 pointpos = new Vector3(float.Parse(element[0]), float.Parse(element[1]), 0);
-					positions.Add(pointpos);
-				}
+				pointSpawner.UpdateMarkers(message);
 			}
-			// if (_topic == "M2MQTT/Avatar")
-			// {
-			// 	double[] output = GetDoublesBlock(message);
-
-			// 	double test_1 = 2;
-			// 	double test_2 = 2;
-
-			// 	for (int j = 0; j < output.Length; j++)
-			// 	{
-			// 		if (j == 0) test_1 = output[j];
-			// 		if (j == 1) test_2 = output[j];
-			// 	}
-
-			// 	Debug.Log("test_1 :" + test_1);
-			// 	Debug.Log("test_2 :" + test_2);
-
-			// 	absPosition = new Vector2((float)test_1, (float)test_2);
-			// }
 			if (_topic == "M2MQTT/function")
 			{
 				foreach (string topicKey in m_messageHandlers.Keys)
@@ -264,16 +231,11 @@ namespace M2MqttUnity
 			}
 		}
 
-
-
 		private void OnDestroy()
 		{
 			Disconnect();
 		}
 	}
-
-
-
 }
 
 

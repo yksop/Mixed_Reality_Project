@@ -22,6 +22,7 @@ public class PlayerVisualizer : MonoBehaviour
         Vector3 pos = BytesToVector3(posB);
         player.transform.position = center.transform.position + pos * movemetMultiplier;
     }
+
     public void PlayerUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
@@ -33,11 +34,13 @@ public class PlayerVisualizer : MonoBehaviour
         Vector3 pos = BytesToVector3(posB);
         avatar.transform.position = center.transform.position + pos * movemetMultiplier;
     }
+
     public void AvatarUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
         avatar.transform.rotation = rot;
     }
+
     private Vector3 BytesToVector3(byte[] bytes)
     {
         if (bytes.Length != 24)
