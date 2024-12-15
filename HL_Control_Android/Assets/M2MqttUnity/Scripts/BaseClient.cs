@@ -160,6 +160,7 @@ namespace M2MqttUnity
         }
 
         static byte[] GetBytesString(char[] values)
+
 		{
 			var result = new byte[values.Length * sizeof(char)];
 			Buffer.BlockCopy(values, 0, result, 0, result.Length);
@@ -202,15 +203,15 @@ namespace M2MqttUnity
 			{
 				playerVisualizer.PlayerUpdateRotation(message);
 			}
-            if (_topic == "M2MQTT/Jammo_Player/position")
-            {
-                playerVisualizer.AvatarUpdatePosition(message);
-            }
-            if (_topic == "M2MQTT/Jammo_Player/rotation")
-            {
-                playerVisualizer.AvatarUpdateRotation(message);
-            }
-            if (_topic == "M2MQTT/room")
+			if (_topic == "M2MQTT/Jammo_Player/position")
+			{
+				playerVisualizer.AvatarUpdatePosition(message);
+			}
+			if (_topic == "M2MQTT/Jammo_Player/rotation")
+			{
+				playerVisualizer.AvatarUpdateRotation(message);
+			}
+			if (_topic == "M2MQTT/room")
 			{
 				pointSpawner.UpdateMarkers(message);
 			}
@@ -231,11 +232,27 @@ namespace M2MqttUnity
 			}
 		}
 
+		public void SendTrajectory(Vector2[] trajectoryPoints)
+		{
+			List<byte> byteList = new List<byte>();
+
+			foreach (Vector2 point in trajectoryPoints)
+			{
+				byte[] xBytes = BitConverter.GetBytes(point.x);
+				byte[] yBytes = BitConverter.GetBytes(point.y);
+
+				byteList.AddRange(xBytes);
+				byteList.AddRange(yBytes);
+			}
+
+			byte[] byteArray = byteList.ToArray();
+
+			client.Publish("M2MQTT/Trajectory", byteArray, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+
 		private void OnDestroy()
 		{
 			Disconnect();
 		}
 	}
 }
-
-
