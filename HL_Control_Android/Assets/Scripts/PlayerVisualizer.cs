@@ -26,7 +26,7 @@ public class PlayerVisualizer : MonoBehaviour
     public void PlayerUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
-        player.transform.eulerAngles = new Vector3 (0f, 0f, rot.eulerAngles.y);
+        player.transform.eulerAngles = new Vector3 (0f, 0f, -rot.eulerAngles.y);
     }
 
     public void AvatarUpdatePosition(byte[] posB)
@@ -38,7 +38,7 @@ public class PlayerVisualizer : MonoBehaviour
     public void AvatarUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
-        avatar.transform.eulerAngles = new Vector3(0f, 0f, rot.eulerAngles.y);
+        avatar.transform.eulerAngles = new Vector3(0f, 0f, -rot.eulerAngles.y);
     }
 
     private Vector3 BytesToVector3(byte[] bytes)
