@@ -203,32 +203,6 @@ namespace M2MqttUnity
 			}
 			//Debug.Log(tmp);
 
-			if (_topic == "M2MQTT/player/position")
-			{
-				//playerVisualizer.PlayerUpdatePosition(message); not needed in hl app
-			}
-			if (_topic == "M2MQTT/player/rotation")
-			{
-				//playerVisualizer.PlayerUpdateRotation(message); not needed in hl app
-			}
-			// if (_topic == "M2MQTT/Avatar")
-			// {
-			// 	double[] output = GetDoublesBlock(message);
-
-			// 	double test_1 = 2;
-			// 	double test_2 = 2;
-
-			// 	for (int j = 0; j < output.Length; j++)
-			// 	{
-			// 		if (j == 0) test_1 = output[j];
-			// 		if (j == 1) test_2 = output[j];
-			// 	}
-
-			// 	Debug.Log("test_1 :" + test_1);
-			// 	Debug.Log("test_2 :" + test_2);
-
-			// 	absPosition = new Vector2((float)test_1, (float)test_2);
-			// }
 			if (_topic == "M2MQTT/function")
 			{
 				foreach (string topicKey in m_messageHandlers.Keys)
@@ -244,7 +218,12 @@ namespace M2MqttUnity
 					}
 				}
 			}
-		}
+			if (_topic == "M2MQTT/Trajectory")
+			{
+				// Call function to handle trajectory
+			}
+
+        }
 
 		private void OnDestroy()
 		{
