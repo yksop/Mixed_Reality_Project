@@ -159,6 +159,7 @@ namespace M2MqttUnity
 
 		public void SendRoom(byte[] roomPoints)
 		{
+			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
 			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 

@@ -19,6 +19,7 @@ namespace M2MqttUnity
 	{
 		public GameObject MySceneOriginGO;
 		public PlayerVisualizer playerVisualizer;
+		public PointSpawner pointSpawner;
 
 		public delegate void MessageReceivedDelegate(string topic, string message);
 		private Dictionary<string, MessageReceivedDelegate> m_messageHandlers = new Dictionary<string, MessageReceivedDelegate>();
@@ -43,7 +44,6 @@ namespace M2MqttUnity
 			m_messageHandlers[topic] += messageReceivedDelegate;
 		}
 
-
 		public void UnregisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
 		{
 			if (m_messageHandlers.ContainsKey(topic))
@@ -51,7 +51,6 @@ namespace M2MqttUnity
 				m_messageHandlers[topic] -= messageReceivedDelegate;
 			}
 		}
-
 
 		//Update method called every frame
 		protected override void Update()
@@ -96,7 +95,6 @@ namespace M2MqttUnity
 			}
 		}
 
-
 		protected override void SubscribeTopics()
 		{
 			client.Subscribe(new string[] { topic }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
@@ -140,28 +138,29 @@ namespace M2MqttUnity
 			CallMethodByName(functionName);
 		}
 
-		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
-		{
-			double[] p = new double[] { position[0], position[1], position[2] };
-			double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
-			var name = thisObject.name;
-			byte[] pos = GetBytesBlock(p);
-			byte[] rot = GetBytesBlock(r);
-			Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
+        public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
+        {
+            double[] p = new double[] { position[0], position[1], position[2] };
+            double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
+            var name = thisObject.name;
+            byte[] pos = GetBytesBlock(p);
+            byte[] rot = GetBytesBlock(r);
+            //Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
 
-			// Debug logs to verify byte array contents
-			//Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
-			//Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
+            // Debug logs to verify byte array contents
+            //Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
+            //Debug.Log(thisObject + " Rotation bytes: " + BitConverter.ToString(rot));
 
-			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-		static byte[] GetBytesBlock(double[] values)
-		{
-			return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
-		}
+            client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+        }
+        static byte[] GetBytesBlock(double[] values)
+        {
+            return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
+        }
 
-		static byte[] GetBytesString(char[] values)
+        static byte[] GetBytesString(char[] values)
+
 		{
 			var result = new byte[values.Length * sizeof(char)];
 			Buffer.BlockCopy(values, 0, result, 0, result.Length);
@@ -187,14 +186,14 @@ namespace M2MqttUnity
 			string tmp = "";
 			string msg = System.Text.Encoding.UTF8.GetString(message);
 
-			Debug.Log(" on topic:" + _topic);
+			//Debug.Log(" on topic:" + _topic);
 
 			char[] output = GetStringBlock(message);
 			foreach (char letter in output)
 			{
 				tmp = tmp + letter;
 			}
-			Debug.Log(tmp);
+			//Debug.Log(tmp);
 
 			if (_topic == "M2MQTT/Main Camera/position")
 			{
@@ -214,19 +213,7 @@ namespace M2MqttUnity
 			}
 			if (_topic == "M2MQTT/room")
 			{
-				var elements = msg.Split(',');
-				var finalArray = new List<List<string>>();
-				for (int i = 0; i < elements.Length; i += 2)
-				{
-					finalArray.Add(new List<string> { elements[i], elements[i + 1] });
-				}
-
-				List<Vector3> positions = new List<Vector3>();
-				foreach (List<string> element in finalArray)
-				{
-					Vector3 pointpos = new Vector3(float.Parse(element[0]), float.Parse(element[1]), 0);
-					positions.Add(pointpos);
-				}
+				pointSpawner.UpdateMarkers(message);
 			}
 			if (_topic == "M2MQTT/function")
 			{

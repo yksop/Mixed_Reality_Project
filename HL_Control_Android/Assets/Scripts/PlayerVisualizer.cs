@@ -13,7 +13,7 @@ public class PlayerVisualizer : MonoBehaviour
     public GameObject player;
     public GameObject avatar;
     public GameObject center;
-    public float movemetMultiplier = 30f;
+    public float movemetMultiplier = 100f;
     //public Material lineMaterial;
     private Color lineColor = Color.green;
 
@@ -22,10 +22,11 @@ public class PlayerVisualizer : MonoBehaviour
         Vector3 pos = BytesToVector3(posB);
         player.transform.position = center.transform.position + pos * movemetMultiplier;
     }
+
     public void PlayerUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
-        player.transform.rotation = rot;
+        player.transform.eulerAngles = new Vector3 (0f, 0f, rot.eulerAngles.y);
     }
 
     public void AvatarUpdatePosition(byte[] posB)
@@ -33,11 +34,13 @@ public class PlayerVisualizer : MonoBehaviour
         Vector3 pos = BytesToVector3(posB);
         avatar.transform.position = center.transform.position + pos * movemetMultiplier;
     }
+
     public void AvatarUpdateRotation(byte[] rotB)
     {
         Quaternion rot = BytesToQuaternion(rotB);
-        avatar.transform.rotation = rot;
+        avatar.transform.eulerAngles = new Vector3(0f, 0f, rot.eulerAngles.y);
     }
+
     private Vector3 BytesToVector3(byte[] bytes)
     {
         if (bytes.Length != 24)

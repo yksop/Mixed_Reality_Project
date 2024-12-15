@@ -22,20 +22,9 @@ public class DataRobotExchange : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Compute & Send impacto points
         CalcolaPuntiImpattoCircolari();
-        
-        baseClient.SendPosRot(
-            Robottino,
-                Robottino.transform.position - Center.transform.position,
-                    Robottino.transform.rotation   
-        );
-        
-        baseClient.SendPosRot(
-            Player,
-                Player.transform.position - Center.transform.position,
-                    Player.transform.rotation   
-        );
+        baseClient.SendPosRot(Robottino, Robottino.transform.position - Center.transform.position, Robottino.transform.rotation);
+        baseClient.SendPosRot(Player, Player.transform.position - Center.transform.position, Player.transform.rotation);
     }
 
     // Funzione che calcola la posizione del robot rispetto al centro e salva i valori in un array di byte[]
@@ -93,12 +82,11 @@ public class DataRobotExchange : MonoBehaviour
     {
         List<byte> puntiImpattoBytes = new List<byte>();
 
-        // Posizione di partenza del raycast, un metro sopra il centro
-        //Vector3 startPosition = Center.transform.position + new Vector3(0, 1, 0);
+        // Posizione di partenza del raycast
         Vector3 startPosition = Player.transform.position; 
 
-        // Risoluzione angolare di 5 gradi per coprire 360 gradi
-        int stepDegrees = 2;
+        // Risoluzione angolare di 1 grado per coprire 360 gradi
+        int stepDegrees = 1;
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {
             // Calcola la direzione del raycast per l'angolo attuale (sul piano X,Z)
@@ -128,6 +116,5 @@ public class DataRobotExchange : MonoBehaviour
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
         
         baseClient.SendRoom(puntiImpattoBytes.ToArray());
-
     }
 }
