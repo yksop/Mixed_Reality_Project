@@ -4,11 +4,11 @@ public class PointSpawner : MonoBehaviour
 {
     public RectTransform parentImage; // The container for the markers
     public GameObject markerPrefab; // The prefab for individual markers
-    public float movemetMultiplier = 30f;
+    public float movemetMultiplier = 20f;
 
 
     private GameObject[] markers; // Array to store the marker GameObjects
-    private const int markerCount = 180; // Total number of markers to spawn
+    private const int markerCount = 360; // Total number of markers to spawn
 
     private void Start()
     {
@@ -88,7 +88,7 @@ public class PointSpawner : MonoBehaviour
 
             // Create a position vector using the x and z values
             Vector2 position = new Vector2(x, z);
-            Debug.Log(i + "# Marker position: " + position);
+            //Debug.Log(i + "# Marker position: " + position);
 
             // Update the marker's position and make it visible
             SetMarkerPosition(markers[i], position/movemetMultiplier);

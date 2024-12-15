@@ -145,7 +145,7 @@ namespace M2MqttUnity
             var name = thisObject.name;
             byte[] pos = GetBytesBlock(p);
             byte[] rot = GetBytesBlock(r);
-            Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
+            //Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
 
             // Debug logs to verify byte array contents
             //Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
@@ -185,14 +185,14 @@ namespace M2MqttUnity
 			string tmp = "";
 			string msg = System.Text.Encoding.UTF8.GetString(message);
 
-			Debug.Log(" on topic:" + _topic);
+			//Debug.Log(" on topic:" + _topic);
 
 			char[] output = GetStringBlock(message);
 			foreach (char letter in output)
 			{
 				tmp = tmp + letter;
 			}
-			Debug.Log(tmp);
+			//Debug.Log(tmp);
 
 			if (_topic == "M2MQTT/Main Camera/position")
 			{
