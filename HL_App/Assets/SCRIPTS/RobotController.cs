@@ -12,12 +12,13 @@ public class RobotController : MonoBehaviour
 
     public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
 
-    private Animator animator;
-    private bool isMoving = false; // Controlla se il robot si sta muovendo
+    public Animator animator;
+    public bool isMoving = false; // Controlla se il robot si sta muovendo
     private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
     private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
     private float rotationTimer = 0f; // Timer per la rotazione
     private bool staCombattendo = false;
+
     private bool staScappando = false;
     public Transform centerPoint; // Il centro da cui il robot calcolerà le posizioni casuali
 
@@ -40,12 +41,20 @@ public class RobotController : MonoBehaviour
 
     public LayerMask spatialAwareness; // Assicurati che il Layer della SLAM sia assegnato a questa variabile
 
+    public GameObject capsule;
+    
 
     void Start()
     {
         // Ottieni il componente Animator
-        animator = GetComponent<Animator>();        
-            // Initialize characterMaterials
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found!");
+            return;
+        }
+
+        // Initialize characterMaterials
         characterMaterials = GetComponentsInChildren<Renderer>(); // Fetch all child Renderers, adjust as needed
 
         ChangeEyeOffset(EyePosition.normal);
@@ -56,22 +65,23 @@ public class RobotController : MonoBehaviour
         staCombattendo = false;
 
         Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main Camera not found!");
+            return;
+        }
+
+        if (capsule == null)
+        {
+            Debug.LogError("Capsule GameObject not assigned!");
+            return;
+        }
+
+        target_position = capsule.transform.position; // Imposta la posizione target alla posizione della capsula
     }
 
     void Update()
     {
-        /*         // Controlla se il robot è oltre il range di distanza dall'origine
-        if (Vector3.Distance(transform.position, Vector3.zero) > moveRange)
-        {
-            // Ferma il movimento se oltre il range
-            //isMoving = false;
-            //new Vector3 CurrentPos = transform.position;
-            //target_position = newVector3(transform.position.x + 2, transform.position.y, transform.position.z );
-            target_position = SetNewtarget_positionRandom();
-            animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
-            Debug.Log("Robot fermo: oltre il range di distanza dall'origine.");
-            //return; // Esci dalla funzione Update
-        } */
 
         /* UNCOMMENT TO TEST PID Controller */
 
@@ -80,11 +90,14 @@ public class RobotController : MonoBehaviour
         /* UNCOMMENT TO TEST PID Controller */
         
 
-        if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
+/*         if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
              ++traj_count < trajectory.Length )
         {
             SetNewtarget_position(trajectory[traj_count]);
-        }
+        } */
+
+        // Imposta target_position alla posizione della capsula
+        target_position = capsule.transform.position;       
 
 
         if (isMoving)
@@ -118,11 +131,11 @@ public class RobotController : MonoBehaviour
                                             new Vector3(cameraPosition.x, 0, cameraPosition.z));
 
         // Se la distanza è minore di 1, attiva la fuga
-        if (distanceXZ < distanceFromPlayer && staScappando==false)
+        /* if (distanceXZ < distanceFromPlayer && staScappando==false)
         {
             staScappando = true;
             StartCoroutine(PlayerHitCoroutine());
-        }
+        } */
     }
 
     public void SetMovingFalse()
@@ -178,8 +191,8 @@ public class RobotController : MonoBehaviour
             moveSpeed += incrementoVel; // Aumenta la velocità mentre si allontana
 
             // Se vuoi allontanare il robot per 1.5 secondi
-            float runDuration = 1.5f;
-            float elapsedTime = 0f;
+            //float runDuration = 1.5f;
+            //float elapsedTime = 0f;
 
             // Pausa di un secondo prima di girarsi
             yield return new WaitForSeconds(1f);

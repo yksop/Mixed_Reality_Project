@@ -32,6 +32,7 @@ namespace M2MqttUnity
 		static public Vector2 absPosition;
 
 		public RobotController robotController;
+		public CapsuleMovement capsuleMovement;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -240,6 +241,7 @@ namespace M2MqttUnity
 
 					// Chiama la funzione per gestire la traiettoria
 					robotController.UpdateTrajectory(trajectory);
+					capsuleMovement.SetTrajectory(trajectory);
 				}
 				else
 				{

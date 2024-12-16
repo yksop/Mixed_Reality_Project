@@ -6,6 +6,7 @@ public class SPathGenerator : MonoBehaviour
 {
     // Reference to the robot controller script
     public RobotController robotController;
+    public CapsuleMovement capsuleMovement;
 
     // Number of points to generate along the S path
     public int pointCount = 50;
@@ -42,9 +43,10 @@ public class SPathGenerator : MonoBehaviour
         // Generate and send the trajectory
         GenerateSTrajectory();
 
-        if (robotController != null)
+        if (robotController != null && capsuleMovement != null)
         {
-            robotController.UpdateTrajectory(trajectoryPoints);
+            // robotController.UpdateTrajectory(trajectoryPoints);
+            capsuleMovement.SetTrajectory(trajectoryPoints);
             Debug.Log("Trajectory sent to RobotController after delay.");
         }
         else
