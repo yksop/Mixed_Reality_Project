@@ -20,15 +20,13 @@ public class DrawTrajectory : MonoBehaviour
     private List<Vector2> points = new List<Vector2>();
 
     // Distanza minima tra i punti
-    [SerializeField] private float minPointDistance = 1f;
+    [SerializeField] private float minPointDistance = 0.5f;
 
     // Variabile per controllare se stiamo disegnando
     private bool isDrawing = false;
 
     // BaseClient Class
     public BaseClient baseClient;
-
-    private int SCALE_DISTANCE_FACTOR = 30;
 
     void Update()
     {
@@ -38,7 +36,7 @@ public class DrawTrajectory : MonoBehaviour
             StartDrawing();
         }
 
-        if (Input.GetMouseButton(0) && isDrawing && IsPointerOverTarget(Input.mousePosition))
+        if (Input.GetMouseButton(0) && isDrawing)
         {
             Draw(Input.mousePosition);
         }
@@ -58,7 +56,7 @@ public class DrawTrajectory : MonoBehaviour
                 StartDrawing();
             }
 
-            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing && IsPointerOverTarget(touch.position)) 
+            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing)
             {
                 Draw(touch.position);
             }
@@ -90,7 +88,7 @@ public class DrawTrajectory : MonoBehaviour
         List<Vector2> relativePoints = new List<Vector2>();
         foreach (var point in points)
         {
-            relativePoints.Add((point - targetCenter)/SCALE_DISTANCE_FACTOR);
+            relativePoints.Add(point - targetCenter);
         }
 
         Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));

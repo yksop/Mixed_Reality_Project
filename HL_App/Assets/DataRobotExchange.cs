@@ -85,7 +85,8 @@ public class DataRobotExchange : MonoBehaviour
         // Posizione di partenza del raycast
         Vector3 startPosition = Player.transform.position; 
 
-        int stepDegrees = 2;
+        // Risoluzione angolare di 1 grado per coprire 360 gradi
+        int stepDegrees = 1;
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {
             // Calcola la direzione del raycast per l'angolo attuale (sul piano X,Z)
