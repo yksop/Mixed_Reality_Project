@@ -17,6 +17,7 @@ public class DrawTrajectory : MonoBehaviour
 
     // Lista per memorizzare i punti
     private List<GameObject> instantiatedPoints = new List<GameObject>();
+    private List<Vector2> relativePoints = new List<Vector2>();
     private List<Vector2> points = new List<Vector2>();
 
     // Distanza minima tra i punti
@@ -85,14 +86,13 @@ public class DrawTrajectory : MonoBehaviour
         Vector2 targetCenter = GetTargetImageCenter();
 
         // Converte i punti rispetto al sistema di riferimento del centro dell'immagine
-        List<Vector2> relativePoints = new List<Vector2>();
         foreach (var point in points)
         {
             relativePoints.Add(point - targetCenter);
         }
 
         Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
-        SendPoints(relativePoints);
+        //SendPoints(relativePoints);
     }
 
     private void Draw(Vector2 inputPosition)
@@ -153,7 +153,7 @@ public class DrawTrajectory : MonoBehaviour
         return localCenter;
     }
 
-    private void SendPoints(List<Vector2> relativePoints)
+    public void SendPoints()
     {
         if (relativePoints == null || relativePoints.Count == 0)
         {
