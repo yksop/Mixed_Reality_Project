@@ -31,7 +31,7 @@ namespace M2MqttUnity
 		public string lastMsg;
 		static public Vector2 absPosition;
 
-		public class RobotController robotController;
+		public RobotController robotController;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -223,6 +223,8 @@ namespace M2MqttUnity
 			
 			if (_topic == "M2MQTT/Trajectory")
 			{
+				byte[] beatArray = message;
+				
 				// Assicurati che la lunghezza dell'array sia un multiplo di 8 (4 byte per float, 2 float per Vector2)
 				if (beatArray.Length % 8 == 0)
 				{
@@ -237,7 +239,7 @@ namespace M2MqttUnity
 					}
 
 					// Chiama la funzione per gestire la traiettoria
-					robotController.SendTrajectoryToAvatar(trajectory);
+					robotController.SendCharacterTrajectory(trajectory);
 				}
 				else
 				{
