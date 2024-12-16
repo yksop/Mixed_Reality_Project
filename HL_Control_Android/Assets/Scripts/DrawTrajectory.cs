@@ -36,7 +36,7 @@ public class DrawTrajectory : MonoBehaviour
             StartDrawing();
         }
 
-        if (Input.GetMouseButton(0) && isDrawing)
+        if (Input.GetMouseButton(0) && isDrawing && IsPointerOverTarget(Input.mousePosition))
         {
             Draw(Input.mousePosition);
         }
@@ -56,7 +56,7 @@ public class DrawTrajectory : MonoBehaviour
                 StartDrawing();
             }
 
-            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing)
+            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing && IsPointerOverTarget(touch.position))
             {
                 Draw(touch.position);
             }
@@ -155,6 +155,13 @@ public class DrawTrajectory : MonoBehaviour
 
     private void SendPoints(List<Vector2> relativePoints)
     {
-        baseClient.SendTrajectory(relativePoints.ToArray());
+        if (relativePoints == null || relativePoints.Count == 0)
+        {
+            Debug.LogError("La lista dei punti relativi è vuota o null!");
+            return;
+        }
+
+        Vector2[] pointsArray = relativePoints.ToArray();
+        baseClient.SendTrajectory(pointsArray);
     }
 }

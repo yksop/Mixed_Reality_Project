@@ -232,8 +232,15 @@ namespace M2MqttUnity
 			}
 		}
 
+
 		public void SendTrajectory(Vector2[] trajectoryPoints)
 		{
+			if (client == null)
+			{
+				Debug.Log("Client MQTT non è inizializzato!");
+				return;
+			}
+
 			List<byte> byteList = new List<byte>();
 
 			foreach (Vector2 point in trajectoryPoints)

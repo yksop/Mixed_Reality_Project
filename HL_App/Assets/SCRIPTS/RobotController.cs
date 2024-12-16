@@ -80,6 +80,7 @@ public class RobotController : MonoBehaviour
 
         if (isMoving)
         {
+            
             MoveRobot(targetPosition); // Muovi il robot verso la sua posizione target
         }
         else if (hasReachedTarget && staCombattendo == true)
@@ -333,64 +334,7 @@ public class RobotController : MonoBehaviour
 
     }
 
-    /* // Funzione per muovere il robot verso la posizione target
-    private void MoveRobot(Vector3 targetPosition)
-    {
-            // Riproduce il suono dei passi solo se non è già in riproduzione
-        if (!footsteps.isPlaying)
-        {
-            footsteps.Play();
-        }
-        //animator.SetBool("isWalking", true);
-        // Calcola la direzione verso la posizione target
-        Vector3 direction = (targetPosition - transform.position).normalized;
-
-        // Calcola la posizione verso cui si sta muovendo
-        //Vector3 nextPosition = transform.position + direction * moveSpeed * Time.deltaTime;
-        
-        
-        // Usa un Raycast sul Layer della SLAM Mesh per rilevare ostacoli
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime + 0.75f, spatialAwareness))
-        {
-            // Se l'oggetto colpito ha il Layer della SLAM Mesh, ferma il movimento
-            Debug.Log("Colpito oggetto SLAMMesh, fermo il movimento.");
-            isMoving = false;
-            targetPosition = transform.position;
-            animator.SetBool("isWalking", false);
-            footsteps.Stop();
-            return;
-        }
-
-        // Muovi il robot nella direzione della destinazione
-        Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.World);
-
-        // Ruota il robot verso la direzione di movimento
-        if (direction != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed * 5);
-        }
-
-        // Verifica se il robot ha raggiunto la posizione target
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.0075f)
-        {
-            isMoving = false; // Ferma il movimento
-            animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
-            footsteps.Stop();
-            hasReachedTarget = true; // Il robot ha raggiunto il target
-
-            // Attiva il trigger di combattimento nell'Animator 
-            // se sta combatendo fai lanimazione del combattimento
-            if (staCombattendo == true)
-            {
-                animator.SetTrigger(triggerFightName);
-                Debug.Log("Trigger combattimento attivato: " + triggerFightName);
-            }
-
-            rotationTimer = 0f; // Resetta il timer della rotazione
-        }
-    } */
+    
     // Funzione per muovere il robot verso la posizione target
     private void MoveRobot(Vector3 targetPosition)
     {
@@ -416,17 +360,6 @@ public class RobotController : MonoBehaviour
             footsteps.Stop();
             return;
         }
-
-        // // Ruota il robot verso la direzione di movimento
-        // if (direction != Vector3.zero)
-        // {
-        //     Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed * 5);
-        // }
-
-        // // Muovi il robot nella direzione della destinazione
-        // Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        // transform.Translate(movement, Space.World);
 
 
 		// Implementing PID controller to move and rotate player

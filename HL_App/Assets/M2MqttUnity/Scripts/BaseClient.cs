@@ -31,6 +31,8 @@ namespace M2MqttUnity
 		public string lastMsg;
 		static public Vector2 absPosition;
 
+		public class RobotController robotController;
+
 		private List<string> eventMessages = new List<string>();
 
 		public void RegisterTopicHandler(string topic, MessageReceivedDelegate messageReceivedDelegate)
@@ -218,9 +220,29 @@ namespace M2MqttUnity
 					}
 				}
 			}
+			
 			if (_topic == "M2MQTT/Trajectory")
 			{
-				// Call function to handle trajectory
+				// Assicurati che la lunghezza dell'array sia un multiplo di 8 (4 byte per float, 2 float per Vector2)
+				if (beatArray.Length % 8 == 0)
+				{
+					int vectorCount = beatArray.Length / 8;
+					Vector2[] trajectory = new Vector2[vectorCount];
+
+					for (int i = 0; i < vectorCount; i++)
+					{
+						float x = BitConverter.ToSingle(beatArray, i * 8);
+						float z = BitConverter.ToSingle(beatArray, i * 8 + 4);
+						trajectory[i] = new Vector2(x, z);
+					}
+
+					// Chiama la funzione per gestire la traiettoria
+					robotController.SendTrajectoryToAvatar(trajectory);
+				}
+				else
+				{
+					Debug.LogError("Il formato dell'array di beat non è corretto.");
+				}
 			}
 
         }
