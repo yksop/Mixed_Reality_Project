@@ -198,6 +198,7 @@ namespace M2MqttUnity
 			if (_topic == "M2MQTT/Main Camera/position")
 			{
 				playerVisualizer.PlayerUpdatePosition(message);
+				
 			}
 			if (_topic == "M2MQTT/Main Camera/rotation")
 			{
