@@ -239,7 +239,7 @@ namespace M2MqttUnity
 					}
 
 					// Chiama la funzione per gestire la traiettoria
-					robotController.SendCharacterTrajectory(trajectory);
+					robotController.UpdateTrajectory(trajectory);
 				}
 				else
 				{

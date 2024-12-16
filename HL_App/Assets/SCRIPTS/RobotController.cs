@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class RobotController : MonoBehaviour
@@ -12,7 +13,6 @@ public class RobotController : MonoBehaviour
     public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
 
     private Animator animator;
-    private Vector3 targetPosition;
     private bool isMoving = false; // Controlla se il robot si sta muovendo
     private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
     private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
@@ -30,8 +30,9 @@ public class RobotController : MonoBehaviour
 	private bool facing_target;
 	private bool at_target;
 
+    private Vector2[] trajectory;
+    private int traj_count = 0;
 
-    
     public enum EyePosition { normal, happy, angry, dead} // stato occhi 
     Renderer[] characterMaterials;
     
@@ -65,8 +66,8 @@ public class RobotController : MonoBehaviour
             // Ferma il movimento se oltre il range
             //isMoving = false;
             //new Vector3 CurrentPos = transform.position;
-            //targetPosition = newVector3(transform.position.x + 2, transform.position.y, transform.position.z );
-            targetPosition = SetNewTargetPositionRandom();
+            //target_position = newVector3(transform.position.x + 2, transform.position.y, transform.position.z );
+            target_position = SetNewtarget_positionRandom();
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
             Debug.Log("Robot fermo: oltre il range di distanza dall'origine.");
             //return; // Esci dalla funzione Update
@@ -74,14 +75,21 @@ public class RobotController : MonoBehaviour
 
         /* UNCOMMENT TO TEST PID Controller */
 
-        isMoving = is_PID_control? true : false;
+        // isMoving = is_PID_control? true : false;
 
         /* UNCOMMENT TO TEST PID Controller */
+
+        if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
+             ++traj_count < trajectory.Length )
+        {
+            SetNewtarget_position(trajectory[traj_count]);
+        }
+
 
         if (isMoving)
         {
             
-            MoveRobot(targetPosition); // Muovi il robot verso la sua posizione target
+            MoveRobot(target_position); // Muovi il robot verso la sua posizione target
         }
         else if (hasReachedTarget && staCombattendo == true)
         {
@@ -158,8 +166,8 @@ public class RobotController : MonoBehaviour
             directionAwayFromPlayer = Quaternion.Euler(0, angolo, 0) * directionAwayFromPlayer;
 
             // Imposta una posizione target in direzione opposta al player, sempre nel piano XZ
-            targetPosition = transform.position + directionAwayFromPlayer * stopDistance * 2;
-            //targetPosition = SetNewTargetPositionRandom();
+            target_position = transform.position + directionAwayFromPlayer * stopDistance * 2;
+            //target_position = SetNewtarget_positionRandom();
             // Inizia a muoversi verso la posizione target
             isMoving = true;
 
@@ -207,7 +215,7 @@ public class RobotController : MonoBehaviour
 
             Debug.Log("Il robot ha guardato il player ed è spaventato.");
             /* 
-            targetPosition = SetNewTargetPositionRandom();
+            target_position = SetNewtarget_positionRandom();
             isMoving = true; */
         }
         else
@@ -241,10 +249,10 @@ public class RobotController : MonoBehaviour
         while (elapsedTime < runDuration)
         {
             // Salva la posizione target precedente prima di impostarne una nuova
-            //Vector3 previousTargetPosition = targetPosition;
+            //Vector3 previoustarget_position = target_position;
 
             // Imposta una nuova posizione target
-            targetPosition = SetNewTargetPositionRandom();
+            target_position = SetNewtarget_positionRandom();
 
             // Aspetta 0.5 secondi prima di cambiare direzione
             yield return new WaitForSeconds(changeDirectionInterval);
@@ -280,7 +288,7 @@ public class RobotController : MonoBehaviour
             if (distanceToCameraXZ > stopDistance)
             {
                 // Imposta la posizione target a una distanza di stopDistance dalla camera
-                targetPosition = new Vector3(
+                target_position = new Vector3(
                     mainCamera.transform.position.x - directionToCamera.x * stopDistance,
                     transform.position.y, // Mantieni la stessa altezza
                     mainCamera.transform.position.z - directionToCamera.z * stopDistance
@@ -309,7 +317,7 @@ public class RobotController : MonoBehaviour
     public void GoHomeButtonPress()
     {
         // Mantieni la posizione Y attuale e imposta X e Z a zero
-        targetPosition = new Vector3(centerPoint.position.x, transform.position.y, centerPoint.position.z);//new Vector3(0f, transform.position.y, 0f);
+        target_position = new Vector3(centerPoint.position.x, transform.position.y, centerPoint.position.z);//new Vector3(0f, transform.position.y, 0f);
         isMoving = true;
         animator.SetBool("isWalking", true);
     }
@@ -319,9 +327,9 @@ public class RobotController : MonoBehaviour
     {
         
         ChangeEyeOffset(EyePosition.normal);
-        targetPosition = SetNewTargetPositionRandom();
+        target_position = SetNewtarget_positionRandom();
         isMoving = true;
-        //MoveRobot(targetPosition);
+        //MoveRobot(target_position);
         animator.SetBool("isWalking", true);
     }
 
@@ -336,7 +344,7 @@ public class RobotController : MonoBehaviour
 
     
     // Funzione per muovere il robot verso la posizione target
-    private void MoveRobot(Vector3 targetPosition)
+    private void MoveRobot(Vector3 target_position)
     {
         // Riproduce il suono dei passi solo se non è già in riproduzione
         if (!footsteps.isPlaying)
@@ -347,7 +355,7 @@ public class RobotController : MonoBehaviour
         Vector3 boxSize = new Vector3(0.2f, 0.5f, 0.2f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
         
         // // Calcola la direzione verso la posizione target
-        Vector3 direction = (targetPosition - transform.position).normalized;
+        Vector3 direction = (target_position - transform.position).normalized;
 
         // Usa un BoxCast sul Layer della SLAM Mesh per rilevare ostacoli
         if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.5f, spatialAwareness))
@@ -355,7 +363,7 @@ public class RobotController : MonoBehaviour
             // Se l'oggetto colpito ha il Layer della SLAM Mesh, ferma il movimento
             Debug.Log("Colpito oggetto SLAMMesh, fermo il movimento.");
             isMoving = false;
-            targetPosition = transform.position;
+            target_position = transform.position;
             animator.SetBool("isWalking", false);
             footsteps.Stop();
             return;
@@ -365,15 +373,6 @@ public class RobotController : MonoBehaviour
 		// Implementing PID controller to move and rotate player
 		// First transform target position into characters local coordinates
 		target_position.y = transform.position.y; // we do not implement any control in the vertical direction (i.e. only gravity)
-
-        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
-		// if (old_target_position.x != target_position.x || 
-		// 		old_target_position.z != target_position.z)
-		// {
-		// 	old_target_position = target_position;
-		// 	init_targ_dist = ( old_target_position - transform.position ).magnitude;
-		// }
-        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
 
 		Vector3 target_direction = ( target_position - transform.position ).normalized;
 
@@ -395,28 +394,11 @@ public class RobotController : MonoBehaviour
 		{
             if ( !facing_target ) // rotate until the character is facing the direction of the target
             {
-                transform.Rotate (Vector3.up, input_yaw);
+                transform.Rotate (Vector3.up, input_yaw*2);
                 Debug.Log("Rotating to face the target");
             }
 			var desired_move_direction = new Vector3(0, 0, input_z);
 			desired_move_direction = transform.TransformVector(desired_move_direction);
-
-        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
-			// float acc_t = velocity/0.1f;
-			// float n = Mathf.Ceil( acc_t / Time.fixedDeltaTime );
-
-			// Attempt at trapezoidal velocity profile for character
-			// if ( distance > 3 * init_targ_dist / 4 )
-			// {
-			// 	character_vel += (1+init_targ_dist-distance)/init_targ_dist * velocity / 20;
-			// 	anim_blend = init_targ_dist/10 * 0.5f;
-			// }
-			// else
-			// {
-			// 	character_vel = velocity;
-			// 	anim_blend = 1f;
-			// }
-        // TRAPEZOIDAL VELOCITY PROFILE [in progress]
 
 			transform.Translate ( desired_move_direction * Time.deltaTime * character_vel, Space.World ); // robot walks to set target
 			// anim.SetFloat("Blend", anim_blend, StartAnimTime, Time.deltaTime);
@@ -426,9 +408,10 @@ public class RobotController : MonoBehaviour
 		}
 
         // Verifica se il robot ha raggiunto la posizione target
-        else //(Vector3.Distance(transform.position, targetPosition) <= 0.0075f)
+        else //(Vector3.Distance(transform.position, target_position) <= 0.0075f)
         {
             isMoving = false; // Ferma il movimento
+            traj_count = 0;
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
             footsteps.Stop();
             hasReachedTarget = true; // Il robot ha raggiunto il target
@@ -444,19 +427,28 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    private Vector3 SetNewTargetPosition(Vector3 newPos) /////////////// probabile prende byte in input ////////
+    public void UpdateTrajectory (Vector2[] new_trajectory) // Function to set the new robot trajectory from the tab appp
     {
-        targetPosition = newPos;
-        return targetPosition;
+        trajectory = new_trajectory;
+        traj_count = 0;
+        SetNewtarget_position(trajectory[traj_count]);
+
+        isMoving = true;
     }
 
-    private Vector3 SetNewTargetPositionRandom()
+    private void SetNewtarget_position(Vector2 newPos) /////////////// probabile prende byte in input ////////
+    {
+        target_position = new Vector3 (newPos.x, transform.position.y, newPos.y);
+        // return target_position;
+    }
+
+    private Vector3 SetNewtarget_positionRandom()
     {
         // Genera una nuova posizione casuale all'interno del raggio
         float x = Random.Range(-moveRange, moveRange);
         float z = Random.Range(-moveRange, moveRange);
-        targetPosition = new Vector3(centerPoint.position.x + x, transform.position.y, centerPoint.position.z + z);
-        return targetPosition;
+        target_position = new Vector3(centerPoint.position.x + x, transform.position.y, centerPoint.position.z + z);
+        return target_position;
     }
 
     // Funzione per far girare il robot verso la main camera
@@ -513,4 +505,29 @@ public class RobotController : MonoBehaviour
                 characterMaterials[i].material.SetTextureOffset("_MainTex", offset);
         }
     }
+
+    // private Vector2[] readTxtToVector2List (string filename, int size)
+    // {
+    //     string[] lines = File.ReadAllLines(filename);
+    //     List<Vector2> path = new List<Vector2>();
+
+    //     try
+    //     {
+    //         foreach (string line in lines)
+    //         {
+    //             string[] parts = line.Split(new char[] { ','}, System.StringSplitOptions.RemoveEmptyEntries);
+
+    //             if (parts.Length == 2) // ensure 2 values exist
+    //             {
+    //                 float x
+    //             }
+    //         }
+    //     }
+    //     catch 
+    //     {
+    //         Debug.Log("Error - Read txt file unsuccessful");
+    //     }
+
+    //     return path;
+    // }
 }
