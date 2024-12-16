@@ -160,7 +160,7 @@ public class DrawTrajectory : MonoBehaviour
             Debug.LogError("La lista dei punti relativi è vuota o null!");
             return;
         }
-
+        Debug.Log("Points Sended!");
         Vector2[] pointsArray = relativePoints.ToArray();
         baseClient.SendTrajectory(pointsArray);
     }
