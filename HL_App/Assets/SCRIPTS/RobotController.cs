@@ -78,6 +78,7 @@ public class RobotController : MonoBehaviour
         // isMoving = is_PID_control? true : false;
 
         /* UNCOMMENT TO TEST PID Controller */
+        
 
         if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
              ++traj_count < trajectory.Length )
