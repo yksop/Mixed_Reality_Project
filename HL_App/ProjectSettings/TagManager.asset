@@ -11,6 +11,7 @@ TagManager:
   - PlayerEyes
   - roccia
   - SLAMMesh
+  - Candy
   layers:
   - Default
   - TransparentFX
