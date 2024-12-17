@@ -18,7 +18,6 @@ public class ChangeIp : MonoBehaviour
     }
     public void DeactivateInput()
     {
-        Debug.Log("Pressed");
         string text = textInputGo.GetComponentInChildren<TMP_InputField>().text;
         baseClient.BCChangeIp(text);
         textInputGo.SetActive(false);

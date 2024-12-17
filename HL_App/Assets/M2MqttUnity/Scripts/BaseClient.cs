@@ -160,6 +160,11 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		public void BCChangeIp(string IP)
+		{
+			brokerAddress = IP;
+		}
+
 		public void SendRoom(byte[] roomPoints)
 		{
 			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
