@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01912477cb091d24f966d6e78ebfa81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearSound: {fileID: 8300000, guid: 1cd7ce08537633646b7f4607d98d115a, type: 3}
+  disappearSound: {fileID: 8300000, guid: a4128b6600b0cc846bba242e75762924, type: 3}
   robotController: {fileID: 1669291035}
   candyPrefab: {fileID: 2080484477}
   mainCamera: {fileID: 657234609}
@@ -279,7 +279,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1cd7ce08537633646b7f4607d98d115a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a4128b6600b0cc846bba242e75762924, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
