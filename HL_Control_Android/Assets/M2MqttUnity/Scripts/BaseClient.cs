@@ -20,6 +20,7 @@ namespace M2MqttUnity
 		public GameObject MySceneOriginGO;
 		public PlayerVisualizer playerVisualizer;
 		public PointSpawner pointSpawner;
+		public DonutCounter donutCounter;
 
 		public delegate void MessageReceivedDelegate(string topic, string message);
 		private Dictionary<string, MessageReceivedDelegate> m_messageHandlers = new Dictionary<string, MessageReceivedDelegate>();
@@ -154,6 +155,18 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
+
+		// Function called to reset the donut counter in the HL app
+		public void SendCounterReset()
+		{
+			byte[] res = {1};
+			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+        }
+
+		public void BCChangeIp(string IP)
+		{
+			brokerAddress = IP;
+		}
 		static byte[] GetBytesBlock(double[] values)
 		{
 			return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
@@ -214,6 +227,10 @@ namespace M2MqttUnity
 			if (_topic == "M2MQTT/room")
 			{
 				pointSpawner.UpdateMarkers(message);
+			}
+			if (_topic == "M2MQTT/counter/num")
+			{
+				donutCounter.UpdateCounter(message);
 			}
 			if (_topic == "M2MQTT/function")
 			{

@@ -95,4 +95,9 @@ public class DroppingCandies : MonoBehaviour
 
         Debug.Log("All candies destroyed except the first one.");
     }
+
+    public void SetCounter(int count)
+    {
+        takeDonutCounter = count;
+    }
 }

@@ -33,6 +33,7 @@ namespace M2MqttUnity
 
 		public RobotController robotController;
 		public CapsuleMovement capsuleMovement;
+		public DroppingCandies dCandy;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -247,6 +248,11 @@ namespace M2MqttUnity
 				{
 					Debug.LogError("Il formato dell'array di beat non è corretto.");
 				}
+			}
+			if(_topic == "M2MQTT/counter/reset")
+			{
+				// Reset the counter
+				dCandy.SetCounter(0);
 			}
 
         }
