@@ -230,7 +230,7 @@ namespace M2MqttUnity
 			}
 			if (_topic == "M2MQTT/counter/num")
 			{
-				donutCounter.UpdateCounter(message);
+				donutCounter.UpdateCounter(BitConverter.ToInt32(message, 0));
 			}
 			if (_topic == "M2MQTT/function")
 			{
