@@ -53,6 +53,25 @@ public class SPathGenerator : MonoBehaviour
         {
             Debug.LogError("RobotController not assigned!");
         }
+
+        Debug.Log($"Waiting {delay} seconds to send the trajectory...");
+
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay+15);
+
+        // Generate and send the trajectory
+        GenerateCTrajectory();
+
+        if (robotController != null && capsuleMovement != null)
+        {
+            // robotController.UpdateTrajectory(trajectoryPoints);
+            capsuleMovement.SetTrajectory(trajectoryPoints);
+            Debug.Log("Trajectory sent to RobotController after delay.");
+        }
+        else
+        {
+            Debug.LogError("RobotController not assigned!");
+        }
     }
 
     /// <summary>
@@ -79,4 +98,27 @@ public class SPathGenerator : MonoBehaviour
 
         Debug.Log("S-Trajectory Generated with " + trajectoryPoints.Length + " points.");
     }
+
+    private void GenerateCTrajectory()
+    {
+        List<Vector2> points = new List<Vector2>();
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            // t ranges from -1 to 1 for the S curve
+            float t = -1f + 2f * (i / (float)(pointCount - 1));
+
+            // Parametric equation for the S-curve
+            float x = curveWidth * t;
+            float y = curveHeight * Mathf.Cos(Mathf.PI * t);
+
+            points.Add(new Vector2(x, y));
+        }
+
+        // Convert List to an array for the robot controller
+        trajectoryPoints = points.ToArray();
+
+        Debug.Log("S-Trajectory Generated with " + trajectoryPoints.Length + " points.");
+    }
+
 }

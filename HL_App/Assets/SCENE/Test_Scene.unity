@@ -246,13 +246,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 287371242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
+  m_Script: {fileID: 11500000, guid: 01912477cb091d24f966d6e78ebfa81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disappearSound: {fileID: 8300000, guid: 1cd7ce08537633646b7f4607d98d115a, type: 3}
   robotController: {fileID: 1669291035}
   candyPrefab: {fileID: 2080484477}
   mainCamera: {fileID: 657234609}
+  takeDonutCounter: 0
 --- !u!4 &287371244
 Transform:
   m_ObjectHideFlags: 0
@@ -776,12 +777,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065760114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a24d578e7d364f409de5c2148b95a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 5
   avatar: {fileID: 1669291032}
   robotController: {fileID: 1669291035}
+  playerCandies: {fileID: 287371243}
 --- !u!136 &1065760116
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -868,7 +870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065760114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91d56dbf1e9d0a48b5a4e5a0470ebca, type: 3}
+  m_Script: {fileID: 11500000, guid: 8097558ce323e5a499ce8d677b753709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   robotController: {fileID: 1669291035}
@@ -1095,7 +1097,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080484477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e00698324a4e354289be9435da949c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dc05005dc6b5aa47b5ba19debd75019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bounceAmplitude: 0.1

@@ -12,6 +12,8 @@ public class CapsuleMovement : MonoBehaviour
     public GameObject avatar;
     public RobotController robotController;
 
+    public DroppingCandies playerCandies;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,8 @@ public class CapsuleMovement : MonoBehaviour
         if (robotController != null)
         {
             robotController.isMoving = true;
+            playerCandies.DestroyAllCandies();
+            playerCandies.takeDonutCounter = 0;
         }
         Debug.Log("Trajectory set with " + trajectory.Length + " points.");
     }
