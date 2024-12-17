@@ -34,6 +34,7 @@ namespace M2MqttUnity
 		public RobotController robotController;
 		public CapsuleMovement capsuleMovement;
 		public DroppingCandies dCandy;
+		public TerrainToggle terrainToggle;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -142,7 +143,7 @@ namespace M2MqttUnity
 		public void SendVoidFunctionCall(string functionName)
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
-			client.Publish("M2MQTT/Avatar", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/" + functionName, aa,  MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			CallMethodByName(functionName);
 		}
 
@@ -254,8 +255,13 @@ namespace M2MqttUnity
 				// Reset the counter
 				dCandy.SetCounter(0);
 			}
+			if (_topic == "M2MQTT/ToggleTerrain")
+			{
+				// Toggles the lava
+				terrainToggle.ToggleTerrainObject();
+			}
 
-        }
+		}
 
 		private void OnDestroy()
 		{

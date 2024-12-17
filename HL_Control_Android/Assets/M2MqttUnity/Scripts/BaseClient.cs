@@ -135,7 +135,7 @@ namespace M2MqttUnity
 		public void SendVoidFunctionCall(string functionName)
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
-			client.Publish("M2MQTT/Avatar", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			client.Publish("M2MQTT/" + functionName, aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			CallMethodByName(functionName);
 		}
 
@@ -162,6 +162,17 @@ namespace M2MqttUnity
 			byte[] res = {1};
 			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
+
+		public void SendLavaOn()
+        {
+			byte[] res = { 1 };
+			client.Publish("M2MQTT/lava/on", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+		public void SendLavaOff()
+		{
+			byte[] res = { 1 };
+			client.Publish("M2MQTT/lava/off", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
 
 		public void BCChangeIp(string IP)
 		{
