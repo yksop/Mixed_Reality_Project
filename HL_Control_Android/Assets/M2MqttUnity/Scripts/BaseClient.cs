@@ -154,6 +154,11 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/position", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
+
+		public void BCChangeIp(string IP)
+		{
+			brokerAddress = IP;
+		}
 		static byte[] GetBytesBlock(double[] values)
 		{
 			return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
