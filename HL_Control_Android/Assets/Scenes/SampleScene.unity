@@ -1312,8 +1312,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.6517778}
   m_AnchorMax: {x: 0.5, y: 0.6517778}
-  m_AnchoredPosition: {x: -419, y: 0}
-  m_SizeDelta: {x: 1084, y: 1084}
+  m_AnchoredPosition: {x: -300, y: 0}
+  m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426257557
 MonoBehaviour:
@@ -1530,7 +1530,7 @@ RectTransform:
   m_GameObject: {fileID: 527286285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1381591806}
   m_RootOrder: 1
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: localhost
+  brokerAddress: 192.168.1.6
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -2895,7 +2895,7 @@ RectTransform:
   m_GameObject: {fileID: 1237828827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1381591806}
   m_RootOrder: 2
@@ -3178,7 +3178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381591805}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -300, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 234953146}
@@ -5303,9 +5303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lava Toggle
-
-'
+  m_text: Lava Toggle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
   m_sharedMaterial: {fileID: -6155055826533555941, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
