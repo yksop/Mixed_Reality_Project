@@ -11,9 +11,11 @@ public class DroppingCandies : MonoBehaviour
     public GameObject candyPrefab; // Prefab dell'oggetto da droppare
     public GameObject mainCamera; // Riferimento alla Main Camera
 
+    private GameObject candy_save; // candy to be saved
+
     private bool isDropping = false;
     private bool isFirstTime = true;
-    public int takeDonutCounter = 0;
+    public float takeDonutCounter = 0;
 
     private GameObject[] candies;
 
@@ -86,6 +88,10 @@ public class DroppingCandies : MonoBehaviour
         {
             Destroy(candies[i]);
         }
+
+        // // Clear the list but keep the first GameObject
+        // candies.Clear();
+        // candies.Add(candy_save);
 
         Debug.Log("All candies destroyed except the first one.");
     }
