@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1349,6 +1349,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483648
   capsule: {fileID: 530462327}
+  capsuleMovement: {fileID: 0}
 --- !u!54 &183401500
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1383,7 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c040daa62b3bc45a2aac1005a49e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 183401497}
+  targetObject: {fileID: 2128141564}
 --- !u!65 &183401505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1465,7 +1466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &199320421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1631,6 +1632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 234422739}
   - component: {fileID: 234422740}
+  - component: {fileID: 234422741}
   m_Layer: 0
   m_Name: PlayerCandy
   m_TagString: Untagged
@@ -1662,7 +1664,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 234422738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4257198b8c3ab34da04238c266f05a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
@@ -1671,6 +1673,102 @@ MonoBehaviour:
   mainCamera: {fileID: 86712443}
   takeDonutCounter: 0
   baseClient: {fileID: 1027292231}
+--- !u!82 &234422741
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234422738}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &268359233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,7 +2315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &380253699
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7616,7 +7714,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 530462327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4457ec2d4a5ec274fb62b161bf3d9d87, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 1
@@ -7721,7 +7819,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1924650216}
+  - {fileID: 579237611}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7833,6 +7931,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorManager: {fileID: 157697851}
+--- !u!21 &579237611
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'AstronautMaterial
+
+    51628'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &589310610
 GameObject:
   m_ObjectHideFlags: 0
@@ -8160,7 +8287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821809105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9546,7 +9673,7 @@ GameObject:
   - component: {fileID: 1442883100}
   m_Layer: 0
   m_Name: Donut_shadow
-  m_TagString: Untagged
+  m_TagString: Candy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9577,6 +9704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e00698324a4e354289be9435da949c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bounceAmplitude: 0.1
+  bounceFrequency: 1
 --- !u!114 &1442883101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11951,35 +12080,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879884146}
   m_Mesh: {fileID: -2432090755550338912, guid: e2a2daf459a628f4194795da6d858102, type: 3}
---- !u!21 &1924650216
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    45010'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1958226364
 GameObject:
   m_ObjectHideFlags: 0

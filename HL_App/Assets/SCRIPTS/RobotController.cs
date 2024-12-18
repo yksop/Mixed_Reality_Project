@@ -42,6 +42,7 @@ public class RobotController : MonoBehaviour
     public LayerMask spatialAwareness; // Assicurati che il Layer della SLAM sia assegnato a questa variabile
 
     public GameObject capsule;
+    public CapsuleMovement capsuleMovement;
     
 
     void Start()
@@ -371,11 +372,11 @@ public class RobotController : MonoBehaviour
         Vector3 direction = (target_position - transform.position).normalized;
 
         // Usa un BoxCast sul Layer della SLAM Mesh per rilevare ostacoli
-        if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.5f, spatialAwareness))
+        if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.1f, spatialAwareness))
         {
             // Se l'oggetto colpito ha il Layer della SLAM Mesh, ferma il movimento
             Debug.Log("Colpito oggetto SLAMMesh, fermo il movimento.");
-            isMoving = false;
+            capsuleMovement.StopMovement();
             //target_position = transform.position;
             animator.SetBool("isWalking", false);
             footsteps.Stop();
@@ -408,7 +409,7 @@ public class RobotController : MonoBehaviour
             if ( !facing_target ) // rotate until the character is facing the direction of the target
             {
                 transform.Rotate (Vector3.up, input_yaw*2);
-                Debug.Log("Rotating to face the target");
+                // Debug.Log("Rotating to face the target");
             }
 			var desired_move_direction = new Vector3(0, 0, input_z);
 			desired_move_direction = transform.TransformVector(desired_move_direction);
@@ -417,7 +418,7 @@ public class RobotController : MonoBehaviour
 			// anim.SetFloat("Blend", anim_blend, StartAnimTime, Time.deltaTime);
             animator.SetBool("isWalking", true); // Animation as robot walks to set target
 
-            Debug.Log("Moving to the target");
+            //Debug.Log("Moving to the target");
 		//}
 
         // Verifica se il robot ha raggiunto la posizione target
