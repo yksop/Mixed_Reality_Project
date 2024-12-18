@@ -23,12 +23,6 @@ public class CapsuleMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* if ( Vector3.Distance(transform.position, avatar.transform.position) > 0.1f)
-        {
-            Debug.Log("Reached avatar.");
-            robotController.isMoving = true;
-            robotController.animator.SetBool("isWalking", true);
-        } */
 
         if (trajectory != null && currentPointIndex < trajectory.Length)
         {
@@ -43,12 +37,12 @@ public class CapsuleMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Trajectory is null or completed.");
+            //Debug.Log("Trajectory is null or completed.");
             if ( Vector3.Distance(transform.position, avatar.transform.position) < 0.1f)
             {
                 Debug.Log("Reached avatar.");
-            robotController.isMoving = false;
-            robotController.animator.SetBool("isWalking", false);
+                //robotController.isMoving = false;
+                //robotController.animator.SetBool("isWalking", false);
             }
         }
     }
@@ -61,7 +55,7 @@ public class CapsuleMovement : MonoBehaviour
         {
             robotController.isMoving = true;
             playerCandies.DestroyAllCandies();
-            playerCandies.takeDonutCounter = 0;
+            //playerCandies.takeDonutCounter = 0;
         }
         Debug.Log("Trajectory set with " + trajectory.Length + " points.");
     }
@@ -71,6 +65,6 @@ public class CapsuleMovement : MonoBehaviour
         float distanceToAvatar = Vector3.Distance(transform.position, avatar.transform.position);
         float speed = baseSpeed / ( distanceToAvatar * distanceToAvatar);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        Debug.Log("Moving towards " + targetPosition + " with speed " + speed);
+        //Debug.Log("Moving towards " + targetPosition + " with speed " + speed);
     }
 }

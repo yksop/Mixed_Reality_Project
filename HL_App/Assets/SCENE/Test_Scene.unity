@@ -246,10 +246,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 287371242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01912477cb091d24f966d6e78ebfa81b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearSound: {fileID: 8300000, guid: a4128b6600b0cc846bba242e75762924, type: 3}
+  disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
   robotController: {fileID: 1669291035}
   candyPrefab: {fileID: 2080484477}
   mainCamera: {fileID: 657234609}
@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: capsule
       value: 
       objectReference: {fileID: 1065760114}
+    - target: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5, type: 3}
       propertyPath: moveSpeed
       value: 2
@@ -777,7 +781,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065760114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a24d578e7d364f409de5c2148b95a2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 5
@@ -870,7 +874,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065760114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8097558ce323e5a499ce8d677b753709, type: 3}
+  m_Script: {fileID: 11500000, guid: a91d56dbf1e9d0a48b5a4e5a0470ebca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   robotController: {fileID: 1669291035}
@@ -977,6 +981,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 527784015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1669291034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669291032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4584c9db6110c624a99c2a78f4d07263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.75
+  rotationSpeed: 2
+  stopDistance: 2
+  isMoving: 0
+  capsule: {fileID: 1065760114}
 --- !u!114 &1669291035 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5,
@@ -1100,8 +1121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc05005dc6b5aa47b5ba19debd75019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceAmplitude: 0.1
-  bounceFrequency: 1
 --- !u!136 &2080484482
 CapsuleCollider:
   m_ObjectHideFlags: 0

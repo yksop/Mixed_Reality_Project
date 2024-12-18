@@ -155,7 +155,7 @@ RectTransform:
   m_Children:
   - {fileID: 67623878}
   m_Father: {fileID: 1091102294}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -422,7 +422,7 @@ RectTransform:
   m_Children:
   - {fileID: 1938457962}
   m_Father: {fileID: 1091102294}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -908,7 +908,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &333817968
 GameObject:
@@ -1274,7 +1274,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &426257555
 GameObject:
@@ -1671,7 +1671,7 @@ RectTransform:
   m_Children:
   - {fileID: 1586192232}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 192.168.1.6
+  brokerAddress: localhost
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   MySceneOriginGO: {fileID: 1701159728}
   playerVisualizer: {fileID: 1381591807}
   pointSpawner: {fileID: 1381591808}
-  donutCounter: {fileID: 0}
+  donutCounter: {fileID: 1232405860}
   autoTest: 0
   stopConnection: 0
   restart: 0
@@ -2386,7 +2386,7 @@ RectTransform:
   - {fileID: 663179178}
   - {fileID: 2002406096}
   m_Father: {fileID: 1091102294}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2478,10 +2478,10 @@ RectTransform:
   - {fileID: 1856812968}
   - {fileID: 1661632933}
   - {fileID: 651659390}
-  - {fileID: 867726319}
   - {fileID: 80388246}
   - {fileID: 37415410}
   - {fileID: 2024944787}
+  - {fileID: 867726319}
   m_Father: {fileID: 1045831685}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3333,7 +3333,7 @@ RectTransform:
   m_Children:
   - {fileID: 2021723387}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3872,7 +3872,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1787234041
 GameObject:
@@ -4521,7 +4521,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1045831686}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChangeIp, Assembly-CSharp
         m_MethodName: DeactivateInput
         m_Mode: 1
@@ -4813,7 +4813,7 @@ RectTransform:
   m_Children:
   - {fileID: 2103412271}
   m_Father: {fileID: 1091102294}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5192,7 +5192,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

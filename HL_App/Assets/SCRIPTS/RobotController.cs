@@ -13,7 +13,7 @@ public class RobotController : MonoBehaviour
     public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
 
     public Animator animator;
-    public bool isMoving = false; // Controlla se il robot si sta muovendo
+    public bool isMoving = true; // Controlla se il robot si sta muovendo
     private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
     private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
     private float rotationTimer = 0f; // Timer per la rotazione
@@ -424,7 +424,7 @@ public class RobotController : MonoBehaviour
         // Verifica se il robot ha raggiunto la posizione target
         else //(Vector3.Distance(transform.position, target_position) <= 0.0075f)
         {
-            isMoving = false; // Ferma il movimento
+            //isMoving = false; // Ferma il movimento //////////////////////////////////////////////////////////////////////////////////////
             traj_count = 0;
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
             footsteps.Stop();
