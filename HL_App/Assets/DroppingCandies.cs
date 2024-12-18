@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using M2MqttUnity;
 
 public class DroppingCandies : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class DroppingCandies : MonoBehaviour
 
     private bool isDropping = false;
     private bool isFirstTime = true;
-    public float takeDonutCounter = 0;
+    public int takeDonutCounter = 0;
+    public BaseClient baseClient;
 
     private GameObject[] candies;
 
@@ -38,11 +40,12 @@ public class DroppingCandies : MonoBehaviour
         {
             float distanceToCamera = Vector2.Distance(new Vector2(candy.transform.position.x, candy.transform.position.z),
                                                       new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.z));
-            if (distanceToCamera < 0.5f)
+            if (distanceToCamera < 1f)
             {
                 audioSource.PlayOneShot(disappearSound);
                 StartCoroutine(DestroyAfterSound(candy, isFirstTime));
                 takeDonutCounter++;
+                baseClient.SendCandyCount(takeDonutCounter);
             }
         }
     }

@@ -12,7 +12,7 @@ public class RobotController : MonoBehaviour
 
     public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
 
-    public Animator animator;
+    private Animator animator;
     public bool isMoving = true; // Controlla se il robot si sta muovendo
     private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
     private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
@@ -90,7 +90,7 @@ public class RobotController : MonoBehaviour
         /* UNCOMMENT TO TEST PID Controller */
         
 
-/*         if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
+        /*if ( Vector3.Distance(transform.position, target_position) <= 0.1f &&
              ++traj_count < trajectory.Length )
         {
             SetNewtarget_position(trajectory[traj_count]);
@@ -105,7 +105,7 @@ public class RobotController : MonoBehaviour
             
             MoveRobot(target_position); // Muovi il robot verso la sua posizione target
         }
-        else if (hasReachedTarget && staCombattendo == true)
+        /* else if (hasReachedTarget && staCombattendo == true)
         {
             isMoving = false;
             // Se ha raggiunto il target, mantieni la rotazione verso la camera per 2 secondi
@@ -118,12 +118,12 @@ public class RobotController : MonoBehaviour
                 staCombattendo = false;
                 ChangeEyeOffset(EyePosition.normal);
             }
-        }
+        } */
 
 
         
         // Verifica la distanza solo sugli assi x e z tra il robot e la camera
-        Vector3 robotPosition = transform.position;
+        /* Vector3 robotPosition = transform.position;
         Vector3 cameraPosition = Camera.main.transform.position;
 
         // Calcola la distanza solo sugli assi x e z (ignorando y)
@@ -131,7 +131,7 @@ public class RobotController : MonoBehaviour
                                             new Vector3(cameraPosition.x, 0, cameraPosition.z));
 
         // Se la distanza è minore di 1, attiva la fuga
-        /* if (distanceXZ < distanceFromPlayer && staScappando==false)
+         if (distanceXZ < distanceFromPlayer && staScappando==false)
         {
             staScappando = true;
             StartCoroutine(PlayerHitCoroutine());
@@ -144,7 +144,7 @@ public class RobotController : MonoBehaviour
     } 
 
     // Funzione per rilevare la collisione con oggetti
-    void OnCollisionEnter(Collision collision)
+    /* void OnCollisionEnter(Collision collision)
     {
         // Verifica se l'oggetto con cui il robot ha colliso ha il tag "roccia"
         if (collision.gameObject.CompareTag("roccia"))
@@ -157,10 +157,10 @@ public class RobotController : MonoBehaviour
             StartCoroutine(SpaventoCoroutine());
 
         }
-    }
+    } */
 
     // Coroutine per gestire il movimento dopo aver colpito il player
-    private IEnumerator PlayerHitCoroutine()
+    /* private IEnumerator PlayerHitCoroutine()
     {
         // Ottieni la posizione del player
         Camera player = Camera.main;
@@ -228,19 +228,19 @@ public class RobotController : MonoBehaviour
             ChangeEyeOffset(EyePosition.normal);
 
             Debug.Log("Il robot ha guardato il player ed è spaventato.");
-            /* 
+            
             target_position = SetNewtarget_positionRandom();
-            isMoving = true; */
+            isMoving = true; 
         }
         else
         {
             Debug.LogWarning("Player non trovato!");
             yield break; // Termina la coroutine se il player non viene trovato
         }
-    }
+    } */
 
     // Coroutine per gestire il movimento casuale dopo lo spavento
-    private IEnumerator SpaventoCoroutine()
+    /* private IEnumerator SpaventoCoroutine()
     {
         ChangeEyeOffset(EyePosition.dead);
 
@@ -280,9 +280,8 @@ public class RobotController : MonoBehaviour
         Debug.Log("Il robot ha smesso di correre.");
         isMoving = false;
         moveSpeed = moveSpeed - incrementoVel;
-    }
-
-    public void OnFightButtonPress()
+    } */
+    /*public void OnFightButtonPress()
     {
         // Ottieni la posizione della main camera
         Camera mainCamera = Camera.main;
@@ -326,18 +325,18 @@ public class RobotController : MonoBehaviour
         {
             Debug.LogWarning("Main camera non trovata!");
         }
-    }
+    } */
 
-    public void GoHomeButtonPress()
+    /* public void GoHomeButtonPress()
     {
         // Mantieni la posizione Y attuale e imposta X e Z a zero
         target_position = new Vector3(centerPoint.position.x, transform.position.y, centerPoint.position.z);//new Vector3(0f, transform.position.y, 0f);
         isMoving = true;
         animator.SetBool("isWalking", true);
-    }
+    } */
 
     // Funzione chiamata da Bottone 2: attiva il combattimento e muove il robot vicino alla camera
-    public void OnChangePositionButtonPress()
+    /* public void OnChangePositionButtonPress()
     {
         
         ChangeEyeOffset(EyePosition.normal);
@@ -345,16 +344,16 @@ public class RobotController : MonoBehaviour
         isMoving = true;
         //MoveRobot(target_position);
         animator.SetBool("isWalking", true);
-    }
+    } */
 
     // Funzione chiamata da Bottone 2: attiva il combattimento e muove il robot vicino alla camera
-    public void OnHappyButtonPress()
+    /* public void OnHappyButtonPress()
     {
         isMoving = false;
         animator.SetTrigger("isHappy"); // Attiva l'animazione di happy
         ChangeEyeOffset(EyePosition.happy);
 
-    }
+    } */
 
     
     // Funzione per muovere il robot verso la posizione target
@@ -377,7 +376,7 @@ public class RobotController : MonoBehaviour
             // Se l'oggetto colpito ha il Layer della SLAM Mesh, ferma il movimento
             Debug.Log("Colpito oggetto SLAMMesh, fermo il movimento.");
             isMoving = false;
-            target_position = transform.position;
+            //target_position = transform.position;
             animator.SetBool("isWalking", false);
             footsteps.Stop();
             return;
@@ -398,14 +397,14 @@ public class RobotController : MonoBehaviour
 
 		float distance = ( target_position - transform.position ).magnitude;
 		float character_vel = moveSpeed;
-		float anim_blend = 0.5f;
+		//float anim_blend = 0.5f;
 
 		float input_z = z_controller.UpdatePosition( Time.fixedDeltaTime, transform.position.z, transform.position.z + distance );
 
 		at_target =  Mathf.Abs( input_z ) < z_controller.threshold ? true : false;
 
-		if ( !at_target ) // walk/run to target after facing the direction of the target
-		{
+		//if ( !at_target ) // walk/run to target after facing the direction of the target
+		//{
             if ( !facing_target ) // rotate until the character is facing the direction of the target
             {
                 transform.Rotate (Vector3.up, input_yaw*2);
@@ -419,12 +418,12 @@ public class RobotController : MonoBehaviour
             animator.SetBool("isWalking", true); // Animation as robot walks to set target
 
             Debug.Log("Moving to the target");
-		}
+		//}
 
         // Verifica se il robot ha raggiunto la posizione target
-        else //(Vector3.Distance(transform.position, target_position) <= 0.0075f)
+        /* else //(Vector3.Distance(transform.position, target_position) <= 0.0075f)
         {
-            //isMoving = false; // Ferma il movimento //////////////////////////////////////////////////////////////////////////////////////
+            isMoving = false; // Ferma il movimento //////////////////////////////////////////////////////////////////////////////////////
             traj_count = 0;
             animator.SetBool("isWalking", false); // Ferma l'animazione di camminata
             footsteps.Stop();
@@ -438,7 +437,7 @@ public class RobotController : MonoBehaviour
             }
 
             rotationTimer = 0f; // Resetta il timer della rotazione
-        }
+        } */
     }
 
     public void UpdateTrajectory (Vector2[] new_trajectory) // Function to set the new robot trajectory from the tab appp
@@ -456,17 +455,17 @@ public class RobotController : MonoBehaviour
         // return target_position;
     }
 
-    private Vector3 SetNewtarget_positionRandom()
+    /* private Vector3 SetNewtarget_positionRandom()
     {
         // Genera una nuova posizione casuale all'interno del raggio
         float x = Random.Range(-moveRange, moveRange);
         float z = Random.Range(-moveRange, moveRange);
         target_position = new Vector3(centerPoint.position.x + x, transform.position.y, centerPoint.position.z + z);
         return target_position;
-    }
+    } */
 
     // Funzione per far girare il robot verso la main camera
-    private void RotateTowardsMainCamera()
+    /* private void RotateTowardsMainCamera()
     {
         // Ottieni la posizione della main camera
         Camera mainCamera = Camera.main;
@@ -489,7 +488,7 @@ public class RobotController : MonoBehaviour
         {
             Debug.LogWarning("Main camera non trovata!");
         }
-    }
+    } */
 
     void ChangeEyeOffset(EyePosition pos)
     {
