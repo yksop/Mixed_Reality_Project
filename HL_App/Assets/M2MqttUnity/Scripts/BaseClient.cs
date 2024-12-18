@@ -172,6 +172,12 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		public void SendCandyCount(int count)
+		{
+			byte[] c = BitConverter.GetBytes(count);
+			client.Publish("M2MQTT/counter/num", c, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+
 		static byte[] GetBytesBlock(double[] values)
 		{
             return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();

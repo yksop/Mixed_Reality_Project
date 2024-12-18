@@ -163,17 +163,6 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
 
-		public void SendLavaOn()
-        {
-			byte[] res = { 1 };
-			client.Publish("M2MQTT/lava/on", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-		public void SendLavaOff()
-		{
-			byte[] res = { 1 };
-			client.Publish("M2MQTT/lava/off", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-
 		public void BCChangeIp(string IP)
 		{
 			brokerAddress = IP;
