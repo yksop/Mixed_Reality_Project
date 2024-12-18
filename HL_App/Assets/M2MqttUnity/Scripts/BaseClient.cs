@@ -114,16 +114,6 @@ namespace M2MqttUnity
 			client.Unsubscribe(new string[] { topic });
 		}
 
-		public void ExampleSending()
-		{
-			double[] variablestest = new double[2];
-			variablestest[0] = 1.3;
-			variablestest[1] = 2.1;
-			var aa = GetBytesBlock(variablestest);
-
-			client.Publish("M2MQTT/Test", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-
 		public void CallMethodByName(string methodName)
 		{
 			Type type = this.GetType();
@@ -140,12 +130,14 @@ namespace M2MqttUnity
 			}
 		}
 
+		// Function to send a call to execute a void function by sending the name of the function to a topic called as the function
 		public void SendVoidFunctionCall(string functionName)
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
 			client.Publish("M2MQTT/" + functionName, aa,  MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function that sends the position and the rotation of a game object to a topic with the name of the game object
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
 			if (client == null)
@@ -166,23 +158,27 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function that sends the point representing the state of the environment (the room)
 		public void SendRoom(byte[] roomPoints)
 		{
 			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
 			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function that sends the number of the collected items
 		public void SendCandyCount(int count)
 		{
 			byte[] c = BitConverter.GetBytes(count);
 			client.Publish("M2MQTT/counter/num", c, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function that converts an array of doubles to an array of bytes
 		static byte[] GetBytesBlock(double[] values)
 		{
             return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
         }
 
+		// Function that converts an array of chars to an array of bytes
 		static byte[] GetBytesString(char[] values)
 		{
 			var result = new byte[values.Length * sizeof(char)];
@@ -190,6 +186,7 @@ namespace M2MqttUnity
 			return result;
 		}
 
+		// Function that converts an array of bytes to an array of doubles
 		static double[] GetDoublesBlock(byte[] bytes)
 		{
 			var result = new double[bytes.Length / sizeof(double)];
@@ -197,6 +194,7 @@ namespace M2MqttUnity
 			return result;
 		}
 
+		// Function that converts an array of bytes to an array of chars
 		static char[] GetStringBlock(byte[] bytes)
 		{
 			var result = new char[bytes.Length / sizeof(char)];
@@ -204,6 +202,7 @@ namespace M2MqttUnity
 			return result;
 		}
 
+		// Called when a message is received through MQTT
 		protected override void DecodeMessage(string _topic, byte[] message)
 		{
 			string tmp = "";
@@ -218,6 +217,7 @@ namespace M2MqttUnity
 			}
 			//Debug.Log(tmp);
 
+			// Handles the communication on the various topics
 			if (_topic == "M2MQTT/function")
 			{
 				foreach (string topicKey in m_messageHandlers.Keys)
@@ -236,6 +236,7 @@ namespace M2MqttUnity
 			
 			if (_topic == "M2MQTT/Trajectory")
 			{
+				// Receives the trajectory that the avatar has to follow
 				byte[] beatArray = message;
 				
 				// Assicurati che la lunghezza dell'array sia un multiplo di 8 (4 byte per float, 2 float per Vector2)
@@ -271,7 +272,6 @@ namespace M2MqttUnity
 				Debug.Log("Received toggle lava");
 				terrainToggle.ToggleTerrainObject();
 			}
-
 		}
 
 		private void OnDestroy()
