@@ -163,6 +163,10 @@ namespace M2MqttUnity
 			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
 			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
+		public void BCChangeIp(string IP)
+		{
+			brokerAddress = IP;
+		}
 
 		// Function that sends the number of the collected items
 		public void SendCandyCount(int count)
