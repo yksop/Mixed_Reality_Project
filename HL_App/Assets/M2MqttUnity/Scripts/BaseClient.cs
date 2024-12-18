@@ -144,7 +144,6 @@ namespace M2MqttUnity
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
 			client.Publish("M2MQTT/" + functionName, aa,  MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-			CallMethodByName(functionName);
 		}
 
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
