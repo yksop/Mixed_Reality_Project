@@ -263,6 +263,7 @@ namespace M2MqttUnity
 			if (_topic == "M2MQTT/ToggleTerrain")
 			{
 				// Toggles the lava
+				Debug.Log("Received toggle lava");
 				terrainToggle.ToggleTerrainObject();
 			}
 
