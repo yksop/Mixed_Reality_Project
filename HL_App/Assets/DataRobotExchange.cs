@@ -75,15 +75,27 @@ public class DataRobotExchange : MonoBehaviour
 
 
 
-
+   
     // Funzione per calcolare i punti di impatto dei raycast in un array di byte[]
     //public byte[][] CalcolaPuntiImpattoCircolari()
     public void CalcolaPuntiImpattoCircolari()
     {
         List<byte> puntiImpattoBytes = new List<byte>();
 
+<<<<<<< Updated upstream
         // Posizione di partenza del raycast
         Vector3 startPosition = Player.transform.position; 
+=======
+        // Posizione di partenza del raycast, un metro sopra il centro
+        //Vector3 startPosition = Center.transform.position + new Vector3(0, 1, 0);
+        //Vector3 startPosition = Player.transform.position; 
+
+        // Initial position of box (center of player)
+        Vector3 boxCenter = Player.transform.position - new Vector3(0.0f , - 0.5f, 0.0f);
+
+        // Box dimensions (each one is the half of it)
+        Vector3 boxHalfExtents = new Vector3(0.5f, 1.0f, 0.5f);
+>>>>>>> Stashed changes
 
         // Risoluzione angolare di 1 grado per coprire 360 gradi
         int stepDegrees = 1;
@@ -94,7 +106,9 @@ public class DataRobotExchange : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
 
             // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
-            if (Physics.Raycast(startPosition, direction, out RaycastHit hit, maxDistance, layerMask))
+            //if (Physics.Raycast(startPosition, direction, out RaycastHit hit, maxDistance, layerMask))
+
+            if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
             {
                 // Ottiene il punto di impatto respect to vuforia marker
                 Vector3 puntoImpatto = hit.point - Center.transform.position;
@@ -118,3 +132,48 @@ public class DataRobotExchange : MonoBehaviour
         baseClient.SendRoom(puntiImpattoBytes.ToArray());
     }
 }
+
+
+
+
+
+
+/*
+public void CalcolaPuntiImpattoCircolari()
+{
+    List<byte> puntiImpattoBytes = new List<byte>();
+
+    // Posizione iniziale del box (centro del giocatore)
+    Vector3 boxCenter = Player.transform.position - new Vector3(0.0f , - 0.5f, 0.0f);
+
+    // Dimensioni del box (mezze dimensioni lungo ogni asse)
+    Vector3 boxHalfExtents = new Vector3(0.5f, 1.0f, 0.5f); // Ad esempio, 1m di larghezza, 2 di altezza e 1 di profondità 
+
+    // Risoluzione angolare (es. ogni 2 gradi per coprire 360 gradi)
+    int stepDegrees = 2;
+    for (int angle = 0; angle < 360; angle += stepDegrees)
+    {
+        // Calcola la direzione per questo angolo (sul piano X,Z)
+        float rad = Mathf.Deg2Rad * angle;
+        Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
+
+        // Esegue il boxcast
+        if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
+        {
+            // Ottiene il punto di impatto relativo al "Center"
+            Vector3 puntoImpatto = hit.point - Center.transform.position;
+
+            // Converte le coordinate X e Z in un array di byte
+            puntiImpattoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.x));
+            puntiImpattoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.z));
+
+            // Converte anche la distanza in byte, se necessaria
+            float distanza = hit.distance;
+            puntiImpattoBytes.AddRange(BitConverter.GetBytes(distanza));
+        }
+    }
+
+    // Invia i dati usando baseClient (opzionale, implementa SendRoom se necessario)
+    // baseClient.SendRoom(puntiImpattoBytes.ToArray());
+}
+*/
