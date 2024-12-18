@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 234422738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
+  m_Script: {fileID: 11500000, guid: d4257198b8c3ab34da04238c266f05a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
@@ -7616,7 +7616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 530462327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4457ec2d4a5ec274fb62b161bf3d9d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 1
@@ -7721,7 +7721,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1699594615}
+  - {fileID: 1924650216}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9045,7 +9045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 192.168.1.6
+  brokerAddress: localhost
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -9577,8 +9577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e00698324a4e354289be9435da949c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceAmplitude: 0.1
-  bounceFrequency: 1
 --- !u!114 &1442883101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10829,35 +10827,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671026490}
   m_CullTransparentMesh: 1
---- !u!21 &1699594615
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    37474'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1701535048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11982,6 +11951,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879884146}
   m_Mesh: {fileID: -2432090755550338912, guid: e2a2daf459a628f4194795da6d858102, type: 3}
+--- !u!21 &1924650216
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'AstronautMaterial
+
+    45010'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1958226364
 GameObject:
   m_ObjectHideFlags: 0
