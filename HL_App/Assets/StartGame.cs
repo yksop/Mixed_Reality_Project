@@ -10,10 +10,14 @@ public class StartGame : MonoBehaviour
     // Start è chiamato una volta, all'inizio
     void Start()
     {
+
         // Assicuriamoci che targetObject non sia nullo
         if (targetObject == null)
         {
             Debug.LogWarning("TargetObject non assegnato! Assegna un GameObject nell'Inspector.");
+        }else{
+            // Disattiva il GameObject all'avvio
+            targetObject.SetActive(true);
         }
     }
 

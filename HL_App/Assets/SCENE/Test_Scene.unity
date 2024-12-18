@@ -377,6 +377,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1065760114}
     - target: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -977,6 +981,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 527784015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1669291034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669291032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4584c9db6110c624a99c2a78f4d07263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.75
+  rotationSpeed: 2
+  stopDistance: 2
+  isMoving: 0
+  capsule: {fileID: 1065760114}
 --- !u!114 &1669291035 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 183401499, guid: 219aeb1791512c14983ee535d5d987b5,

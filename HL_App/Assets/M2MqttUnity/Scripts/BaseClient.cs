@@ -149,6 +149,11 @@ namespace M2MqttUnity
 
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
+			if (client == null)
+			{
+				Debug.LogError("MQTT client is not initialized.");
+				return;
+			}
             double[] p = new double[] { position[0], position[1], position[2] };
 			double[] r = new double[] { rotation[0], rotation[1], rotation[2], rotation[3] };
 			var name = thisObject.name;
@@ -242,7 +247,7 @@ namespace M2MqttUnity
 					}
 
 					// Chiama la funzione per gestire la traiettoria
-					robotController.UpdateTrajectory(trajectory);
+					//robotController.UpdateTrajectory(trajectory);
 					capsuleMovement.SetTrajectory(trajectory);
 				}
 				else
