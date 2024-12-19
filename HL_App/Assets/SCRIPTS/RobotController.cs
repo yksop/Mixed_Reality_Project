@@ -348,13 +348,13 @@ public class RobotController : MonoBehaviour
     } */
 
     // Funzione chiamata da Bottone 2: attiva il combattimento e muove il robot vicino alla camera
-    /* public void OnHappyButtonPress()
+    public void OnHappyButtonPress()
     {
         isMoving = false;
         animator.SetTrigger("isHappy"); // Attiva l'animazione di happy
         ChangeEyeOffset(EyePosition.happy);
 
-    } */
+    }
 
     
     // Funzione per muovere il robot verso la posizione target
