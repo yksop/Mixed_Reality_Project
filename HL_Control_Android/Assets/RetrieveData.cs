@@ -12,6 +12,7 @@ public class RetrieveData : MonoBehaviour
 
 	private Vector2 previousPosition;
 	private float playerSpeed;
+	private bool velTimer = true;
 
 	// Start is called before the first frame update
 	public void StartCollectingData()
@@ -21,8 +22,11 @@ public class RetrieveData : MonoBehaviour
 		{
 			previousPosition = playerTransform.position;
 		}
+	}
 
-		StartCoroutine(UpdatePlayerSpeedRoutine(1f));
+	private void Start()
+	{
+		StartCoroutine(UpdatePlayerSpeedRoutine());
 	}
 
 	public void StopCollectingData()
@@ -44,6 +48,8 @@ public class RetrieveData : MonoBehaviour
 	{
 		while (true)
 		{
+			
+			velTimer = false;
 			if (playerTransform != null)
 			{
 				playerSpeed = (Vector2.Distance(playerTransform.position, previousPosition)/*  / Time.deltaTime */) / FATTORE_DI_SCALA;
@@ -53,6 +59,7 @@ public class RetrieveData : MonoBehaviour
 			}
 
 			yield return new WaitForSeconds(updateInterval); // Update every second
+			velTimer = true;
 		}
 	}
 }

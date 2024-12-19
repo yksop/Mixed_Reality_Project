@@ -280,6 +280,7 @@ namespace M2MqttUnity
 				// Toggles the drop of player rewards by the avatar
 				Debug.Log("Received toggle donuts");
 				//call function here
+				dCandy.ToggleDropping();
 			}
 			if (_topic == "M2MQTT/ToggleDance")
 			{

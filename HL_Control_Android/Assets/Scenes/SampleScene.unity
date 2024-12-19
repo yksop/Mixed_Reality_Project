@@ -4507,7 +4507,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1045831686}
         m_TargetAssemblyTypeName: ChangeIp, Assembly-CSharp
         m_MethodName: DeactivateInput
         m_Mode: 1

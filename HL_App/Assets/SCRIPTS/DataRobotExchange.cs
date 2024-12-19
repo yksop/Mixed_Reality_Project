@@ -90,7 +90,7 @@ public class DataRobotExchange : MonoBehaviour
 
         // Boxcast: Initial position of box (center of player) and dimensions
         Vector3 boxCenter = Player.transform.position - new Vector3(0.0f, -0.5f, 0.0f);
-        Vector3 boxHalfExtents = new Vector3(0.5f, 1.0f, 0.5f);
+        Vector3 boxHalfExtents = new Vector3(0.005f, 0.1f, 0.005f);
 
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {

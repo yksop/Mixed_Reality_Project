@@ -360,19 +360,20 @@ public class RobotController : MonoBehaviour
     // Funzione per muovere il robot verso la posizione target
     private void MoveRobot(Vector3 target_position)
     {
+        ChangeEyeOffset(EyePosition.normal);
         // Riproduce il suono dei passi solo se non è già in riproduzione
         if (!footsteps.isPlaying)
         {
             footsteps.Play();
         }
         // Dimensioni del box per il BoxCast (rettangolare nel piano x-y)
-        Vector3 boxSize = new Vector3(0.2f, 0.5f, 0.2f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
+        Vector3 boxSize = new Vector3(0.002f, 0.05f, 0.002f); // Regola queste dimensioni in base alla larghezza e altezza desiderata
         
         // // Calcola la direzione verso la posizione target
         Vector3 direction = (target_position - transform.position).normalized;
 
         // Usa un BoxCast sul Layer della SLAM Mesh per rilevare ostacoli
-        if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.1f, spatialAwareness))
+        /* if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.1f, spatialAwareness))
         {
             // Se l'oggetto colpito ha il Layer della SLAM Mesh, ferma il movimento
             Debug.Log("Colpito oggetto SLAMMesh, fermo il movimento.");
@@ -381,7 +382,7 @@ public class RobotController : MonoBehaviour
             animator.SetBool("isWalking", false);
             footsteps.Stop();
             return;
-        }
+        } */
 
 
 		// Implementing PID controller to move and rotate player

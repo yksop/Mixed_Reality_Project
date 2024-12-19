@@ -27,6 +27,7 @@ public class DroppingCandies : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         isFirstTime = true;
+        isDropping = false;
     }
 
     void Update()
@@ -136,6 +137,12 @@ public class DroppingCandies : MonoBehaviour
     {
         takeDonutCounter = count;
     }
+
+    public void ToggleDropping()
+    {
+        isDropping = !isDropping;
+    }
+    
 } 
 
 
