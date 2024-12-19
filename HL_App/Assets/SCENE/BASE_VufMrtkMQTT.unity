@@ -14730,7 +14730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseClient: {fileID: 1027292231}
-  textInputGo: {fileID: 535747381}
+  textInputGo: {fileID: 1982514392}
   textField: {fileID: 535747383}
 --- !u!1 &2001716046
 GameObject:

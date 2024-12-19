@@ -109,7 +109,7 @@ public class DroppingCandies : MonoBehaviour
             //Debug.Log("Candy destroyed.");
         }
         takeDonutCounter++;
-        Debug.Log("Donuts taken: " + takeDonutCounter);
+        //Debug.Log("Donuts taken: " + takeDonutCounter);
     } 
 
     public void DestroyAllCandies()

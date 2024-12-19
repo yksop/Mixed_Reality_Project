@@ -95,7 +95,7 @@ public class DrawTrajectory : MonoBehaviour
             relativePoints.Add(new Vector2((point - targetCenter).x*scalingFactor, (point - targetCenter).y*scalingFactor));
         }
 
-        Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
+        //Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
     }
 
     private void Draw(Vector2 inputPosition)
@@ -122,7 +122,7 @@ public class DrawTrajectory : MonoBehaviour
     private void DestroyAllPoints()
     {
         // Distrugge tutti i punti in modo efficiente
-        Debug.Log("Destroying " + instantiatedPoints.Count + " points!");
+        //Debug.Log("Destroying " + instantiatedPoints.Count + " points!");
         for (int i = 0; i < instantiatedPoints.Count; i++)
         {
             if (instantiatedPoints[i] != null)
@@ -166,7 +166,7 @@ public class DrawTrajectory : MonoBehaviour
             Debug.LogError("La lista dei punti relativi è vuota o null!");
             return;
         }
-        Debug.Log("Points Sent!");
+        //Debug.Log("Points Sent!");
         Vector2[] pointsArray = relativePoints.ToArray();
         baseClient.SendTrajectory(pointsArray);
     }

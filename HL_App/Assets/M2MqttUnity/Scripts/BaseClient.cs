@@ -273,19 +273,19 @@ namespace M2MqttUnity
 			if (_topic == "M2MQTT/ToggleTerrain")
 			{
 				// Toggles the lava on the floor
-				Debug.Log("Received toggle lava");
+				//Debug.Log("Received toggle lava");
 				terrainToggle.ToggleTerrainObject();
 			}
 			if (_topic == "M2MQTT/ToggleDonuts")
 			{
 				// Toggles the drop of player rewards by the avatar
-				Debug.Log("Received toggle donuts");
+				//Debug.Log("Received toggle donuts");
 				droppingCandies.ToggleCandyDrop();
 			}
 			if (_topic == "M2MQTT/ToggleDance")
 			{
 				// Toggles an animation of the avatar
-				Debug.Log("Received toggle dance");
+				//Debug.Log("Received toggle dance");
 				robotController.OnHappyButtonPress();
 			}
 		}
