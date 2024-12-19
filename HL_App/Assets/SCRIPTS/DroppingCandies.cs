@@ -17,6 +17,7 @@ public class DroppingCandies : MonoBehaviour
     private bool isDropping = false;
     private bool isFirstTime = true;
     public int takeDonutCounter = 0;
+    public bool canDrop = false;
     public BaseClient baseClient;
 
     private GameObject[] candies;
@@ -31,7 +32,7 @@ public class DroppingCandies : MonoBehaviour
 
     void Update()
     {
-        if (robotController.isMoving && !isDropping)
+        if (robotController.isMoving && !isDropping && canDrop)
         {
             StartCoroutine(DropCandies());
         }
@@ -91,6 +92,10 @@ public class DroppingCandies : MonoBehaviour
         //Debug.Log("Donuts taken: " + takeDonutCounter);
     }  */
 
+    public void ToggleCandyDrop()
+    {
+        canDrop = !canDrop;
+    }
     private  void DestroyCandySingular(GameObject candy, bool isFirstTime)
     {
         if (isFirstTime)

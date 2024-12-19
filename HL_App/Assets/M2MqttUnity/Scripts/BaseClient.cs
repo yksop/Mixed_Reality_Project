@@ -35,6 +35,7 @@ namespace M2MqttUnity
 		public CapsuleMovement capsuleMovement;
 		public DroppingCandies dCandy;
 		public TerrainToggle terrainToggle;
+		public DroppingCandies droppingCandies;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -279,7 +280,7 @@ namespace M2MqttUnity
 			{
 				// Toggles the drop of player rewards by the avatar
 				Debug.Log("Received toggle donuts");
-				//call function here
+				droppingCandies.ToggleCandyDrop();
 			}
 			if (_topic == "M2MQTT/ToggleDance")
 			{
