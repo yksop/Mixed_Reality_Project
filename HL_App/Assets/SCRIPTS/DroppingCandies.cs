@@ -21,6 +21,8 @@ public class DroppingCandies : MonoBehaviour
 
     private GameObject[] candies;
 
+    private HashSet<GameObject> processedCandies = new HashSet<GameObject>(); // Elenco delle caramelle già processate
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -39,6 +41,10 @@ public class DroppingCandies : MonoBehaviour
         //Debug.Log("Candies: " + candies.Length);
         foreach (GameObject candy in candies)
         {
+            if (processedCandies.Contains(candy))
+            {
+                continue; // Salta le caramelle già processate
+            }
             float distanceToCamera = Vector2.Distance(new Vector2(candy.transform.position.x, candy.transform.position.z),
                                                       new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.z));
             //Debug.Log("Distance to camera: " + distanceToCamera); // Aggiungi questo log
@@ -47,8 +53,8 @@ public class DroppingCandies : MonoBehaviour
             {
                 //Debug.Log("Candy is close to the camera"); 
                 audioSource.PlayOneShot(disappearSound);
-                StartCoroutine(DestroyAfterSound(candy, isFirstTime));
-                takeDonutCounter++;
+                //StartCoroutine(DestroyAfterSound(candy, isFirstTime));
+                DestroyCandySingular(candy, isFirstTime);
                 baseClient.SendCandyCount(takeDonutCounter);
             }
         }
@@ -68,8 +74,9 @@ public class DroppingCandies : MonoBehaviour
         isDropping = false;
     }
 
-    private IEnumerator DestroyAfterSound(GameObject candy, bool isFirstTime)
+    /* private IEnumerator DestroyAfterSound(GameObject candy, bool isFirstTime)
     {
+        candy.tag = "Untagged";
         yield return new WaitForSeconds(disappearSound.length*0.5f);
         if(isFirstTime)
         {
@@ -80,7 +87,25 @@ public class DroppingCandies : MonoBehaviour
             Destroy(candy);
             //Debug.Log("Candy destroyed.");
         }
-    }
+        takeDonutCounter++;
+        //Debug.Log("Donuts taken: " + takeDonutCounter);
+    }  */
+
+    private  void DestroyCandySingular(GameObject candy, bool isFirstTime)
+    {
+        if (isFirstTime)
+        {
+            candy.SetActive(false);
+            //Debug.Log("Candy inactive.");
+        }
+        else
+        {
+            Destroy(candy);
+            //Debug.Log("Candy destroyed.");
+        }
+        takeDonutCounter++;
+        Debug.Log("Donuts taken: " + takeDonutCounter);
+    } 
 
     public void DestroyAllCandies()
     {
@@ -111,4 +136,6 @@ public class DroppingCandies : MonoBehaviour
     {
         takeDonutCounter = count;
     }
-}
+} 
+
+

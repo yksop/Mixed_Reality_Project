@@ -12,7 +12,7 @@ public class RobotController : MonoBehaviour
 
     public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
 
-    private Animator animator;
+    public Animator animator;
     public bool isMoving = true; // Controlla se il robot si sta muovendo
     private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
     private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
