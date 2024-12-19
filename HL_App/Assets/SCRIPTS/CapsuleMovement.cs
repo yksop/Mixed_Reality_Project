@@ -41,13 +41,20 @@ public class CapsuleMovement : MonoBehaviour
         else
         {
             //Debug.Log("Trajectory is null or completed.");
+<<<<<<< Updated upstream
             // Controlla se la capsula ha raggiunto l'avatar nel piano x,z
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(avatar.transform.position.x, avatar.transform.position.z)) <= 0.5f)
+=======
+            // Controlla se la capsula ha raggiunto l'avatar
+            if (Vector3.Distance(transform.position, avatar.transform.position) < 0.1f)
+>>>>>>> Stashed changes
             {
                 //Debug.Log("Reached avatar.");
                 robotController.isMoving = false;
                 robotController.animator.SetBool("isWalking", false);
             }
+                robotController.isMoving = false;
+                robotController.animator.SetBool("isWalking", false);
         }
     }
 
