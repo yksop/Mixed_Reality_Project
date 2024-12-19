@@ -35,10 +35,10 @@ public class DataRobotExchange : MonoBehaviour
 
         // Lista di byte per memorizzare solo X e Z
         List<byte> byteArray = new List<byte>();
-        
+
         // Converte la coordinata X
         byteArray.AddRange(BitConverter.GetBytes(posizioneRelativa.x));
-        
+
         // Converte la coordinata Z
         byteArray.AddRange(BitConverter.GetBytes(posizioneRelativa.z));
 
@@ -83,10 +83,15 @@ public class DataRobotExchange : MonoBehaviour
         List<byte> puntiImpattoBytes = new List<byte>();
 
         // Posizione di partenza del raycast
-        Vector3 startPosition = Player.transform.position; 
+        Vector3 startPosition = Player.transform.position;
 
         // Risoluzione angolare di 1 grado per coprire 360 gradi
         int stepDegrees = 1;
+
+        // Boxcast: Initial position of box (center of player) and dimensions
+        Vector3 boxCenter = Player.transform.position - new Vector3(0.0f, -0.5f, 0.0f);
+        Vector3 boxHalfExtents = new Vector3(0.5f, 1.0f, 0.5f);
+
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {
             // Calcola la direzione del raycast per l'angolo attuale (sul piano X,Z)
@@ -94,7 +99,7 @@ public class DataRobotExchange : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
 
             // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
-            if (Physics.Raycast(startPosition, direction, out RaycastHit hit, maxDistance, layerMask))
+            if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
             {
                 // Ottiene il punto di impatto respect to vuforia marker
                 Vector3 puntoImpatto = hit.point - Center.transform.position;
@@ -114,7 +119,7 @@ public class DataRobotExchange : MonoBehaviour
         }
 
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
-        
+
         baseClient.SendRoom(puntiImpattoBytes.ToArray());
     }
 }

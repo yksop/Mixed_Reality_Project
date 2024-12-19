@@ -8,7 +8,6 @@ using TMPro;
 
 public class ChangeIp : MonoBehaviour
 {
-    public TouchScreenKeyboard keyboard;
     public BaseClient baseClient;
     public GameObject textInputGo;
     public TMP_InputField textField;
