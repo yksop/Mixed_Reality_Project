@@ -67,7 +67,7 @@ public class DroppingCandies : MonoBehaviour
         isDropping = true;
         while (robotController.isMoving)
         {
-            Vector3 dropPosition = new Vector3(robotController.transform.position.x, 0.5f, robotController.transform.position.z);
+            Vector3 dropPosition = new Vector3(robotController.transform.position.x, 0.05f, robotController.transform.position.z);
             GameObject candy = Instantiate(candyPrefab, dropPosition, Quaternion.identity);
             candy.tag = "Candy";
             candy.SetActive(true);
