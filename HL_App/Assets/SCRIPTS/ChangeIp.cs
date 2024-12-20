@@ -99,4 +99,8 @@ public class ChangeIp : MonoBehaviour
         baseClient.BCChangeIp(text);
         textInputGo.SetActive(false);
     }
+    public void DeactivateInput()
+    {
+        textInputGo.SetActive(false);
+    }
 }

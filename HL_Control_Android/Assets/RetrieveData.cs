@@ -17,7 +17,7 @@ public class RetrieveData : MonoBehaviour
 	// Start is called before the first frame update
 	public void StartCollectingData()
 	{
-		Debug.Log("Start collecting data");
+		//Debug.Log("Start collecting data");
 		if (playerTransform != null)
 		{
 			previousPosition = playerTransform.position;
@@ -31,7 +31,7 @@ public class RetrieveData : MonoBehaviour
 
 	public void StopCollectingData()
 	{
-		Debug.Log("Stop collecting data");
+		//Debug.Log("Stop collecting data");
 		StopAllCoroutines();
 	}
 
@@ -53,7 +53,7 @@ public class RetrieveData : MonoBehaviour
 			if (playerTransform != null)
 			{
 				playerSpeed = (Vector2.Distance(playerTransform.position, previousPosition)/*  / Time.deltaTime */) / FATTORE_DI_SCALA;
-				Debug.Log("Data collected:" + playerSpeed);
+				//Debug.Log("Data collected:" + playerSpeed);
 				textVelocita.text = $"Velocità: {playerSpeed:F2} m/s";
 				previousPosition = playerTransform.position;
 			}
