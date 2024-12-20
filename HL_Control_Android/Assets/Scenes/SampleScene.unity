@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: 93329201}
   - component: {fileID: 93329200}
   - component: {fileID: 93329199}
+  - component: {fileID: 93329202}
   m_Layer: 5
   m_Name: Button Donuts
   m_TagString: Untagged
@@ -618,6 +619,18 @@ MonoBehaviour:
           m_StringArgument: ToggleDonuts
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 93329202}
+        m_TargetAssemblyTypeName: TextToggle, Assembly-CSharp
+        m_MethodName: ToggleText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &93329200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +669,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93329197}
   m_CullTransparentMesh: 1
+--- !u!114 &93329202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93329197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc4217bacc0a394e8c18fa544651d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: Donuts
+  tText: {fileID: 583547778}
+  isOn: 0
 --- !u!1 &221843601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,7 +1893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Donuts Toggle
+  m_text: Donuts Off
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
   m_sharedMaterial: {fileID: -6155055826533555941, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
@@ -4779,6 +4807,7 @@ GameObject:
   - component: {fileID: 2024944790}
   - component: {fileID: 2024944789}
   - component: {fileID: 2024944788}
+  - component: {fileID: 2024944791}
   m_Layer: 5
   m_Name: Button Lava
   m_TagString: Untagged
@@ -4862,6 +4891,18 @@ MonoBehaviour:
           m_StringArgument: ToggleTerrain
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2024944791}
+        m_TargetAssemblyTypeName: TextToggle, Assembly-CSharp
+        m_MethodName: ToggleText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2024944789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4900,6 +4941,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024944786}
   m_CullTransparentMesh: 1
+--- !u!114 &2024944791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024944786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc4217bacc0a394e8c18fa544651d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: Lava
+  tText: {fileID: 2103412272}
+  isOn: 0
 --- !u!1 &2050460730
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,7 +5346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lava Toggle
+  m_text: Lava Off
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
   m_sharedMaterial: {fileID: -6155055826533555941, guid: 83f7c25e4e039684cb07eb04e7333f44, type: 2}
