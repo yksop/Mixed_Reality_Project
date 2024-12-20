@@ -142,15 +142,6 @@ public class DroppingCandies : MonoBehaviour
     {
         takeDonutCounter = count;
     }
-<<<<<<< Updated upstream
-
-    public void ToggleDropping()
-    {
-        isDropping = !isDropping;
-    }
-    
-=======
->>>>>>> Stashed changes
 } 
 
 

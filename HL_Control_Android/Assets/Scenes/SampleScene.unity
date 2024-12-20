@@ -2060,7 +2060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: localhost
+  brokerAddress: 192.168.1.6
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
