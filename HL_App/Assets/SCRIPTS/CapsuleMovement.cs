@@ -14,6 +14,7 @@ public class CapsuleMovement : MonoBehaviour
     public GameObject avatar;
     public RobotController robotController;
     public DroppingCandies playerCandies;
+    public float distanceFromRobot = 0.1f; 
 
     void Start()
     {
@@ -31,7 +32,8 @@ public class CapsuleMovement : MonoBehaviour
             MoveCapsule(targetPosition);
 
             // Controlla se la capsula ha raggiunto la posizione target
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            //if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
+            if(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(targetPosition.x, targetPosition.z)) <= 0.05)
             {
                 // Incrementa l'indice del punto corrente
                 currentPointIndex++;
@@ -42,15 +44,13 @@ public class CapsuleMovement : MonoBehaviour
         {
             //Debug.Log("Trajectory is null or completed.");
             // Controlla se la capsula ha raggiunto l'avatar nel piano x,z
-            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(avatar.transform.position.x, avatar.transform.position.z)) <= 0.5f)
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(avatar.transform.position.x, avatar.transform.position.z)) <= distanceFromRobot)
 
             {
                 //Debug.Log("Reached avatar.");
                 robotController.isMoving = false;
                 robotController.animator.SetBool("isWalking", false);
             }
-                robotController.isMoving = false;
-                robotController.animator.SetBool("isWalking", false);
         }
     }
 

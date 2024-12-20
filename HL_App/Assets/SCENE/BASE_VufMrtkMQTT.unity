@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -448,35 +448,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39930425}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!21 &60499184
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    29282'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &86712443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,7 +1355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testo: {fileID: 1958226365}
   testoBottone: {fileID: 2090502488}
-  canvasBottoniRobot: {fileID: 0}
 --- !u!4 &210156202
 Transform:
   m_ObjectHideFlags: 0
@@ -1574,7 +1544,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 234422738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0eb821795a5fd4895b0c3b8f8e1804, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
@@ -8515,13 +8485,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 530462327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ff48e8211ae31547aef108710dc6631, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 1
   avatar: {fileID: 183401497}
   robotController: {fileID: 183401499}
   playerCandies: {fileID: 234422740}
+  distanceFromRobot: 0.5
 --- !u!23 &530462331
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8600,7 +8571,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531166600}
-  m_Mesh: {fileID: 1203437799}
+  m_Mesh: {fileID: 1206553291}
 --- !u!23 &531166602
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8620,7 +8591,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 60499184}
+  - {fileID: 893413139}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10065,6 +10036,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873220496}
   m_CullTransparentMesh: 1
+--- !u!21 &893413139
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'AstronautMaterial
+
+    28662'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &893756398
 GameObject:
   m_ObjectHideFlags: 0
@@ -10595,7 +10595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: localhost
+  brokerAddress: 192.168.1.6
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -10840,13 +10840,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoConstraintSelection: 1
   selectedConstraints: []
---- !u!43 &1203437799
+--- !u!43 &1206553291
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ImageTargetMesh29272
+  m_Name: ImageTargetMesh28652
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14729,9 +14729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab6228b60da53f4abb52dafc90991c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseClient: {fileID: 1027292231}
-  textInputGo: {fileID: 1982514392}
-  textField: {fileID: 535747383}
 --- !u!1 &2001716046
 GameObject:
   m_ObjectHideFlags: 0
