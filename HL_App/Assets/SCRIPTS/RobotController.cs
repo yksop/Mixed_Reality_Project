@@ -10,7 +10,7 @@ public class RobotController : MonoBehaviour
     public float moveRange = 3f; // Distanza minima alla quale il robot si ferma dalla camera
     private string triggerFightName = "inFight"; // Nome del trigger per il combattimento
 
-    public float distanceFromPlayer = 1f; // distanza dalla quale si spaventa dal player 
+    public float distanceFromPlayer = 0.5f; // distanza dalla quale si spaventa dal player 
 
     public Animator animator;
     public bool isMoving = true; // Controlla se il robot si sta muovendo
@@ -43,6 +43,7 @@ public class RobotController : MonoBehaviour
 
     public GameObject capsule;
     public CapsuleMovement capsuleMovement;
+    public Camera mainCamera;
     
 
     void Start()
@@ -65,7 +66,7 @@ public class RobotController : MonoBehaviour
         animator.SetBool("isWalking", false);
         staCombattendo = false;
 
-        Camera mainCamera = Camera.main;
+        mainCamera = Camera.main;
         if (mainCamera == null)
         {
             Debug.LogError("Main Camera not found!");
@@ -384,6 +385,17 @@ public class RobotController : MonoBehaviour
             return;
         } */
 
+		float avatar_vel = moveSpeed;
+
+        Vector2 player = new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.z);
+        Vector2 avatar = new Vector2(transform.position.x, transform.position.z);
+        float dist_2_user = Vector2.Distance(player, avatar);
+        
+        if ( dist_2_user > distanceFromPlayer )
+        {
+            avatar_vel = avatar_vel/Mathf.Pow(dist_2_user - distanceFromPlayer, 2);
+        }
+
 
 		// Implementing PID controller to move and rotate player
 		// First transform target position into characters local coordinates
@@ -398,7 +410,6 @@ public class RobotController : MonoBehaviour
 		facing_target = Mathf.Abs( input_yaw ) < yaw_controller.threshold ? true : false;
 
 		float distance = ( target_position - transform.position ).magnitude;
-		float character_vel = moveSpeed;
 		//float anim_blend = 0.5f;
 
 		float input_z = z_controller.UpdatePosition( Time.fixedDeltaTime, transform.position.z, transform.position.z + distance );
@@ -415,7 +426,7 @@ public class RobotController : MonoBehaviour
 			var desired_move_direction = new Vector3(0, 0, input_z);
 			desired_move_direction = transform.TransformVector(desired_move_direction);
 
-			transform.Translate ( desired_move_direction * Time.deltaTime * character_vel, Space.World ); // robot walks to set target
+			transform.Translate ( desired_move_direction * Time.deltaTime * avatar_vel, Space.World ); // robot walks to set target
 			// anim.SetFloat("Blend", anim_blend, StartAnimTime, Time.deltaTime);
             animator.SetBool("isWalking", true); // Animation as robot walks to set target
 
