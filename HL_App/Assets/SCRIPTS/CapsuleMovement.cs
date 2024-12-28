@@ -15,6 +15,7 @@ public class CapsuleMovement : MonoBehaviour
     public RobotController robotController;
     public DroppingCandies playerCandies;
     public float distanceFromRobot = 0.1f; 
+    public float rotationSpeed = 5.0f;
 
     void Start()
     {
@@ -30,6 +31,14 @@ public class CapsuleMovement : MonoBehaviour
             targetPosition = new Vector3(trajectory[currentPointIndex].x, transform.position.y, trajectory[currentPointIndex].y);
             // Muove la capsula verso la posizione target
             MoveCapsule(targetPosition);
+            
+            if(currentPointIndex == 0)
+            {
+                robotController.isManouvering = true;
+            }else
+            {
+                robotController.isManouvering = false;
+            }
 
             // Controlla se la capsula ha raggiunto la posizione target
             //if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
@@ -78,6 +87,13 @@ public class CapsuleMovement : MonoBehaviour
     {
         float distanceToAvatar = Vector3.Distance(transform.position, avatar.transform.position);
         float speed = baseSpeed / Mathf.Pow(distanceToAvatar, 4);
+
+        // Calcola la direzione verso la posizione target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        // Ruota la capsula verso la posizione target
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         //Debug.Log("Moving towards " + targetPosition + " with speed " + speed);
     }
