@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using M2MqttUnity;
+using System.Text;
 
 public class DataRobotExchange : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class DataRobotExchange : MonoBehaviour
     public int rayPerDegree = 1;
     public float lowRayHeight = 0.3f;
     public float highRayHeight = 2f;
-    public float boxWidth = 0f;
-    public float boxHeight = 0f;
+    public float boxWidth = 0.005f;
+    public float boxHeight = 0.5f;
+    private string h;
 
     public BaseClient baseClient;
 
@@ -92,7 +94,7 @@ public class DataRobotExchange : MonoBehaviour
         Vector3 startPosition = new Vector3(Player.transform.position.x, height, Player.transform.position.z);
 
         // Risoluzione angolare di 1 grado per coprire 360 gradi
-        int stepDegrees = 1;
+        int stepDegrees = rayPerDegree;
 
         // Boxcast: Initial position of box (center of player) and dimensions
         Vector3 boxCenter = startPosition;
@@ -105,7 +107,8 @@ public class DataRobotExchange : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
 
             // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
-            if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
+            //if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
+            if (Physics.Raycast(boxCenter, direction, out RaycastHit hit, maxDistance, layerMask))
             {
                 // Ottiene il punto di impatto respect to vuforia marker
                 Vector3 puntoImpatto = hit.point - Center.transform.position;
@@ -125,7 +128,32 @@ public class DataRobotExchange : MonoBehaviour
         }
 
         // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
+        if (height == lowRayHeight)
+        {
+            h = "low";
+        }
+        else
+        {
+            h = "high";
+        }
+        int vectorCount = puntiImpattoBytes.ToArray().Length / (2 * sizeof(float));
+        StringBuilder sb = new StringBuilder();
+        sb.Append("[");
+        Vector2[] vectorArray = new Vector2[vectorCount];
+        for (int i = 0; i < vectorCount; i++)
+        {
+            float x = BitConverter.ToSingle(puntiImpattoBytes.ToArray(), i * 2 * sizeof(float));
+            float z = BitConverter.ToSingle(puntiImpattoBytes.ToArray(), i * 2 * sizeof(float) + sizeof(float));
+            vectorArray[i] = new Vector2(x, z);
+            sb.Append(vectorArray[i].ToString());
+            if (i < vectorArray.Length - 1)
+            {
+                sb.Append(", ");
+            }
+        }
+        sb.Append("]");
 
-        baseClient.SendRoom(puntiImpattoBytes.ToArray());
+        Debug.Log("Punti mandati: " + sb.ToString());
+        baseClient.SendRoom(h, puntiImpattoBytes.ToArray());
     }
 }
