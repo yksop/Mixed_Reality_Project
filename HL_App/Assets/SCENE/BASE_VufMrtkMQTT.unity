@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e747c495c97f14d9444d0412a66919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Robottino: {fileID: 0}
+  Robottino: {fileID: 1843165048}
   Center: {fileID: 531166600}
   Player: {fileID: 86712443}
   maxDistance: 15
@@ -8772,7 +8772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2af5a60702218468603fdf40fe02bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorManager: {fileID: 0}
 --- !u!1 &535747381
 GameObject:
   m_ObjectHideFlags: 0
@@ -10645,7 +10644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 192.168.1.6
+  brokerAddress: localhost
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -10657,7 +10656,7 @@ MonoBehaviour:
   restart: 0
   topic: M2MQTT/#
   lastMsg: 
-  robotController: {fileID: 0}
+  robotController: {fileID: 1843165051}
   capsuleMovement: {fileID: 530462330}
   dCandy: {fileID: 234422740}
   terrainToggle: {fileID: 820493285}
@@ -11601,7 +11600,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1442883098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2e11eb5040fbe459ff945b0aed1038, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e00698324a4e354289be9435da949c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bounceAmplitude: 0.1
@@ -13199,15 +13198,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14416,9 +14415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab6228b60da53f4abb52dafc90991c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseClient: {fileID: 0}
-  textInputGo: {fileID: 0}
-  textField: {fileID: 0}
 --- !u!1 &2001716046
 GameObject:
   m_ObjectHideFlags: 0
