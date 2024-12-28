@@ -16,6 +16,7 @@ public class CapsuleMovement : MonoBehaviour
     public DroppingCandies playerCandies;
     public float distanceFromRobot = 0.1f; 
     public float rotationSpeed = 5.0f;
+    public float avatar_vel = 0f;
 
     void Start()
     {
@@ -57,8 +58,10 @@ public class CapsuleMovement : MonoBehaviour
 
             {
                 //Debug.Log("Reached avatar.");
+                robotController.isManouvering = false;
                 robotController.isMoving = false;
                 robotController.animator.SetBool("isWalking", false);
+                robotController.animator.SetBool("isFloating", false);
             }
         }
     }
@@ -68,6 +71,12 @@ public class CapsuleMovement : MonoBehaviour
     {
         // Imposta la nuova traiettoria
         trajectory = newTrajectory;
+        if (newTrajectory == null)
+        {
+            Debug.Log("Trajectory is null.");
+        }
+        robotController.isManouvering = true;
+
         // Resetta l'indice del punto corrente
         currentPointIndex = 0;
         // Se il controller del robot è assegnato
@@ -86,7 +95,8 @@ public class CapsuleMovement : MonoBehaviour
     private void MoveCapsule(Vector3 targetPosition)
     {
         float distanceToAvatar = Vector3.Distance(transform.position, avatar.transform.position);
-        float speed = baseSpeed / Mathf.Pow(distanceToAvatar, 4);
+        float speed = Mathf.Max( baseSpeed / Mathf.Pow(distanceToAvatar, 4), avatar_vel);
+        
 
         // Calcola la direzione verso la posizione target
         Vector3 direction = (targetPosition - transform.position).normalized;
