@@ -106,7 +106,7 @@ public class PointSpawner : MonoBehaviour
                 // Deactivate unused markers
                 for (int k = pairCount; k < markerCount; k++)
                 {
-                    markers[i,0].SetActive(false);
+                    markers[k,0].SetActive(false);
                 }
             }
             else
@@ -116,7 +116,7 @@ public class PointSpawner : MonoBehaviour
                 // Deactivate unused markers
                 for (int k = pairCount; k < markerCount; k++)
                 {
-                    markers[i,1].SetActive(false);
+                    markers[k,1].SetActive(false);
                 }
             }
         }        
