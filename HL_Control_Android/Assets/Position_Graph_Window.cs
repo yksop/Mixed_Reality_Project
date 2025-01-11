@@ -9,11 +9,14 @@ public class Position_Graph_Window : MonoBehaviour
     public RetrieveData retrieveData; // Riferimento allo script RetrieveData
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
+    private RectTransform trasformWidth;
 
-    private void Awake()
+    private float Width;
+        private void Awake()
     {
         // Recupera il componente RectTransform del contenitore del grafico
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
+        Width = graphContainer.rect.width;
 
         // Verifica che RetrieveData sia collegato e contenga dati
         if (retrieveData != null && retrieveData.playerDistances.Count > 0)
@@ -85,8 +88,8 @@ public class Position_Graph_Window : MonoBehaviour
     private void ShowGraph(List<float> valueList)
     {
         float graphHeight = graphContainer.sizeDelta.y; // Altezza del grafico
-        float yMaximum = 10f; // Valore massimo di riferimento per il grafico (adattalo se necessario)
-        float xSize = 50f; // Distanza tra i punti lungo l'asse X
+        float yMaximum = 15f; // Valore massimo di riferimento per il grafico (adattalo se necessario)
+        float xSize = Width/valueList.Count; // Distanza tra i punti lungo l'asse X
 
         // Crea il primo punto del grafico
         Vector2 previousPosition = Vector2.zero;
