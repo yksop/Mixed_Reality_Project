@@ -85,7 +85,7 @@ public class PointSpawner : MonoBehaviour
 
         // Determine the number of markers to update, limited by markerCount
         int pairCount = Mathf.Min(floatArray.Length / 2, markerCount);
-        Debug.Log("pairCount: " + pairCount);
+        //Debug.Log("pairCount: " + pairCount);
 
         for (int i = 0; i < pairCount; i++)
         {

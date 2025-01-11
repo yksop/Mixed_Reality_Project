@@ -132,7 +132,6 @@ public class DataRobotExchange : MonoBehaviour
             }
         }
 
-        // Ritorna un array di array di byte, con ogni sotto-array rappresentante le componenti X e Z di un punto di impatto
         if (height == lowRayHeight)
         {
             h = "low";
@@ -141,24 +140,6 @@ public class DataRobotExchange : MonoBehaviour
         {
             h = "high";
         }
-        int vectorCount = puntiImpattoBytes.ToArray().Length / (2 * sizeof(float));
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        Vector2[] vectorArray = new Vector2[vectorCount];
-        for (int i = 0; i < vectorCount; i++)
-        {
-            float x = BitConverter.ToSingle(puntiImpattoBytes.ToArray(), i * 2 * sizeof(float));
-            float z = BitConverter.ToSingle(puntiImpattoBytes.ToArray(), i * 2 * sizeof(float) + sizeof(float));
-            vectorArray[i] = new Vector2(x, z);
-            sb.Append(vectorArray[i].ToString());
-            if (i < vectorArray.Length - 1)
-            {
-                sb.Append(", ");
-            }
-        }
-        sb.Append("]");
-
-        Debug.Log("Punti mandati: " + sb.ToString());
         baseClient.SendRoom(h, puntiImpattoBytes.ToArray());
     }
 }

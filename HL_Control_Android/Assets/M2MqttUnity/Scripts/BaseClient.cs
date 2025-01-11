@@ -231,13 +231,13 @@ namespace M2MqttUnity
 			if (_topic == "M2MQTT/room/low")
 			{
 				height = "low";
-				Debug.Log("Room - receiving:  M2MQTT/room/low" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				//Debug.Log("Room - receiving:  M2MQTT/room/low" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
 				pointSpawner.UpdateMarkers(message, height);
 			}
 			if (_topic == "M2MQTT/room/high")
 			{
 				height = "high";
-				Debug.Log("Room - receiving:  M2MQTT/room/high" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				//Debug.Log("Room - receiving:  M2MQTT/room/high" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
 				pointSpawner.UpdateMarkers(message, height);
 			}
 			if (_topic == "M2MQTT/counter/num")
