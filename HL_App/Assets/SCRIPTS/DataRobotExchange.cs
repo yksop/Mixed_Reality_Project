@@ -16,8 +16,9 @@ public class DataRobotExchange : MonoBehaviour
     public float lowRayHeight = 0.3f;
     public float highRayHeight = 2f;
     public float boxWidth = 0.005f;
-    public float boxHeight = 0.5f;
+    public float boxHeight = 0.1f;
     private string h;
+    public float bubble = 1f; // Radius of the bubble to be ignored around the player
 
     public BaseClient baseClient;
 
@@ -89,26 +90,30 @@ public class DataRobotExchange : MonoBehaviour
     public void CalcolaPuntiImpattoCircolari(float height)
     {
         List<byte> puntiImpattoBytes = new List<byte>();
+        float ang = 0;
 
         // Posizione di partenza del raycast
-        Vector3 startPosition = new Vector3(Player.transform.position.x, height, Player.transform.position.z);
+        Vector3 startPosition;
+        //Vector3 startPosition = new Vector3(Player.transform.position.x, height, Player.transform.position.z);
 
         // Risoluzione angolare di 1 grado per coprire 360 gradi
         int stepDegrees = rayPerDegree;
 
         // Boxcast: Initial position of box (center of player) and dimensions
-        Vector3 boxCenter = startPosition;
+        Vector3 boxCenter;
         Vector3 boxHalfExtents = new Vector3(boxWidth, boxHeight, boxWidth);
 
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {
             // Calcola la direzione del raycast per l'angolo attuale (sul piano X,Z)
             float rad = Mathf.Deg2Rad * angle;
+            startPosition = new Vector3(Player.transform.position.x + bubble * Mathf.Cos(rad), height, Player.transform.position.z + bubble * Mathf.Sin(rad));
+            boxCenter = startPosition;
             Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
 
             // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
-            //if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
-            if (Physics.Raycast(boxCenter, direction, out RaycastHit hit, maxDistance, layerMask))
+            if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
+            //if (Physics.Raycast(boxCenter, direction, out RaycastHit hit, maxDistance, layerMask))
             {
                 // Ottiene il punto di impatto respect to vuforia marker
                 Vector3 puntoImpatto = hit.point - Center.transform.position;
