@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
         myGraphCanvas = GraphCanvas.GetComponent<Canvas>();
     }
 
+
     // Mostra la Canvas dei grafici
     public void ShowGraphCanvas()
     {
@@ -29,3 +30,4 @@ public class CanvasManager : MonoBehaviour
         MainCanvas.SetActive(true);  // Mostra la Canvas principale
     }
 }
+
