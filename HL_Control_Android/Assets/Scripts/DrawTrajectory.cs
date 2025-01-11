@@ -15,6 +15,9 @@ public class DrawTrajectory : MonoBehaviour
     // Oggetto target che deve essere toccato (un'immagine nel canvas)
     [SerializeField] private RectTransform targetImage;
 
+    // Scaling the trajectory to match the representation of the room
+    public float scalingFactor = 0.1f;
+
     // Lista per memorizzare i punti
     private List<GameObject> instantiatedPoints = new List<GameObject>();
     private List<Vector2> relativePoints = new List<Vector2>();
@@ -37,15 +40,16 @@ public class DrawTrajectory : MonoBehaviour
             StartDrawing();
         }
 
-        if (Input.GetMouseButton(0) && isDrawing && IsPointerOverTarget(Input.mousePosition))
-        {
-            Draw(Input.mousePosition);
-        }
-
         if (Input.GetMouseButtonUp(0) && isDrawing)
         {
             StopDrawing();
         }
+
+        if (Input.GetMouseButton(0) && isDrawing && IsPointerOverTarget(Input.mousePosition))
+        {
+            Draw(Input.mousePosition);
+        }
+        
 
         // Gestione touch
         if (Input.touchCount > 0)
@@ -57,15 +61,15 @@ public class DrawTrajectory : MonoBehaviour
                 StartDrawing();
             }
 
-            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing && IsPointerOverTarget(touch.position))
-            {
-                Draw(touch.position);
-            }
-
             if (touch.phase == TouchPhase.Ended && isDrawing)
             {
                 StopDrawing();
             }
+
+            if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isDrawing && IsPointerOverTarget(touch.position))
+            {
+                Draw(touch.position);
+            }            
         }
     }
 
@@ -88,11 +92,10 @@ public class DrawTrajectory : MonoBehaviour
         // Converte i punti rispetto al sistema di riferimento del centro dell'immagine
         foreach (var point in points)
         {
-            relativePoints.Add(point - targetCenter);
+            relativePoints.Add(new Vector2((point - targetCenter).x*scalingFactor, (point - targetCenter).y*scalingFactor));
         }
 
-        Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
-        //SendPoints(relativePoints);
+        //Debug.Log("Punti relativi salvati rispetto al centro dell'immagine: " + string.Join(", ", relativePoints));
     }
 
     private void Draw(Vector2 inputPosition)
@@ -119,6 +122,7 @@ public class DrawTrajectory : MonoBehaviour
     private void DestroyAllPoints()
     {
         // Distrugge tutti i punti in modo efficiente
+        //Debug.Log("Destroying " + instantiatedPoints.Count + " points!");
         for (int i = 0; i < instantiatedPoints.Count; i++)
         {
             if (instantiatedPoints[i] != null)
@@ -129,6 +133,8 @@ public class DrawTrajectory : MonoBehaviour
 
         // Svuota la lista
         instantiatedPoints.Clear();
+        points.Clear();
+        relativePoints.Clear();
     }
 
     // Controlla se l'input è sopra l'immagine target
@@ -160,7 +166,7 @@ public class DrawTrajectory : MonoBehaviour
             Debug.LogError("La lista dei punti relativi è vuota o null!");
             return;
         }
-        Debug.Log("Points Sended!");
+        //Debug.Log("Points Sent!");
         Vector2[] pointsArray = relativePoints.ToArray();
         baseClient.SendTrajectory(pointsArray);
     }

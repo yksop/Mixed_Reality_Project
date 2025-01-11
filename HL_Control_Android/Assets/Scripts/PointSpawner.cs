@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 
 public class PointSpawner : MonoBehaviour
 {
@@ -6,21 +8,25 @@ public class PointSpawner : MonoBehaviour
     public GameObject markerPrefab; // The prefab for individual markers
     public float movemetMultiplier = 20f;
 
-
-    private GameObject[] markers; // Array to store the marker GameObjects
+    private GameObject[,] markers; // Array to store the marker GameObjects
     private const int markerCount = 360; // Total number of markers to spawn
 
     private void Start()
     {
         // Initialize the array of markers
-        markers = new GameObject[markerCount];
+        markers = new GameObject[markerCount, 2];
 
         // Instantiate markers and add them as children of the parentImage
         for (int i = 0; i < markerCount; i++)
         {
-            GameObject marker = Instantiate(markerPrefab, parentImage);
-            marker.SetActive(false); // Markers are initially invisible
-            markers[i] = marker;
+            for (int j = 0; j < 2; j++)
+            {
+                GameObject marker = Instantiate(markerPrefab, parentImage.GetChild(j+1));
+                marker.SetActive(false); // Markers are initially invisible
+                markers[i,j] = marker;
+            }
+            markers[i, 0].GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+            markers[i, 1].GetComponent<Image>().color = new Color32(0, 255, 0, 255);
         }
     }
 
@@ -53,7 +59,7 @@ public class PointSpawner : MonoBehaviour
     } */
 
     // Updates the markers based on an array of bytes
-    public void UpdateMarkers(byte[] beats)
+    public void UpdateMarkers(byte[] beats, string height)
     {
         // Each float requires 4 bytes, so the total number of floats is beats.Length / 4
         if (beats.Length % 4 != 0)
@@ -79,6 +85,7 @@ public class PointSpawner : MonoBehaviour
 
         // Determine the number of markers to update, limited by markerCount
         int pairCount = Mathf.Min(floatArray.Length / 2, markerCount);
+        //Debug.Log("pairCount: " + pairCount);
 
         for (int i = 0; i < pairCount; i++)
         {
@@ -91,15 +98,28 @@ public class PointSpawner : MonoBehaviour
             //Debug.Log(i + "# Marker position: " + position);
 
             // Update the marker's position and make it visible
-            SetMarkerPosition(markers[i], position/movemetMultiplier);
-            markers[i].SetActive(true);
-        }
-
-        // Deactivate unused markers
-        for (int i = pairCount; i < markerCount; i++)
-        {
-            markers[i].SetActive(false);
-        }
+            
+            if (height == "low")
+            {
+                SetMarkerPosition(markers[i,0], position / movemetMultiplier);
+                markers[i,0].SetActive(true);
+                // Deactivate unused markers
+                for (int k = pairCount; k < markerCount; k++)
+                {
+                    markers[k,0].SetActive(false);
+                }
+            }
+            else
+            {
+                SetMarkerPosition(markers[i, 1], position / movemetMultiplier);
+                markers[i,1].SetActive(true);
+                // Deactivate unused markers
+                for (int k = pairCount; k < markerCount; k++)
+                {
+                    markers[k,1].SetActive(false);
+                }
+            }
+        }        
     }
 
     // Sets the position of a marker based on a Vector2

@@ -32,6 +32,7 @@ namespace M2MqttUnity
 		public string topic = "M2MQTT_Unity/test";
 		public string lastMsg;
 		static public Vector2 absPosition;
+		private string height;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -106,16 +107,6 @@ namespace M2MqttUnity
 			client.Unsubscribe(new string[] { topic });
 		}
 
-		public void ExampleSending()
-		{
-			double[] variablestest = new double[2];
-			variablestest[0] = 1.3;
-			variablestest[1] = 2.1;
-			var aa = GetBytesBlock(variablestest);
-
-			client.Publish("M2MQTT/Poses", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-
 		public void CallMethodByName(string methodName)
 		{
 			Type type = this.GetType();
@@ -132,13 +123,15 @@ namespace M2MqttUnity
 			}
 		}
 
+		// Function to send a function call on a topic called as the function
 		public void SendVoidFunctionCall(string functionName)
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
-			Debug.Log("Sending on: M2MQTT/" + functionName);
+			//Debug.Log("Sending on: M2MQTT/" + functionName);
 			client.Publish("M2MQTT/" + functionName, aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function to send the position and rotation of a game object to a topic with the same name of the game object
 		public void SendPosRot(GameObject thisObject, Vector3 position, Quaternion rotation)
 		{
 			double[] p = new double[] { position[0], position[1], position[2] };
@@ -146,7 +139,6 @@ namespace M2MqttUnity
 			var name = thisObject.name;
 			byte[] pos = GetBytesBlock(p);
 			byte[] rot = GetBytesBlock(r);
-			//Debug.Log(thisObject + "Sending position: " + p[0] + ", " + p[1] + ", " + p[2] + " --- " + pos[0] + ", " + pos[1] + ", " + pos[2]);
 
 			// Debug logs to verify byte array contents
 			//Debug.Log(thisObject + " Position bytes: " + BitConverter.ToString(pos));
@@ -163,23 +155,27 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
 
+		// Function to change the IP of the broker
 		public void BCChangeIp(string IP)
 		{
 			brokerAddress = IP;
 		}
+
+		// Function to convert an array of doubles into an array of bytes
 		static byte[] GetBytesBlock(double[] values)
 		{
 			return values.SelectMany(value => BitConverter.GetBytes(value)).ToArray();
 		}
 
+		// Function to convert an array of chars to an array of bytes
 		static byte[] GetBytesString(char[] values)
-
 		{
 			var result = new byte[values.Length * sizeof(char)];
 			Buffer.BlockCopy(values, 0, result, 0, result.Length);
 			return result;
 		}
 
+		// Function to convert an array of bytes to an array of doubles
 		static double[] GetDoublesBlock(byte[] bytes)
 		{
 			var result = new double[bytes.Length / sizeof(double)];
@@ -187,6 +183,7 @@ namespace M2MqttUnity
 			return result;
 		}
 
+		// Function to convert an array of bytes to an array of chars
 		static char[] GetStringBlock(byte[] bytes)
 		{
 			var result = new char[bytes.Length / sizeof(char)];
@@ -194,6 +191,7 @@ namespace M2MqttUnity
 			return result;
 		}
 
+		// Called when a message is received through MQTT
 		protected override void DecodeMessage(string _topic, byte[] message)
 		{
 			string tmp = "";
@@ -208,35 +206,49 @@ namespace M2MqttUnity
 			}
 			//Debug.Log(tmp);
 
+			// Handles the communication on the various topics
 			if (_topic == "M2MQTT/Main Camera/position")
 			{
+				// Update the visualized player position
 				playerVisualizer.PlayerUpdatePosition(message);
 			}
 			if (_topic == "M2MQTT/Main Camera/rotation")
 			{
+				// Update the visualized player rotation
 				playerVisualizer.PlayerUpdateRotation(message);
 			}
 			if (_topic == "M2MQTT/Jammo_Player/position")
 			{
+				// Update the visualized avatar position
 				playerVisualizer.AvatarUpdatePosition(message);
 			}
 			if (_topic == "M2MQTT/Jammo_Player/rotation")
 			{
+				// Update the visualized avatar rotation
 				playerVisualizer.AvatarUpdateRotation(message);
 			}
-			if (_topic == "M2MQTT/room")
+			// Update the representation of the room
+			if (_topic == "M2MQTT/room/low")
 			{
-				pointSpawner.UpdateMarkers(message);
+				height = "low";
+				//Debug.Log("Room - receiving:  M2MQTT/room/low" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				pointSpawner.UpdateMarkers(message, height);
+			}
+			if (_topic == "M2MQTT/room/high")
+			{
+				height = "high";
+				//Debug.Log("Room - receiving:  M2MQTT/room/high" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				pointSpawner.UpdateMarkers(message, height);
 			}
 			if (_topic == "M2MQTT/counter/num")
 			{
+				// Reset the counter of the collected items
 				donutCounter.UpdateCounter(BitConverter.ToInt32(message, 0));
 			}
 			if (_topic == "M2MQTT/function")
 			{
 				foreach (string topicKey in m_messageHandlers.Keys)
 				{
-					//if (m_messageHandlers.ContainsKey(_topic))
 					if (_topic.Contains(topicKey))
 					{
 						MessageReceivedDelegate messageReceivedDelegate = m_messageHandlers[topicKey];
@@ -249,7 +261,7 @@ namespace M2MqttUnity
 			}
 		}
 
-
+		// Function to send an array of Vector2 (the trajectory the avatar has to follow)
 		public void SendTrajectory(Vector2[] trajectoryPoints)
 		{
 			if (client == null)
@@ -273,7 +285,6 @@ namespace M2MqttUnity
 
 			client.Publish("M2MQTT/Trajectory", byteArray, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
-
 
 
 		private void OnDestroy()

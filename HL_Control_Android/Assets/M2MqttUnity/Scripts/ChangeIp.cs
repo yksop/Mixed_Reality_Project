@@ -11,16 +11,27 @@ public class ChangeIp : MonoBehaviour
 {
     public BaseClient baseClient;
     public GameObject textInputGo;
+    public GameObject raycastInputGo;
 
     public void ActivateInput()
     {
         textInputGo.SetActive(true);
     }
+
+    public void ActivateRaycastInput()
+    {
+        raycastInputGo.SetActive(true);
+    }
+
     public void DeactivateInput()
     {
-        Debug.Log("Pressed");
         string text = textInputGo.GetComponentInChildren<TMP_InputField>().text;
         baseClient.BCChangeIp(text);
+        baseClient.restart = true;
+        textInputGo.SetActive(false);
+    }
+    public void DeactivateRaycastInput()
+    {
         textInputGo.SetActive(false);
     }
 }
