@@ -15,9 +15,9 @@ public class RetrieveData : MonoBehaviour
 
 
     private Vector2 previousPosition;
-    public float playerSpeed; // Velocità corrente
-    public List<float> playerSpeeds = new List<float>(); // Storico velocità
-    public List<float> playerDistances = new List<float>(); // Storico distanze
+    public float playerSpeed; // Current speed
+    public List<float> playerSpeeds = new List<float>(); // Speed history
+    public List<float> playerDistances = new List<float>(); // Distance history
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +36,9 @@ public class RetrieveData : MonoBehaviour
         if (robotVirtual == null || playerTransform == null) return;
 
         float distance = Vector2.Distance(playerTransform.position, robotVirtual.position) / FATTORE_DI_SCALA;
-        textDistanza.text = $"Distanza: {distance:F2} m";
+        textDistanza.text = $"Distance: {distance:F2} m";
 
-        // Salva la distanza nella lista
+        // Save the distance in the list
         //playerDistances.Add(distance);
     }
 
@@ -54,81 +54,72 @@ public class RetrieveData : MonoBehaviour
             if (playerTransform != null && robotVirtual != null)
             {
                 playerSpeed = (Vector2.Distance(playerTransform.position, previousPosition)) / FATTORE_DI_SCALA;
-                textVelocita.text = $"Velocità: {playerSpeed:F2} m/s";
+                textVelocita.text = $"Speed: {playerSpeed:F2} m/s";
                 previousPosition = playerTransform.position;
 
-                // Aggiungi la velocità corrente alla lista
+                // Add the current speed to the list
                 playerSpeeds.Add(playerSpeed);
 
-                // Calcola la distanza
+                // Calculate the distance
                 float distance = Vector2.Distance(playerTransform.position, robotVirtual.position) / FATTORE_DI_SCALA;
 
                 playerDistances.Add(distance);
             }
 
-
-
             yield return new WaitForSeconds(updateInterval); // Update every second
-
-
         }
     }
-    // Metodo per resettare i dati
+
+    // Method to reset the data
     public void ResetGraphData(bool eraseDataLists)
     {
         if(eraseDataLists)
         {
-            // Svuota le liste
+            // Clear the lists
             playerSpeeds.Clear();
             playerDistances.Clear();
-            Debug.Log("Grafici resettati!");
+            Debug.Log("Graphs reset!");
         }
-        // Trova ed elimina tutti i GameObject con il tag "GraphicalElement" che sono figli di graphContainerV
+        // Find and destroy all GameObjects with the tag "GraphicalElement" that are children of graphContainerV
         foreach (Transform child in graphContainerV)
         {
             if (child.CompareTag("GraphicalElement"))
             {
-                Destroy(child.gameObject); // Elimina il GameObject
+                Destroy(child.gameObject); // Destroy the GameObject
             }
         }
-        // Trova ed elimina tutti i GameObject con il tag "GraphicalElement" che sono figli di graphContainerP
+        // Find and destroy all GameObjects with the tag "GraphicalElement" that are children of graphContainerP
         foreach (Transform child in graphContainerP)
         {
             if (child.CompareTag("GraphicalElement"))
             {
-                Destroy(child.gameObject); // Elimina il GameObject
+                Destroy(child.gameObject); // Destroy the GameObject
             }
         }
 
-        // Ricalcola i valori di velocità e distanza basandoti sulle posizioni attuali
+        // Recalculate speed and distance values based on current positions
         if (playerTransform != null && robotVirtual != null)
         {
-            // Reimposta la posizione precedente del giocatore
+            // Reset the player's previous position
             previousPosition = playerTransform.position;
 
-            // Ricalcola i valori per un breve periodo (ad esempio 5 aggiornamenti)
+            // Recalculate values for a short period (e.g., 5 updates)
             for (int i = 0; i < 5; i++)
             {
-                // Simula un intervallo di aggiornamento per calcolare velocità e distanza
+                // Simulate an update interval to calculate speed and distance
                 float distance = Vector2.Distance(playerTransform.position, robotVirtual.position) / FATTORE_DI_SCALA;
                 playerDistances.Add(distance);
 
                 float speed = (Vector2.Distance(playerTransform.position, previousPosition)) / FATTORE_DI_SCALA;
                 playerSpeeds.Add(speed);
 
-                // Aggiorna la posizione precedente
+                // Update the previous position
                 previousPosition = playerTransform.position;
             }
         }
 
-        // Ripristina il calcolo in tempo reale con la coroutine
+        // Restore real-time calculation with the coroutine
         StartCoroutine(UpdatePlayerSpeedRoutine(1f));
     }
 
-} 
-
-
-
-
-
-
+}

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,55 +6,51 @@ using System.Linq;
 
 public class Window_Graph : MonoBehaviour
 {
-    public RetrieveData retrieveData; // Riferimento allo script RetrieveData
+    public RetrieveData retrieveData; // Reference to the RetrieveData script
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
     private float Width;
 
     public void ShowGraphonButtonPress()
     {
-        // Recupera il componente RectTransform del contenitore del grafico
+        // Retrieve the RectTransform component of the graph container
         graphContainer = transform.Find("graphContainer V").GetComponent<RectTransform>();
         Width = graphContainer.rect.width;
 
-        // Verifica che RetrieveData sia collegato e contenga dati
+        // Check if RetrieveData is linked and contains data
         if (retrieveData != null && retrieveData.playerSpeeds.Count > 0)
         {
-            // Crea il grafico usando la lista playerSpeeds
+            // Create the graph using the playerSpeeds list
             ShowGraph(retrieveData.playerSpeeds);
         }
         else
         {
-            Debug.LogWarning("RetrieveData non è collegato o non ci sono dati in playerSpeeds.");
+            Debug.LogWarning("RetrieveData is not linked or there is no data in playerSpeeds.");
         }
 
-        // Calcola medie
+        // Calculate averages
         float avgSpeed = retrieveData.playerSpeeds.Average();
         float avgDistance = retrieveData.playerDistances.Average();
 
-        // Mostra riquadro sopra il grafico
-        CreateInfoBox($"Velocità Media: {avgSpeed:F2} m/s");
-
-
-
+        // Show info box above the graph
+        CreateInfoBox($"Average Speed: {avgSpeed:F2} m/s");
     }
-
 
     private void CreateInfoBox(string content)
     {
-        // Crea un riquadro
+        // Create an info box
         GameObject infoBox = new GameObject("InfoBox", typeof(Image));
         infoBox.transform.SetParent(graphContainer, false);
         Image infoBoxImage = infoBox.GetComponent<Image>();
-        infoBoxImage.color = new Color(0, 0, 0, 0.5f); // Sfondo semitrasparente
+        infoBoxImage.color = new Color(0, 0, 0, 0.5f); // Semi-transparent background
 
         RectTransform rectTransform = infoBox.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(650, 120); // Dimensioni del riquadro
-        rectTransform.anchoredPosition = new Vector2(1099, 410); // Posiziona riquadro infoBox
+        rectTransform.sizeDelta = new Vector2(650, 120); // Box dimensions
+        rectTransform.anchoredPosition = new Vector2(1099, 410); // Position the info box
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
 
-        // Crea testo dentro il riquadro
+        // Create text inside the box
         GameObject textObject = new GameObject("InfoText", typeof(Text));
         textObject.transform.SetParent(infoBox.transform, false);
         Text text = textObject.GetComponent<Text>();
@@ -66,16 +61,14 @@ public class Window_Graph : MonoBehaviour
         text.alignment = TextAnchor.MiddleCenter;
 
         RectTransform textRectTransform = text.GetComponent<RectTransform>();
-        textRectTransform.sizeDelta = rectTransform.sizeDelta; // Match dimensioni del riquadro
+        textRectTransform.sizeDelta = rectTransform.sizeDelta; // Match box dimensions
         textRectTransform.anchoredPosition = Vector2.zero;
-        infoBox.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
+        infoBox.tag = "GraphicalElement"; // Assign the tag GraphicalElement
     }
-
-
 
     private void CreateCircle(Vector2 anchoredPosition)
     {
-        // Crea un elemento grafico a forma di cerchio per rappresentare un punto del grafico
+        // Create a circle graphic element to represent a point on the graph
         GameObject gameObject = new GameObject("circle", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
@@ -86,14 +79,13 @@ public class Window_Graph : MonoBehaviour
         rectTransform.anchorMax = new Vector2(0, 0);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
-        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
+        gameObject.tag = "GraphicalElement"; // Assign the tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
     private void CreateLine(Vector2 startPosition, Vector2 endPosition)
-    {   
-        
-        // Crea una linea tra due punti del grafico
+    {
+        // Create a line between two points on the graph
         GameObject gameObject = new GameObject("line", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().color = Color.white;
@@ -108,7 +100,7 @@ public class Window_Graph : MonoBehaviour
         rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
-        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
+        gameObject.tag = "GraphicalElement"; // Assign the tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -126,29 +118,29 @@ public class Window_Graph : MonoBehaviour
         rectTransform.sizeDelta = new Vector2(100, 20);
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
-        labelObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
+        labelObject.tag = "GraphicalElement"; // Assign the tag GraphicalElement
     }
 
     private void ShowGraph(List<float> valueList)
     {
-        float graphHeight = graphContainer.sizeDelta.y; // Altezza del grafico
-        float yMaximum = 15f; // Valore massimo di riferimento per il grafico (adattalo se necessario)
-        float xSize = Width/valueList.Count; // Distanza tra i punti lungo l'asse X
+        float graphHeight = graphContainer.sizeDelta.y; // Graph height
+        float yMaximum = 15f; // Maximum reference value for the graph (adjust if necessary)
+        float xSize = Width / valueList.Count; // Distance between points along the X axis
 
-        // Crea il primo punto del grafico
+        // Create the first point of the graph
         Vector2 previousPosition = Vector2.zero;
 
         for (int i = 0; i < valueList.Count; i++)
         {
-            // Calcola la posizione del punto corrente
+            // Calculate the position of the current point
             float xPosition = i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;
             Vector2 currentPosition = new Vector2(xPosition, yPosition);
 
-            // Crea il cerchio per il punto corrente
+            // Create the circle for the current point
             CreateCircle(currentPosition);
 
-            // Disegna una linea tra i punti (opzionale)
+            // Draw a line between the points
             if (i > 0)
             {
                 CreateLine(previousPosition, currentPosition);
@@ -157,45 +149,28 @@ public class Window_Graph : MonoBehaviour
             previousPosition = currentPosition;
         }
 
-
-        // Etichette sull'asse X
+        // Labels on the X axis
         for (int i = 0; i < valueList.Count; i++)
         {
-            float xPosition = (i + 1) * xSize; // Sposta i valori di uno verso destra
+            float xPosition = (i + 1) * xSize; // Shift values one to the right
             CreateLabel(i.ToString(), new Vector2(xPosition, -20), graphContainer);
         }
 
-        // Etichetta sull'asse Y
+        // Label on the Y axis
         GameObject labelY = new GameObject("YLabel", typeof(Text));
         labelY.transform.SetParent(graphContainer, false);
         Text labelYText = labelY.GetComponent<Text>();
-        labelYText.text = "Velocità (m/s)";
+        labelYText.text = "Speed (m/s)";
         labelYText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
         labelYText.fontSize = 40;
         labelYText.color = Color.white;
 
-        // Posiziona e ruota la scritta
+        // Position and rotate the text
         RectTransform labelYRect = labelY.GetComponent<RectTransform>();
         labelYRect.anchoredPosition = new Vector2(20, graphContainer.sizeDelta.y / 2);
         labelYRect.sizeDelta = new Vector2(250, 150);
         labelYRect.anchorMin = new Vector2(0, 0);
         labelYRect.anchorMax = new Vector2(0, 0);
-        labelYRect.localEulerAngles = new Vector3(0, 0, 90); // Ruota di 90° in senso antiorario
-
-
-
-
-
-
-
-
-
+        labelYRect.localEulerAngles = new Vector3(0, 0, 90); // Rotate 90° counterclockwise
     }
-
-
-
-
-
-
-
 }
