@@ -18,5 +18,6 @@ public class TextToggle : MonoBehaviour
         {
             tText.text = label + " On";
         }
+        isOn = !isOn;
     }
 }

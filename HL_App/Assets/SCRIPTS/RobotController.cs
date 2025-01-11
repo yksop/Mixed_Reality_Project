@@ -6,21 +6,13 @@ using UnityEngine;
 public class RobotController : MonoBehaviour
 {
     public float moveSpeed = 0.5f; // Velocità di movimento
-    public float stopDistance = 2f; // Distanza minima alla quale il robot si ferma dalla camera
-    public float moveRange = 3f; // Distanza minima alla quale il robot si ferma dalla camera
-    private string triggerFightName = "inFight"; // Nome del trigger per il combattimento
+    
 
     public float distanceFromPlayer = 0.5f; // distanza dalla quale si spaventa dal player 
 
     public Animator animator;
     public bool isMoving = true; // Controlla se il robot si sta muovendo
-    private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
-    private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
-    private float rotationTimer = 0f; // Timer per la rotazione
-    private bool staCombattendo = false;
-
-    private bool staScappando = false;
-    public Transform centerPoint; // Il centro da cui il robot calcolerà le posizioni casuali
+    
 
     // PID CONTROLLER
 	[ SerializeField ] private PIDController z_controller; // controller of foward direction of character
@@ -34,7 +26,6 @@ public class RobotController : MonoBehaviour
     private Vector2[] trajectory;
     private int traj_count = 0;
 
-    public enum EyePosition { normal, happy, angry, dead} // stato occhi 
     Renderer[] characterMaterials;
     
     public AudioSource footsteps;
@@ -49,6 +40,19 @@ public class RobotController : MonoBehaviour
     public Renderer avatar_color; // Riferimento al renderer del colore dell'avatar
     private Color initialColor; // Variabile per memorizzare il colore iniziale
     
+
+    ///*********** Not Used Variables **************///
+    //private bool staScappando = false;
+    //public Transform centerPoint; // Il centro da cui il robot calcolerà le posizioni casuali
+    //private bool hasReachedTarget = false; // Controlla se il robot ha raggiunto la posizione target
+    //private float rotationTime = 3f; // Tempo in cui il robot rimane a guardare la camera
+    //private float rotationTimer = 0f; // Timer per la rotazione
+    //public float moveRange = 3f; // Distanza minima alla quale il robot si ferma dalla camera
+    //private string triggerFightName = "inFight"; // Nome del trigger per il combattimento
+    //public float stopDistance = 2f; // Distanza minima alla quale il robot si ferma dalla camera
+    //public enum EyePosition { normal, happy, angry, dead} // stato occhi 
+    //private bool staCombattendo = false;
+
 
     void Start()
     {
@@ -69,7 +73,7 @@ public class RobotController : MonoBehaviour
         // Inizializza il robot in stato fermo
         animator.SetBool("isWalking", false);
         animator.SetBool("isFloating", false);
-        staCombattendo = false;
+        //staCombattendo = false;
 
         mainCamera = Camera.main;
         if (mainCamera == null)
