@@ -5,16 +5,7 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     public GameObject MainCanvas;  // Riferimento alla Canvas principale
-    private Canvas myMainCanvas;
     public GameObject GraphCanvas; // Riferimento alla Canvas dei grafici
-    private Canvas myGraphCanvas;
-
-    void Start()
-    {
-        myMainCanvas = MainCanvas.GetComponent<Canvas>();
-        myGraphCanvas = GraphCanvas.GetComponent<Canvas>();
-    }
-
 
     // Mostra la Canvas dei grafici
     public void ShowGraphCanvas()
@@ -30,4 +21,3 @@ public class CanvasManager : MonoBehaviour
         MainCanvas.SetActive(true);  // Mostra la Canvas principale
     }
 }
-
