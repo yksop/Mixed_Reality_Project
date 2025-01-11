@@ -1101,13 +1101,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 184269336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e747c495c97f14d9444d0412a66919, type: 3}
+  m_Script: {fileID: 11500000, guid: 4affab9411c020244b99f251c012f9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Robottino: {fileID: 1843165048}
-  Center: {fileID: 531166600}
+  Center: {fileID: 389841207}
   Player: {fileID: 86712443}
-  maxDistance: 15
+  maxDistance: 10
   baseClient: {fileID: 1027292231}
 --- !u!4 &184269338
 Transform:
@@ -1152,8 +1152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4458aa541c6b1d24a9887cc389fcc134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testo: {fileID: 1958226365}
-  testoBottone: {fileID: 2090502488}
 --- !u!4 &210156202
 Transform:
   m_ObjectHideFlags: 0
@@ -1343,16 +1341,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 234422738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
+  m_Script: {fileID: 11500000, guid: 41c20bbea1387274ea4124385a97b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
+  disappearSound: {fileID: 0}
   robotController: {fileID: 1843165051}
-  candyPrefab: {fileID: 1442883098}
-  mainCamera: {fileID: 86712443}
+  candyPrefab: {fileID: 0}
+  mainCamera: {fileID: 0}
   takeDonutCounter: 0
   canDrop: 0
-  baseClient: {fileID: 1027292231}
+  baseClient: {fileID: 0}
 --- !u!82 &234422741
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2805,6 +2803,49 @@ Transform:
   - {fileID: 763952101}
   m_Father: {fileID: 531166606}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &366025475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366025477}
+  - component: {fileID: 366025476}
+  m_Layer: 0
+  m_Name: TestSceneReset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &366025476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366025475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf93030ceb451a743bc4255a72935f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &366025477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366025475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55919933, y: 1.805475, z: -0.39148903}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &380253698
 GameObject:
@@ -8563,13 +8604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8e176dd05525b4385d61340497b61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 1
-  avatar: {fileID: 1843165048}
-  robotController: {fileID: 1843165051}
-  playerCandies: {fileID: 234422740}
-  distanceFromRobot: 0.1
-  rotationSpeed: 5
-  avatar_vel: 0
 --- !u!23 &530462331
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8668,7 +8702,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1465885182}
+  - {fileID: 1360875499}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9566,8 +9600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38609b202b992444b66fef96247bed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterObject: {fileID: 1021910648}
-  moveSpeed: 0.1
 --- !u!114 &820493285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9580,8 +9612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682a8bb0d9c3b164baab04a1101ac376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainObject: {fileID: 1021910648}
-  fadeSpeed: 0.5
 --- !u!1 &821809104
 GameObject:
   m_ObjectHideFlags: 0
@@ -10683,8 +10713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da93b5dc24cf5c646b7250f24a63cf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
-  detectionDistance: 1
 --- !u!4 &1054689673
 Transform:
   m_ObjectHideFlags: 0
@@ -11402,6 +11430,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350339650}
   m_CullTransparentMesh: 1
+--- !u!21 &1360875499
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'AstronautMaterial
+
+    28678'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1424267003
 GameObject:
   m_ObjectHideFlags: 0
@@ -11578,11 +11635,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1442883098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e00698324a4e354289be9435da949c7, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceAmplitude: 0.1
-  bounceFrequency: 1
 --- !u!114 &1442883101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11758,35 +11813,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!21 &1465885182
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    28658'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1487914248
 GameObject:
   m_ObjectHideFlags: 0
@@ -12014,7 +12040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c040daa62b3bc45a2aac1005a49e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 2128141564}
 --- !u!1 &1499749720
 GameObject:
   m_ObjectHideFlags: 0
