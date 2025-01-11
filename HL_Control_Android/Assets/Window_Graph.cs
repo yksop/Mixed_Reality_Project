@@ -12,7 +12,7 @@ public class Window_Graph : MonoBehaviour
     private RectTransform graphContainer;
     private float Width;
 
-    private void Awake()
+    public void ShowGraphonButtonPress()
     {
         // Recupera il componente RectTransform del contenitore del grafico
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -68,6 +68,7 @@ public class Window_Graph : MonoBehaviour
         RectTransform textRectTransform = text.GetComponent<RectTransform>();
         textRectTransform.sizeDelta = rectTransform.sizeDelta; // Match dimensioni del riquadro
         textRectTransform.anchoredPosition = Vector2.zero;
+        infoBox.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
     }
 
 
@@ -85,6 +86,7 @@ public class Window_Graph : MonoBehaviour
         rectTransform.anchorMax = new Vector2(0, 0);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
+        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -106,6 +108,7 @@ public class Window_Graph : MonoBehaviour
         rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
+        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -123,6 +126,7 @@ public class Window_Graph : MonoBehaviour
         rectTransform.sizeDelta = new Vector2(100, 20);
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
+        labelObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
     }
 
     private void ShowGraph(List<float> valueList)
@@ -165,7 +169,7 @@ public class Window_Graph : MonoBehaviour
         GameObject labelY = new GameObject("YLabel", typeof(Text));
         labelY.transform.SetParent(graphContainer, false);
         Text labelYText = labelY.GetComponent<Text>();
-        labelYText.text = "Distanza (m)";
+        labelYText.text = "Velocità (m/s)";
         labelYText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
         labelYText.fontSize = 40;
         labelYText.color = Color.white;

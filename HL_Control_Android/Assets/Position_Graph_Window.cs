@@ -12,7 +12,7 @@ public class Position_Graph_Window : MonoBehaviour
     private RectTransform trasformWidth;
 
     private float Width;
-        private void Awake()
+    public void ShowGraphonButtonPress()
     {
         // Recupera il componente RectTransform del contenitore del grafico
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -28,6 +28,8 @@ public class Position_Graph_Window : MonoBehaviour
         {
             Debug.LogWarning("RetrieveData non è collegato o non ci sono dati in playerDistances.");
         }
+
+        Debug.Log("Ho cliccato funzione");
 
 
         // Calcola medie
@@ -67,6 +69,7 @@ public class Position_Graph_Window : MonoBehaviour
         RectTransform textRectTransform = text.GetComponent<RectTransform>();
         textRectTransform.sizeDelta = rectTransform.sizeDelta; // Match dimensioni del riquadro
         textRectTransform.anchoredPosition = Vector2.zero;
+        infoBox.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
     }
 
     private void CreateCircle(Vector2 anchoredPosition)
@@ -82,6 +85,7 @@ public class Position_Graph_Window : MonoBehaviour
         rectTransform.anchorMax = new Vector2(0, 0);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
+        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -166,6 +170,7 @@ public class Position_Graph_Window : MonoBehaviour
         rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
         gameObject.layer = LayerMask.NameToLayer("Graph");
+        gameObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
         gameObject.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -184,5 +189,6 @@ public class Position_Graph_Window : MonoBehaviour
         rectTransform.sizeDelta = new Vector2(100, 20);
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
+        labelObject.tag = "GraphicalElement"; // Assegna il tag GraphicalElement
     }
 }
