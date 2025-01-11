@@ -515,11 +515,6 @@ public class RobotController : MonoBehaviour
     } */
 
     // Funzione chiamata da Bottone 2: attiva il combattimento e muove il robot vicino alla camera
-    
-
-    
-    // Funzione per muovere il robot verso la posizione target
-
 
     /* private Vector3 SetNewtarget_positionRandom()
     {

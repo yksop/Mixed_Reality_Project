@@ -159,10 +159,10 @@ namespace M2MqttUnity
 		}
 
 		// Function that sends the point representing the state of the environment (the room)
-		public void SendRoom(byte[] roomPoints)
+		public void SendRoom(string height, byte[] roomPoints)
 		{
-			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
-			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			//Debug.Log("Room - sending:  M2MQTT/room/" + height + " ---- " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
+			client.Publish("M2MQTT/room/" + height, roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 		public void BCChangeIp(string IP)
 		{
