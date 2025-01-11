@@ -4,43 +4,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-This class is resposnsible for visualizing the position/rotation of the player updated from the HL
+This class is responsible for visualizing the position/rotation of the player updated from the HL
 */
 public class PlayerVisualizer : MonoBehaviour
 {
-    Vector3 position;
-    Quaternion rotation;
-    public GameObject player;
-    public GameObject avatar;
-    public GameObject center;
-    public float movemetMultiplier = 100f;
+    Vector3 position; // Stores the position of the player
+    Quaternion rotation; // Stores the rotation of the player
+    public GameObject player; // Reference to the player GameObject
+    public GameObject avatar; // Reference to the avatar GameObject
+    public GameObject center; // Reference to the center GameObject
+    public float movemetMultiplier = 100f; // Multiplier for movement scaling
     //public Material lineMaterial;
-    private Color lineColor = Color.green;
+    private Color lineColor = Color.green; // Color for line rendering
 
+    // Method to update the player's position
     public void PlayerUpdatePosition(byte[] posB)
     {
-        Vector3 pos = BytesToVector3(posB);
-        player.transform.position = center.transform.position + pos * movemetMultiplier;
+        Vector3 pos = BytesToVector3(posB); // Convert byte array to Vector3
+        player.transform.position = center.transform.position + pos * movemetMultiplier; // Update player's position
     }
 
+    // Method to update the player's rotation
     public void PlayerUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = BytesToQuaternion(rotB);
-        player.transform.eulerAngles = new Vector3 (0f, 0f, -rot.eulerAngles.y);
+        Quaternion rot = BytesToQuaternion(rotB); // Convert byte array to Quaternion
+        player.transform.eulerAngles = new Vector3(0f, 0f, -rot.eulerAngles.y); // Update player's rotation
     }
 
+    // Method to update the avatar's position
     public void AvatarUpdatePosition(byte[] posB)
     {
-        Vector3 pos = BytesToVector3(posB);
-        avatar.transform.position = center.transform.position + pos * movemetMultiplier;
+        Vector3 pos = BytesToVector3(posB); // Convert byte array to Vector3
+        avatar.transform.position = center.transform.position + pos * movemetMultiplier; // Update avatar's position
     }
 
+    // Method to update the avatar's rotation
     public void AvatarUpdateRotation(byte[] rotB)
     {
-        Quaternion rot = BytesToQuaternion(rotB);
-        avatar.transform.eulerAngles = new Vector3(0f, 0f, -rot.eulerAngles.y);
+        Quaternion rot = BytesToQuaternion(rotB); // Convert byte array to Quaternion
+        avatar.transform.eulerAngles = new Vector3(0f, 0f, -rot.eulerAngles.y); // Update avatar's rotation
     }
 
+    // Method to convert byte array to Vector3
     private Vector3 BytesToVector3(byte[] bytes)
     {
         if (bytes.Length != 24)
@@ -55,6 +60,7 @@ public class PlayerVisualizer : MonoBehaviour
         return new Vector3((float)x, (float)y, (float)z);
     }
 
+    // Method to convert byte array to Quaternion
     private Quaternion BytesToQuaternion(byte[] bytes)
     {
         if (bytes.Length != 32)
@@ -69,7 +75,6 @@ public class PlayerVisualizer : MonoBehaviour
 
         return new Quaternion((float)a, (float)b, (float)c, (float)d);
     }
-
 
     /*
     public void DrawRoom(List<Vector3> points)
