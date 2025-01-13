@@ -14,6 +14,9 @@ public class CapsuleMovement : MonoBehaviour
     public GameObject avatar;
     public RobotController robotController;
     public DroppingCandies playerCandies;
+    public float distanceFromRobot = 0.1f; 
+    public float rotationSpeed = 5.0f;
+    public float avatar_vel = 0f;
 
     void Start()
     {
@@ -29,27 +32,37 @@ public class CapsuleMovement : MonoBehaviour
             targetPosition = new Vector3(trajectory[currentPointIndex].x, transform.position.y, trajectory[currentPointIndex].y);
             // Muove la capsula verso la posizione target
             MoveCapsule(targetPosition);
+            
+            if(currentPointIndex == 0)
+            {
+                robotController.isManouvering = true;
+            }else
+            {
+                robotController.isManouvering = false;
+            }
 
             // Controlla se la capsula ha raggiunto la posizione target
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            //if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
+            if(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(targetPosition.x, targetPosition.z)) <= 0.05)
             {
                 // Incrementa l'indice del punto corrente
                 currentPointIndex++;
-                Debug.Log("Reached point " + currentPointIndex);
+                //Debug.Log("Reached point " + currentPointIndex);
             }
         }
         else
         {
             //Debug.Log("Trajectory is null or completed.");
-            // Controlla se la capsula ha raggiunto l'avatar
-            if (Vector3.Distance(transform.position, avatar.transform.position) < 0.1f)
+            // Controlla se la capsula ha raggiunto l'avatar nel piano x,z
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(avatar.transform.position.x, avatar.transform.position.z)) <= distanceFromRobot)
+
             {
-                Debug.Log("Reached avatar.");
-                //robotController.isMoving = false;
-                //robotController.animator.SetBool("isWalking", false);
-            }
+                //Debug.Log("Reached avatar.");
+                robotController.isManouvering = false;
                 robotController.isMoving = false;
                 robotController.animator.SetBool("isWalking", false);
+                robotController.animator.SetBool("isFloating", false);
+            }
         }
     }
 
@@ -58,6 +71,12 @@ public class CapsuleMovement : MonoBehaviour
     {
         // Imposta la nuova traiettoria
         trajectory = newTrajectory;
+        if (newTrajectory == null)
+        {
+            Debug.Log("Trajectory is null.");
+        }
+        robotController.isManouvering = true;
+
         // Resetta l'indice del punto corrente
         currentPointIndex = 0;
         // Se il controller del robot è assegnato
@@ -76,7 +95,15 @@ public class CapsuleMovement : MonoBehaviour
     private void MoveCapsule(Vector3 targetPosition)
     {
         float distanceToAvatar = Vector3.Distance(transform.position, avatar.transform.position);
-        float speed = baseSpeed / Mathf.Pow(distanceToAvatar, 4);
+        float speed = Mathf.Max( baseSpeed / Mathf.Pow(distanceToAvatar, 4), avatar_vel);
+        
+
+        // Calcola la direzione verso la posizione target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        // Ruota la capsula verso la posizione target
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         //Debug.Log("Moving towards " + targetPosition + " with speed " + speed);
     }

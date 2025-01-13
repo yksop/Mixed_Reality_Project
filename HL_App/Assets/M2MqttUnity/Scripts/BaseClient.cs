@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +35,7 @@ namespace M2MqttUnity
 		public CapsuleMovement capsuleMovement;
 		public DroppingCandies dCandy;
 		public TerrainToggle terrainToggle;
+		public DroppingCandies droppingCandies;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -158,10 +159,10 @@ namespace M2MqttUnity
 		}
 
 		// Function that sends the point representing the state of the environment (the room)
-		public void SendRoom(byte[] roomPoints)
+		public void SendRoom(string height, byte[] roomPoints)
 		{
-			//Debug.Log("Room - sending " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
-			client.Publish("M2MQTT/room", roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+			//Debug.Log("Room - sending:  M2MQTT/room/" + height + " ---- " + roomPoints.Length/8 + " points: " + BitConverter.ToString(roomPoints));
+			client.Publish("M2MQTT/room/" + height, roomPoints, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 		public void BCChangeIp(string IP)
 		{
@@ -271,9 +272,21 @@ namespace M2MqttUnity
 			}
 			if (_topic == "M2MQTT/ToggleTerrain")
 			{
-				// Toggles the lava
-				Debug.Log("Received toggle lava");
+				// Toggles the lava on the floor
+				//Debug.Log("Received toggle lava");
 				terrainToggle.ToggleTerrainObject();
+			}
+			if (_topic == "M2MQTT/ToggleDonuts")
+			{
+				// Toggles the drop of player rewards by the avatar
+				//Debug.Log("Received toggle donuts");
+				droppingCandies.ToggleCandyDrop();
+			}
+			if (_topic == "M2MQTT/ToggleDance")
+			{
+				// Toggles an animation of the avatar
+				//Debug.Log("Received toggle dance");
+				robotController.OnHappyButtonPress();
 			}
 		}
 

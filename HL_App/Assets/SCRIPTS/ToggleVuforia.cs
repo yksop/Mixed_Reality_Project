@@ -9,7 +9,7 @@ public class ToggleVuforia : MonoBehaviour
     public TextMesh testo; // Riferimento al componente TextMeshPro
     public TextMeshProUGUI testoBottone; // Riferimento al componente TextMeshPro
 
-    public Canvas canvasBottoniRobot;
+    //public Canvas canvasBottoniRobot;
 
     // Riferimento al VuforiaBehaviour
     private VuforiaBehaviour vuforiaBehaviour;
@@ -28,7 +28,7 @@ public class ToggleVuforia : MonoBehaviour
             
             // Riattiva il tracciamento se Vuforia è stato abilitato
             TrackerManager.Instance.GetTracker<ObjectTracker>().Start();
-            canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
+            //canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
 
         }
     }
@@ -48,7 +48,7 @@ public class ToggleVuforia : MonoBehaviour
                 TrackerManager.Instance.GetTracker<ObjectTracker>().Stop();
                 testoBottone.text = "Vuforia Off"; // Imposta il testo iniziale su "On"
                 testo.text = "Off"; // Aggiorna il testo su "Off"
-                canvasBottoniRobot.gameObject.SetActive(false); // Disabilita il canvas
+                //canvasBottoniRobot.gameObject.SetActive(false); // Disabilita il canvas
             }
             else
             {
@@ -56,7 +56,7 @@ public class ToggleVuforia : MonoBehaviour
                 TrackerManager.Instance.GetTracker<ObjectTracker>().Start();
                 testo.text = "On"; // Aggiorna il testo su "On"
                 testoBottone.text = "Vuforia On";
-                canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
+                //canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
             }
         }
     }

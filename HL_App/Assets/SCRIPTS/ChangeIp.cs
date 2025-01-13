@@ -97,6 +97,11 @@ public class ChangeIp : MonoBehaviour
     {
         string text = textField.text;
         baseClient.BCChangeIp(text);
+        baseClient.restart = true;
+        textInputGo.SetActive(false);
+    }
+    public void DeactivateInput()
+    {
         textInputGo.SetActive(false);
     }
 }

@@ -32,6 +32,7 @@ namespace M2MqttUnity
 		public string topic = "M2MQTT_Unity/test";
 		public string lastMsg;
 		static public Vector2 absPosition;
+		private string height;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -126,7 +127,7 @@ namespace M2MqttUnity
 		public void SendVoidFunctionCall(string functionName)
 		{
 			var aa = GetBytesString(functionName.ToCharArray());
-			Debug.Log("Sending on: M2MQTT/" + functionName);
+			//Debug.Log("Sending on: M2MQTT/" + functionName);
 			client.Publish("M2MQTT/" + functionName, aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
@@ -226,10 +227,18 @@ namespace M2MqttUnity
 				// Update the visualized avatar rotation
 				playerVisualizer.AvatarUpdateRotation(message);
 			}
-			if (_topic == "M2MQTT/room")
+			// Update the representation of the room
+			if (_topic == "M2MQTT/room/low")
 			{
-				// Update the representation of the room
-				pointSpawner.UpdateMarkers(message);
+				height = "low";
+				//Debug.Log("Room - receiving:  M2MQTT/room/low" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				pointSpawner.UpdateMarkers(message, height);
+			}
+			if (_topic == "M2MQTT/room/high")
+			{
+				height = "high";
+				//Debug.Log("Room - receiving:  M2MQTT/room/high" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
+				pointSpawner.UpdateMarkers(message, height);
 			}
 			if (_topic == "M2MQTT/counter/num")
 			{
