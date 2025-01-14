@@ -36,6 +36,7 @@ namespace M2MqttUnity
 		public DroppingCandies dCandy;
 		public TerrainToggle terrainToggle;
 		public DroppingCandies droppingCandies;
+		public DataRobotExchange dataRobotExchange;
 
 		private List<string> eventMessages = new List<string>();
 
@@ -287,6 +288,24 @@ namespace M2MqttUnity
 				// Toggles an animation of the avatar
 				//Debug.Log("Received toggle dance");
 				robotController.OnHappyButtonPress();
+			}
+			if (_topic == "M2MQTT/boxcast/low")
+			{
+				// Changes the height of the low boxcast
+				Debug.Log("Received low boxcast change");
+				dataRobotExchange.ChangeLowHeight(System.BitConverter.ToSingle(message, 0));
+			}
+			if (_topic == "M2MQTT/boxcast/high")
+			{
+				// Changes the height of the high boxcast
+				Debug.Log("Received low boxcast change");
+				dataRobotExchange.ChangeHighHeight(System.BitConverter.ToSingle(message, 0));
+			}
+			if (_topic == "M2MQTT/boxcast/bubble")
+			{
+				// Changes the radius of the bubble to be ignored by boxcast around the player
+				Debug.Log("Received low boxcast change");
+				dataRobotExchange.ChangeBubble(System.BitConverter.ToSingle(message, 0));
 			}
 		}
 
