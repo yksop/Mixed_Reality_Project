@@ -161,6 +161,30 @@ namespace M2MqttUnity
 			brokerAddress = IP;
 		}
 
+		// Function to change the Boxcast low height
+		public void BCChangeLow(float num)
+		{
+			Debug.Log("Changing low to " + num);
+			var aa = BitConverter.GetBytes(num);
+			client.Publish("M2MQTT/boxcast/low", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+
+		// Function to change the Boxcast high height
+		public void BCChangeHigh(float num)
+		{
+			Debug.Log("Changing high to " + num);
+			var aa = BitConverter.GetBytes(num);
+			client.Publish("M2MQTT/boxcast/high", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+
+		// Function to change the Boxcast ingnored bubble radius
+		public void BCChangeBubble(float num)
+		{
+			Debug.Log("Changing bubble to " + num);
+			var aa = BitConverter.GetBytes(num);
+			client.Publish("M2MQTT/boxcast/bubble", aa, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
+
 		// Function to convert an array of doubles into an array of bytes
 		static byte[] GetBytesBlock(double[] values)
 		{

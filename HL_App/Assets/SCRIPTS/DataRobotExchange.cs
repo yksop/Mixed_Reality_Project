@@ -142,4 +142,22 @@ public class DataRobotExchange : MonoBehaviour
         }
         baseClient.SendRoom(h, puntiImpattoBytes.ToArray());
     }
+
+    // Function to change the height of the low boxcast height
+    public void ChangeLowHeight(float num)
+    {
+        lowRayHeight = num;
+    }
+
+    // Function to change the height of the high boxcast height
+    public void ChangeHighHeight(float num)
+    {
+        highRayHeight = num;
+    }
+
+    // Function to change the radius of the bubble aroud the player to ignore boxcast
+    public void ChangeBubble(float num)
+    {
+        bubble = num;
+    }
 }
