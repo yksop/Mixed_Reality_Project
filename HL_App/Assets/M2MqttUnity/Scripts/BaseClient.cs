@@ -33,7 +33,7 @@ namespace M2MqttUnity
 
 		public RobotController robotController;
 		public CapsuleMovement capsuleMovement;
-		public DroppingCandies dCandy;
+		//public DroppingCandies dCandy;
 		public TerrainToggle terrainToggle;
 		public DroppingCandies droppingCandies;
 		public DataRobotExchange dataRobotExchange;
@@ -269,7 +269,8 @@ namespace M2MqttUnity
 			if(_topic == "M2MQTT/counter/reset")
 			{
 				// Reset the counter
-				dCandy.SetCounter(0);
+				//dCandy.SetCounter(0);
+				droppingCandies.SetCounter(0);
 			}
 			if (_topic == "M2MQTT/ToggleTerrain")
 			{

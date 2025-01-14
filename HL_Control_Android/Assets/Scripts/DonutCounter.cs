@@ -8,7 +8,7 @@ public class DonutCounter : MonoBehaviour
 {
     public TextMeshProUGUI counterText; // Reference to the TextMeshProUGUI component to display the counter
 
-    private BaseClient baseClient; // Reference to the BaseClient for MQTT communication
+    public BaseClient baseClient; // Reference to the BaseClient for MQTT communication
     private int counter = 0; // Counter to keep track of the number of donuts eaten
 
     // Start is called before the first frame update
@@ -41,6 +41,6 @@ public class DonutCounter : MonoBehaviour
     {
         counter = 0; // Reset the counter to 0
         UpdateCounter(counter); // Update the counter display
-        //baseClient.SendCounterReset(); // Uncomment this line to send a counter reset message via MQTT
+        baseClient.SendCounterReset(); //  this line send a counter reset message via MQTT
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,35 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &295907
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    29244'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &16347251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,18 +1101,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 184269336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a3474dca19e5d45897162ad195a109, type: 3}
+  m_Script: {fileID: 11500000, guid: d5e747c495c97f14d9444d0412a66919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Robottino: {fileID: 1843165048}
-  Center: {fileID: 531166600}
+  Center: {fileID: 389841207}
   Player: {fileID: 86712443}
   maxDistance: 10
   rayPerDegree: 1
   lowRayHeight: 0.3
   highRayHeight: 2
-  boxWidth: 0
-  boxHeight: 0
+  boxWidth: 0.005
+  boxHeight: 0.1
+  bubble: 1
   baseClient: {fileID: 1027292231}
 --- !u!4 &184269338
 Transform:
@@ -1186,6 +1158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4458aa541c6b1d24a9887cc389fcc134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testo: {fileID: 0}
+  testoBottone: {fileID: 0}
 --- !u!4 &210156202
 Transform:
   m_ObjectHideFlags: 0
@@ -1375,7 +1349,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 234422738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0eb821795a5fd4895b0c3b8f8e1804, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ffda051a232337479abeec6fddd5604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disappearSound: {fileID: 8300000, guid: 87d9461e460a1354ab45ce89ac2b2364, type: 3}
@@ -8399,7 +8373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530462327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: 0.75, z: 2.35}
+  m_LocalPosition: {x: 0, y: 0.75, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 531166606}
@@ -8536,7 +8510,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1465885182}
+  - {fileID: 1168796833}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9598,6 +9572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38609b202b992444b66fef96247bed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterObject: {fileID: 0}
+  moveSpeed: 1
 --- !u!114 &820493285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9610,6 +9586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682a8bb0d9c3b164baab04a1101ac376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainObject: {fileID: 1021910648}
+  fadeSpeed: 0.5
 --- !u!1 &821809104
 GameObject:
   m_ObjectHideFlags: 0
@@ -10895,6 +10873,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoConstraintSelection: 1
   selectedConstraints: []
+--- !u!21 &1168796833
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'AstronautMaterial
+
+    28660'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1239758528
 GameObject:
   m_ObjectHideFlags: 0
@@ -11592,7 +11599,7 @@ Transform:
   m_GameObject: {fileID: 1442883098}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 100, y: -0.56319237, z: -1.0490947}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 234422739}
   m_RootOrder: 0
@@ -11786,35 +11793,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!21 &1465885182
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'AstronautMaterial
-
-    28658'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9acbce508a2246108d4c0212523d1e6b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1487914248
 GameObject:
   m_ObjectHideFlags: 0
@@ -12042,6 +12020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c040daa62b3bc45a2aac1005a49e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
 --- !u!1 &1499749720
 GameObject:
   m_ObjectHideFlags: 0
@@ -13252,7 +13231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.626
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 02dd6406ed1ebc248b2fafd0485e0de9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13415,12 +13394,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.75
-  stopDistance: 2
-  moveRange: 3
   distanceFromPlayer: 0.5
   animator: {fileID: 1843165049}
   isMoving: 1
-  centerPoint: {fileID: 531166606}
   z_controller:
     Kp: 1
     Ki: 0.05

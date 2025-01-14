@@ -151,7 +151,7 @@ namespace M2MqttUnity
 		// Function called to reset the donut counter in the HL app
 		public void SendCounterReset()
 		{
-			byte[] res = {1};
+			byte[] res = BitConverter.GetBytes(1);
 			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
 

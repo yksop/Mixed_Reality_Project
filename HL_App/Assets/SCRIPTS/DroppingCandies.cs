@@ -65,6 +65,31 @@ public class DroppingCandies : MonoBehaviour
     private IEnumerator DropCandies()
     {
         isDropping = true; // Set isDropping to true
+        Vector3 lastPosition = robotController.transform.position; // Store the initial position
+        float distanceTraveled = 0f; // Initialize the distance traveled
+
+        while (robotController.isMoving)
+        {
+            Vector3 currentPosition = robotController.transform.position; // Get the current position
+            distanceTraveled += Vector3.Distance(lastPosition, currentPosition); // Calculate the distance traveled
+            lastPosition = currentPosition; // Update the last position
+
+            if (distanceTraveled >= 1f) // Check if the robot has traveled 0.5 meters
+            {
+                Vector3 dropPosition = new Vector3(currentPosition.x, 0.025f, currentPosition.z);
+                GameObject candy = Instantiate(candyPrefab, dropPosition, Quaternion.identity); // Instantiate a new candy
+                candy.tag = "Candy"; // Set the tag to "Candy"
+                candy.SetActive(true); // Activate the candy
+                distanceTraveled = 0f; // Reset the distance traveled
+            }
+
+            yield return null; // Wait for the next frame
+        }
+        isDropping = false; // Set isDropping to false
+    }
+    /* private IEnumerator DropCandies()
+    {
+        isDropping = true; // Set isDropping to true
         while (robotController.isMoving)
         {
             Vector3 dropPosition = new Vector3(robotController.transform.position.x, 0.05f, robotController.transform.position.z);
@@ -74,7 +99,7 @@ public class DroppingCandies : MonoBehaviour
             yield return new WaitForSeconds(2f); // Wait for 2 seconds
         }
         isDropping = false; // Set isDropping to false
-    }
+    } */
 
     /* private IEnumerator DestroyAfterSound(GameObject candy, bool isFirstTime)
     {
@@ -97,6 +122,7 @@ public class DroppingCandies : MonoBehaviour
     {
         canDrop = !canDrop; // Toggle the canDrop flag
     }
+
     private void DestroyCandySingular(GameObject candy, bool isFirstTime)
     {
         if (isFirstTime)
@@ -141,5 +167,6 @@ public class DroppingCandies : MonoBehaviour
     public void SetCounter(int count)
     {
         takeDonutCounter = count; // Set the donut counter
+        Debug.Log("Donuts Reset -> donut: " + takeDonutCounter);
     }
 }
