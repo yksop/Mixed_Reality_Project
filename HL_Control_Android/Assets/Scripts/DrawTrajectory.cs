@@ -1,3 +1,9 @@
+/// <summary>
+/// The DrawTrajectory class is responsible for capturing and drawing a trajectory on a canvas
+/// based on user input (mouse or touch). It also converts the drawn points to a relative coordinate
+/// system centered on a target image and sends the trajectory data to a BaseClient for further processing.
+/// </summary>
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

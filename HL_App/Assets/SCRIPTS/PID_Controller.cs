@@ -1,3 +1,10 @@
+/// <summary>
+/// The PIDController class implements a Proportional-Integral-Derivative (PID) controller,
+/// which is a control loop feedback mechanism commonly used in industrial control systems.
+/// This class provides functionality to control both position and angle (yaw) of a system
+/// by computing and applying corrections based on the difference between a desired setpoint
+/// and a measured process variable.
+/// </summary>
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,8 @@
+/// <summary>
+/// The DataRobotExchange class is responsible for managing the interaction between a robot, a player, and the environment.
+/// It calculates and sends the positions and orientations of the robot and player relative to a central point.
+/// Additionally, it performs periodic spatial awareness checks using raycasts to detect obstacles and sends the impact points.
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +12,11 @@ using System.Text;
 
 public class DataRobotExchange : MonoBehaviour
 {
-    public GameObject Robottino; // Riferimento al robot
-    public GameObject Center;    // Riferimento al punto centrale
-    public GameObject Player;    // Riferimento al player
-    public float maxDistance = 20f; // Distanza massima del raycast
-    private int layerMask; // Layer mask per il raycast
+    public GameObject Robottino; // Reference to the robot
+    public GameObject Center;    // Reference to the central point
+    public GameObject Player;    // Reference to the player
+    public float maxDistance = 20f; // Maximum distance for the raycast
+    private int layerMask; // Layer mask for the raycast
     public int rayPerDegree = 1;
     public float lowRayHeight = 0.3f;
     public float highRayHeight = 2f;
@@ -24,7 +29,7 @@ public class DataRobotExchange : MonoBehaviour
 
     private void Start()
     {
-        // Imposta il layer mask per il layer "SpatialAwareness"
+        // Set the layer mask for the "SpatialAwareness" layer
         layerMask = LayerMask.GetMask("SpatialAwareness");
         StartCoroutine(GetSpatialPoints());
         Debug.Log("Start");
@@ -32,54 +37,54 @@ public class DataRobotExchange : MonoBehaviour
     
     private void FixedUpdate()
     {
-        
+        // Send the position and rotation of the robot and player relative to the center
         baseClient.SendPosRot(Robottino, Robottino.transform.position - Center.transform.position, Robottino.transform.rotation);
         baseClient.SendPosRot(Player, Player.transform.position - Center.transform.position, Player.transform.rotation);
     }
 
-    // Funzione che calcola la posizione del robot rispetto al centro e salva i valori in un array di byte[]
+    // Function that calculates the position of the robot relative to the center and saves the values in a byte array
     public byte[] CalcolaPosizione()
     {
-        // Ottiene la posizione relativa del robot rispetto al centro solo sul piano X,Z
+        // Get the relative position of the robot to the center only on the X,Z plane
         Vector3 posizioneRelativa = Robottino.transform.position - Center.transform.position;
 
-        // Lista di byte per memorizzare solo X e Z
+        // Byte list to store only X and Z
         List<byte> byteArray = new List<byte>();
 
-        // Converte la coordinata X
+        // Convert the X coordinate
         byteArray.AddRange(BitConverter.GetBytes(posizioneRelativa.x));
 
-        // Converte la coordinata Z
+        // Convert the Z coordinate
         byteArray.AddRange(BitConverter.GetBytes(posizioneRelativa.z));
 
-        // Ritorna l'array di byte con solo X e Z
+        // Return the byte array with only X and Z
         return byteArray.ToArray();
     }
 
     public byte[] CalcolaDirezioneGuardataEQuaternion()
     {
-        // Direzione "forward" del robot (dove sta guardando), normalizzata sul piano X,Z
+        // "Forward" direction of the robot (where it is looking), normalized on the X,Z plane
         Vector3 direzioneGuardata = new Vector3(Robottino.transform.forward.x, 0, Robottino.transform.forward.z).normalized;
 
-        // Rotazione del robot in quaternion
+        // Rotation of the robot in quaternion
         Quaternion rotazioneGuardata = Robottino.transform.rotation;
 
-        // Lista di byte per memorizzare dati
+        // Byte list to store data
         List<byte> byteArray = new List<byte>();
 
-        // Converte la coordinata X della direzione guardata
+        // Convert the X coordinate of the direction looked at
         byteArray.AddRange(BitConverter.GetBytes(direzioneGuardata.x));
 
-        // Converte la coordinata Z della direzione guardata
+        // Convert the Z coordinate of the direction looked at
         byteArray.AddRange(BitConverter.GetBytes(direzioneGuardata.z));
 
-        // Converte i componenti del quaternion (x, y, z, w)
+        // Convert the quaternion components (x, y, z, w)
         byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.x));
         byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.y));
         byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.z));
         byteArray.AddRange(BitConverter.GetBytes(rotazioneGuardata.w));
 
-        // Ritorna l'array di byte con X, Z della direzione guardata e il quaternion
+        // Return the byte array with X, Z of the direction looked at and the quaternion
         return byteArray.ToArray();
     }
 
@@ -88,27 +93,21 @@ public class DataRobotExchange : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(5);
-            Debug.Log("Calcolo punti di impatto");
+            Debug.Log("Calculating impact points");
             CalcolaPuntiImpattoCircolari(highRayHeight);
             CalcolaPuntiImpattoCircolari(lowRayHeight);
         }
     }
 
-
-
-
-    // Funzione per calcolare i punti di impatto dei raycast in un array di byte[]
-    //public byte[][] CalcolaPuntiImpattoCircolari()
+    // Function to calculate the impact points of the raycasts in a byte array
     public void CalcolaPuntiImpattoCircolari(float height)
     {
         List<byte> puntiImpattoBytes = new List<byte>();
-        //float ang = 0;
 
-        // Posizione di partenza del raycast
+        // Starting position of the raycast
         Vector3 startPosition;
-        //Vector3 startPosition = new Vector3(Player.transform.position.x, height, Player.transform.position.z);
 
-        // Risoluzione angolare di 1 grado per coprire 360 gradi
+        // Angular resolution of 1 degree to cover 360 degrees
         int stepDegrees = rayPerDegree;
 
         // Boxcast: Initial position of box (center of player) and dimensions
@@ -117,30 +116,20 @@ public class DataRobotExchange : MonoBehaviour
 
         for (int angle = 0; angle < 360; angle += stepDegrees)
         {
-            // Calcola la direzione del raycast per l'angolo attuale (sul piano X,Z)
+            // Calculate the direction of the raycast for the current angle (on the X,Z plane)
             float rad = Mathf.Deg2Rad * angle;
             startPosition = new Vector3(Player.transform.position.x + bubble * Mathf.Cos(rad), height, Player.transform.position.z + bubble * Mathf.Sin(rad));
             boxCenter = startPosition;
             Vector3 direction = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
 
-            // Esegue il raycast dalla posizione sopraelevata in questa direzione orizzontale
+            // Perform the raycast from the elevated position in this horizontal direction
             if (Physics.BoxCast(boxCenter, boxHalfExtents, direction, out RaycastHit hit, Quaternion.identity, maxDistance, layerMask))
-            //if (Physics.Raycast(boxCenter, direction, out RaycastHit hit, maxDistance, layerMask))
             {
-                // Ottiene il punto di impatto respect to vuforia marker
+                // Get the impact point relative to the Vuforia marker
                 Vector3 puntoImpatto = hit.point - Center.transform.position;
-                /* 
-                // Converte solo le componenti X e Z in un array di byte
-                List<byte> puntoBytes = new List<byte>();
-                puntoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.x));
-                puntoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.z));
-                */
 
                 puntiImpattoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.x));
                 puntiImpattoBytes.AddRange(BitConverter.GetBytes(puntoImpatto.z));
-
-                // Aggiunge l'array di byte alla lista dei punti di impatto
-                //puntiImpattoBytes.AddRange(puntoBytes.ToArray()); // 
             }
         }
 
@@ -167,7 +156,7 @@ public class DataRobotExchange : MonoBehaviour
         highRayHeight = num;
     }
 
-    // Function to change the radius of the bubble aroud the player to ignore boxcast
+    // Function to change the radius of the bubble around the player to ignore boxcast
     public void ChangeBubble(float num)
     {
         bubble = num;

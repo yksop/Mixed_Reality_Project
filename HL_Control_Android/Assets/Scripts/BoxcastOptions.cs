@@ -1,3 +1,8 @@
+/// <summary>
+/// The BoxcastOptions class is responsible for handling user input for boxcast parameters
+/// such as low height, high height, and bubble radius. It provides methods to activate and 
+/// deactivate the input fields and update the corresponding parameters in the BaseClient.
+/// </summary>
 using System;
 using System.Collections.Generic;
 using UnityEngine;

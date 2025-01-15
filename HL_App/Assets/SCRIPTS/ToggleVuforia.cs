@@ -1,62 +1,66 @@
+/// <summary>
+/// This class is responsible for toggling the Vuforia AR functionality on and off.
+/// It manages the VuforiaBehaviour component and updates the UI text elements accordingly.
+/// </summary>
 using UnityEngine;
 using Vuforia;
-using TMPro; // Assicurati di includere il namespace di TextMeshPro
+using TMPro; // Make sure to include the TextMeshPro namespace
 
 public class ToggleVuforia : MonoBehaviour
 {
-    // Variabile per tenere traccia se Vuforia è attivo o meno
+    // Variable to keep track of whether Vuforia is active or not
     private bool isVuforiaActive = true;
-    public TextMesh testo; // Riferimento al componente TextMeshPro
-    public TextMeshProUGUI testoBottone; // Riferimento al componente TextMeshPro
+    public TextMesh text; // Reference to the TextMeshPro component
+    public TextMeshProUGUI buttonText; // Reference to the TextMeshPro component
 
-    //public Canvas canvasBottoniRobot;
+    //public Canvas robotButtonsCanvas;
 
-    // Riferimento al VuforiaBehaviour
+    // Reference to the VuforiaBehaviour
     private VuforiaBehaviour vuforiaBehaviour;
 
     void Start()
     {
-        // Ottieni il componente VuforiaBehaviour alla partenza
+        // Get the VuforiaBehaviour component at the start
         vuforiaBehaviour = FindObjectOfType<VuforiaBehaviour>();
         
-        // Assicurati che Vuforia sia attivo inizialmente (se vuoi)
+        // Ensure Vuforia is active initially (if desired)
         if (vuforiaBehaviour != null)
         {
             vuforiaBehaviour.enabled = true;
-            testo.text = "On-init"; // Imposta il testo iniziale su "On"
-            testoBottone.text = "Vuforia On"; // Imposta il testo iniziale su "On"
+            text.text = "On-init"; // Set the initial text to "On"
+            buttonText.text = "Vuforia On"; // Set the initial button text to "On"
             
-            // Riattiva il tracciamento se Vuforia è stato abilitato
+            // Reactivate tracking if Vuforia has been enabled
             TrackerManager.Instance.GetTracker<ObjectTracker>().Start();
-            //canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
+            //robotButtonsCanvas.gameObject.SetActive(true); // Enable the canvas
 
         }
     }
 
-    // Funzione che verrà chiamata dal bottone per attivare/disattivare Vuforia
+    // Function that will be called by the button to toggle Vuforia
     public void ToggleVuforiaTracking()
     {
         if (vuforiaBehaviour != null)
         {
-            // Alterna lo stato di abilitazione di Vuforia
+            // Toggle the enabled state of Vuforia
             isVuforiaActive = !isVuforiaActive;
             vuforiaBehaviour.enabled = isVuforiaActive;
 
-            // Se Vuforia è disabilitato, si ferma il tracciamento degli oggetti
+            // If Vuforia is disabled, stop object tracking
             if (!isVuforiaActive)
             {
                 TrackerManager.Instance.GetTracker<ObjectTracker>().Stop();
-                testoBottone.text = "Vuforia Off"; // Imposta il testo iniziale su "On"
-                testo.text = "Off"; // Aggiorna il testo su "Off"
-                //canvasBottoniRobot.gameObject.SetActive(false); // Disabilita il canvas
+                buttonText.text = "Vuforia Off"; // Set the button text to "Off"
+                text.text = "Off"; // Update the text to "Off"
+                //robotButtonsCanvas.gameObject.SetActive(false); // Disable the canvas
             }
             else
             {
-                // Riattiva il tracciamento se Vuforia è stato abilitato
+                // Reactivate tracking if Vuforia has been enabled
                 TrackerManager.Instance.GetTracker<ObjectTracker>().Start();
-                testo.text = "On"; // Aggiorna il testo su "On"
-                testoBottone.text = "Vuforia On";
-                //canvasBottoniRobot.gameObject.SetActive(true); // Disabilita il canvas
+                text.text = "On"; // Update the text to "On"
+                buttonText.text = "Vuforia On";
+                //robotButtonsCanvas.gameObject.SetActive(true); // Enable the canvas
             }
         }
     }

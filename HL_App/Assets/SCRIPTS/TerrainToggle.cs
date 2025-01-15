@@ -1,24 +1,28 @@
+/// <summary>
+/// This class is responsible for toggling the visibility of a terrain GameObject with a fade in and fade out effect.
+/// It manages the activation and deactivation of the GameObject and smoothly transitions its transparency.
+/// </summary>
 using System.Collections;
 using UnityEngine;
 
 public class TerrainToggle : MonoBehaviour
 {
-    // GameObject pubblico da assegnare dall'Inspector
+    // Public GameObject to be assigned from the Inspector
     public GameObject terrainObject;
 
-    // Velocità del fade in e fade out
+    // Speed of the fade in and fade out
     public float fadeSpeed = 1f;
 
-    // Variabili per gestire lo stato dell'oggetto
+    // Variables to manage the state of the object
     private bool isFadingIn = false;
     private bool isActive = false;
 
-    // Riferimento al materiale dell'oggetto
+    // Reference to the material of the object
     private Material terrainMaterial;
 
     void Start()
     {
-        // Inizializza il materiale e setta la trasparenza a 0
+        // Initialize the material and set the transparency to 0
         terrainMaterial = terrainObject.GetComponent<Renderer>().material;
         Color color = terrainMaterial.color;
         color.a = 0;
@@ -28,42 +32,42 @@ public class TerrainToggle : MonoBehaviour
         isActive = false;
     }
 
-    // Funzione chiamata dal bottone per attivare/disattivare l'oggetto
+    // Function called by the button to toggle the object
     public void ToggleTerrainObject()
     {
         if (isActive)
         {
-            // Se è attivo, avvia fade out e disattiva
+            // If active, start fade out and deactivate
             StartCoroutine(FadeObject(0, false));
         }
         else
         {
-            // Se è inattivo, attiva e avvia fade in
+            // If inactive, activate and start fade in
             terrainObject.SetActive(true);
             StartCoroutine(FadeObject(1, true));
         }
     }
 
-    // Coroutine per gestire il fade in e fade out
+    // Coroutine to manage the fade in and fade out
     private IEnumerator FadeObject(float targetAlpha, bool activate)
     {
         isFadingIn = activate;
         Color color = terrainMaterial.color;
         float startAlpha = color.a;
 
-        // Cambia gradualmente l'alpha per creare l'effetto di dissolvenza
+        // Gradually change the alpha to create the fade effect
         while (Mathf.Abs(color.a - targetAlpha) > 0.01f)
         {
             color.a = Mathf.MoveTowards(color.a, targetAlpha, fadeSpeed * Time.deltaTime);
             terrainMaterial.color = color;
-            yield return null; // Aspetta il frame successivo
+            yield return null; // Wait for the next frame
         }
 
-        // Aggiorna lo stato finale dell'oggetto
+        // Update the final state of the object
         isActive = activate;
         if (!activate)
         {
-            terrainObject.SetActive(false); // Disattiva l'oggetto una volta completato il fade out
+            terrainObject.SetActive(false); // Deactivate the object once the fade out is complete
         }
     }
 }

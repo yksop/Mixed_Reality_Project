@@ -1,3 +1,8 @@
+/// <summary>
+/// The <c>CapsuleMovement</c> class manages the movement of a capsule along a predefined trajectory.
+/// The capsule moves towards a series of points specified in an array of <c>Vector2</c>.
+/// The movement of the capsule is controlled by a PID controller that adjusts the robot's speed to follow the capsule.
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.WindowsDevicePortal;
@@ -29,7 +34,7 @@ public class CapsuleMovement : MonoBehaviour
         if (trajectory != null && currentPointIndex < trajectory.Length)
         {
             // Imposta la posizione target al punto corrente della traiettoria
-            targetPosition = new Vector3(trajectory[currentPointIndex].x + this.transform.parent.position.x, transform.position.y - this.transform.parent.position.y, trajectory[currentPointIndex].y + this.transform.parent.position.z);
+            targetPosition = new Vector3(trajectory[currentPointIndex].x , transform.position.y, trajectory[currentPointIndex].y);// + this.transform.parent.position.z.normalized
             // Muove la capsula verso la posizione target
             MoveCapsule(targetPosition);
             
