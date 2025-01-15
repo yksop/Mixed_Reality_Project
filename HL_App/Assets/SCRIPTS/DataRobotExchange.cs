@@ -10,7 +10,7 @@ public class DataRobotExchange : MonoBehaviour
     public GameObject Robottino; // Riferimento al robot
     public GameObject Center;    // Riferimento al punto centrale
     public GameObject Player;    // Riferimento al player
-    public float maxDistance = 10f; // Distanza massima del raycast
+    public float maxDistance = 20f; // Distanza massima del raycast
     private int layerMask; // Layer mask per il raycast
     public int rayPerDegree = 1;
     public float lowRayHeight = 0.3f;
