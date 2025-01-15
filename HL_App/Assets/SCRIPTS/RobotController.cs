@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RobotController : MonoBehaviour
 {
-    public float moveSpeed = 0.5f; // Velocità di movimento
+    public float moveSpeed = 1f; // Velocità di movimento
     
 
     public float distanceFromPlayer = 0.5f; // distanza dalla quale si spaventa dal player 

@@ -33,7 +33,7 @@ public class DroppingCandies : MonoBehaviour
 
     void Update()
     {
-        if (robotController.isMoving && !isDropping && canDrop)
+        if (robotController.isMoving && !isDropping && canDrop  && robotController.isManouvering==false)
         {
             StartCoroutine(DropCandies()); // Start dropping candies if conditions are met
         }
