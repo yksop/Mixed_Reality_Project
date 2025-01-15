@@ -7,6 +7,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 using TMPro;
 
+/* This class manages the UI elemets to change the IP of the broker connection and calls Base Client to update it*/
 public class BoxcastOptions : MonoBehaviour
 {
     public BaseClient baseClient;

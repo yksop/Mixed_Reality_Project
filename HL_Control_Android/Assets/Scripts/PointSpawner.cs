@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
+/* This function is responsible for managing the visualization of the room through points spawned and moved in the UI provided by the SLAM performed by the Holo Lens through the Base Client*/
 public class PointSpawner : MonoBehaviour
 {
     public RectTransform parentImage; // The container for the markers

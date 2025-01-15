@@ -2318,7 +2318,6 @@ GameObject:
   - component: {fileID: 426257556}
   - component: {fileID: 426257558}
   - component: {fileID: 426257557}
-  - component: {fileID: 426257560}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -2386,21 +2385,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426257555}
   m_CullTransparentMesh: 1
---- !u!114 &426257560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426257555}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 444930a0e9225634faa685555bdc896f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject: {fileID: 426257555}
-  canvas: {fileID: 426257556}
-  pointPrefab: {fileID: 2067456000}
 --- !u!1 &435792953
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,7 +3263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: localhost
+  brokerAddress: 192.168.1.6
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -5502,6 +5486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterText: {fileID: 1232405861}
+  baseClient: {fileID: 0}
 --- !u!114 &1232405861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8600,6 +8585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0eae6105484d649865c5d9201b1d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerGO: {fileID: 426257555}
   pointPrefab: {fileID: 2067456000}
   canvas: {fileID: 716981753}
   targetImage: {fileID: 426257556}

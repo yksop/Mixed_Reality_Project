@@ -4,8 +4,10 @@ using UnityEngine.UI;
 using System;
 using M2MqttUnity;
 
+/* This class gets the trajectory drawn on the screen, stores it and sends it to the Holo Lens through Base Client when a button is pressed*/
 public class DrawTrajectory : MonoBehaviour
 {
+    public GameObject centerGO;
     // Prefab di un punto da disegnare sul canvas
     [SerializeField] private GameObject pointPrefab;
 
@@ -146,16 +148,7 @@ public class DrawTrajectory : MonoBehaviour
     // Calcola il centro dell'immagine target nello spazio del canvas
     private Vector2 GetTargetImageCenter()
     {
-        Vector3[] worldCorners = new Vector3[4];
-        targetImage.GetWorldCorners(worldCorners);
-
-        // Media dei quattro angoli per ottenere il centro
-        Vector3 center = (worldCorners[0] + worldCorners[2]) / 2f;
-
-        // Converte il centro nello spazio locale del canvas
-        Vector2 localCenter;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, center), canvas.worldCamera, out localCenter);
-
+        Vector2 localCenter = new Vector2(centerGO.transform.position.x, centerGO.transform.position.y);
         return localCenter;
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using M2MqttUnity;
 
+/* This class is responsible for updating the donut counter and resetting it, sending a flag to the Holo Lens app throught Base Client to reset it */
 public class DonutCounter : MonoBehaviour
 {
     public TextMeshProUGUI counterText; // Reference to the TextMeshProUGUI component to display the counter

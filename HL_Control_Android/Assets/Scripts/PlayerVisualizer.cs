@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-This class is responsible for visualizing the position/rotation of the player updated from the HL
+This class is responsible for visualizing the position/rotation of the player and the avatar updated from the Holo Lens app through he Base Client
 */
 public class PlayerVisualizer : MonoBehaviour
 {
