@@ -67,6 +67,6 @@ public class SceneResetServer : MonoBehaviour
 
 	private void ResetScene()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }
