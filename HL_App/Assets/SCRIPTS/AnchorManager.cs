@@ -1,4 +1,4 @@
-using UnityEngine;
+/* using UnityEngine;
 using Vuforia;
 using UnityEngine.XR.ARFoundation;
 
@@ -80,3 +80,4 @@ public class AnchorManager : MonoBehaviour
         }
     }
 }
+ */

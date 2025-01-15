@@ -93,8 +93,9 @@ namespace M2MqttUnity
 
             if (ConnectionSucceeded != null)
             {
-                ConnectionSucceeded();
+                ConnectionSucceeded();   
             }
+            
         }
 
         /// <summary>

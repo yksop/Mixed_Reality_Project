@@ -29,7 +29,7 @@ public class CapsuleMovement : MonoBehaviour
         if (trajectory != null && currentPointIndex < trajectory.Length)
         {
             // Imposta la posizione target al punto corrente della traiettoria
-            targetPosition = new Vector3(trajectory[currentPointIndex].x, transform.position.y, trajectory[currentPointIndex].y);
+            targetPosition = new Vector3(trajectory[currentPointIndex].x + this.transform.parent.position.x, transform.position.y - this.transform.parent.position.y, trajectory[currentPointIndex].y + this.transform.parent.position.z);
             // Muove la capsula verso la posizione target
             MoveCapsule(targetPosition);
             

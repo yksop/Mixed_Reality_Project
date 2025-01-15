@@ -26,12 +26,13 @@ public class DataRobotExchange : MonoBehaviour
     {
         // Imposta il layer mask per il layer "SpatialAwareness"
         layerMask = LayerMask.GetMask("SpatialAwareness");
+        StartCoroutine(GetSpatialPoints());
+        Debug.Log("Start");
     }
-
+    
     private void FixedUpdate()
     {
-        CalcolaPuntiImpattoCircolari(highRayHeight);
-        CalcolaPuntiImpattoCircolari(lowRayHeight);
+        
         baseClient.SendPosRot(Robottino, Robottino.transform.position - Center.transform.position, Robottino.transform.rotation);
         baseClient.SendPosRot(Player, Player.transform.position - Center.transform.position, Player.transform.rotation);
     }
@@ -82,6 +83,17 @@ public class DataRobotExchange : MonoBehaviour
         return byteArray.ToArray();
     }
 
+    public IEnumerator GetSpatialPoints()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            Debug.Log("Calcolo punti di impatto");
+            CalcolaPuntiImpattoCircolari(highRayHeight);
+            CalcolaPuntiImpattoCircolari(lowRayHeight);
+        }
+    }
+
 
 
 
@@ -90,7 +102,7 @@ public class DataRobotExchange : MonoBehaviour
     public void CalcolaPuntiImpattoCircolari(float height)
     {
         List<byte> puntiImpattoBytes = new List<byte>();
-        float ang = 0;
+        //float ang = 0;
 
         // Posizione di partenza del raycast
         Vector3 startPosition;

@@ -93,6 +93,10 @@ namespace M2MqttUnity
 		{
 			base.OnConnected();
 
+			//Start to collect data from the environment
+			dataRobotExchange.StartCoroutine("GetSpatialPoints");
+
+			
 			if (autoTest)
 			{
 				//client.Publish(topic, System.Text.Encoding.UTF8.GetBytes("On_Connect message sent on topic "+topic), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
