@@ -129,7 +129,7 @@ public class RobotController : MonoBehaviour
         Vector3 boxSize = new Vector3(0.002f, 0.05f, 0.002f); // Adjust these dimensions based on the desired width and 
         
         // offset vertical position to boxcast to avoid collision with the ground
-        Vector3 boxSizeOffset = new Vector3(0, 0.2f, 0);
+        Vector3 boxSizeOffset = new Vector3(0, 0.4f, 0);
 
         // Calculate the direction towards the target position
         Vector3 direction = (target_position - transform.position).normalized;
