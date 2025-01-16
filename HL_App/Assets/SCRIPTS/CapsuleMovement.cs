@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.WindowsDevicePortal;
@@ -11,11 +10,11 @@ using UnityEngine;
 /// </summary>
 public class CapsuleMovement : MonoBehaviour
 {
-    // Array di punti che rappresentano la traiettoria
+    // Array of points representing the trajectory
     private Vector2[] trajectory;
     private int currentPointIndex = 0;
     public float baseSpeed = 1.0f;
-    // Posizione target verso cui la capsula si muoverà
+    // Target position towards which the capsule will move
     private Vector3 targetPosition;
     public GameObject avatar;
     public RobotController robotController;
@@ -31,12 +30,12 @@ public class CapsuleMovement : MonoBehaviour
 
     void Update()
     {
-        // Controlla se la traiettoria è stata impostata e se ci sono ancora punti da raggiungere
+        // Check if the trajectory has been set and if there are still points to reach
         if (trajectory != null && currentPointIndex < trajectory.Length)
         {
-            // Imposta la posizione target al punto corrente della traiettoria
-            targetPosition = new Vector3(trajectory[currentPointIndex].x , transform.position.y, trajectory[currentPointIndex].y);// + this.transform.parent.position.z.normalized
-            // Muove la capsula verso la posizione target
+            // Set the target position to the current point of the trajectory
+            targetPosition = new Vector3(trajectory[currentPointIndex].x , transform.position.y, trajectory[currentPointIndex].y);
+            // Move the capsule towards the target position
             MoveCapsule(targetPosition);
             
             if(currentPointIndex == 0)
@@ -47,21 +46,20 @@ public class CapsuleMovement : MonoBehaviour
                 robotController.isManouvering = false;
             }
 
-            // Controlla se la capsula ha raggiunto la posizione target
-            //if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
+            // Check if the capsule has reached the target position
             if(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(targetPosition.x, targetPosition.z)) <= 0.05)
             {
-                // Incrementa l'indice del punto corrente
+                // Increment the current point index
                 currentPointIndex++;
                 //Debug.Log("Reached point " + currentPointIndex);
             }
+            //Debug.Log(trajectory[0].ToString());
         }
         else
         {
             //Debug.Log("Trajectory is null or completed.");
-            // Controlla se la capsula ha raggiunto l'avatar nel piano x,z
+            // Check if the capsule has reached the avatar on the x,z plane
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(avatar.transform.position.x, avatar.transform.position.z)) <= distanceFromRobot)
-
             {
                 //Debug.Log("Reached avatar.");
                 robotController.isManouvering = false;
@@ -72,10 +70,10 @@ public class CapsuleMovement : MonoBehaviour
         }
     }
 
-    // Metodo per impostare una nuova traiettoria
+    // Method to set a new trajectory
     public void SetTrajectory(Vector2[] newTrajectory)
     {
-        // Imposta la nuova traiettoria
+        // Set the new trajectory
         trajectory = newTrajectory;
         if (newTrajectory == null)
         {
@@ -83,30 +81,29 @@ public class CapsuleMovement : MonoBehaviour
         }
         robotController.isManouvering = true;
 
-        // Resetta l'indice del punto corrente
+        // Reset the current point index
         currentPointIndex = 0;
-        // Se il controller del robot è assegnato
+        // If the robot controller is assigned
         if (robotController != null)
         {
-            // Imposta il robot in movimento
+            // Set the robot in motion
             robotController.isMoving = true;
-            // Distrugge tutte le caramelle
+            // Destroy all candies
             playerCandies.DestroyAllCandies();
             //playerCandies.takeDonutCounter = 0;
         }
         Debug.Log("Trajectory set with " + trajectory.Length + " points.");
     }
 
-    // Metodo per muovere la capsula verso una posizione target
+    // Method to move the capsule towards a target position
     private void MoveCapsule(Vector3 targetPosition)
     {
         float distanceToAvatar = Vector3.Distance(transform.position, avatar.transform.position);
-        float speed = Mathf.Max( baseSpeed / Mathf.Pow(distanceToAvatar, 4), avatar_vel);
+        float speed = Mathf.Max(baseSpeed / Mathf.Pow(distanceToAvatar, 4), avatar_vel);
         
-
-        // Calcola la direzione verso la posizione target
+        // Calculate the direction towards the target position
         Vector3 direction = (targetPosition - transform.position).normalized;
-        // Ruota la capsula verso la posizione target
+        // Rotate the capsule towards the target position
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
@@ -114,7 +111,7 @@ public class CapsuleMovement : MonoBehaviour
         //Debug.Log("Moving towards " + targetPosition + " with speed " + speed);
     }
 
-    // Metodo per fermare il movimento della capsula
+    // Method to stop the movement of the capsule
     public void StopMovement()
     {
         trajectory = null;
