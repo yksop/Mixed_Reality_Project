@@ -1,9 +1,3 @@
-/// <summary>
-/// The BaseClient class is a Unity component that extends the M2MqttUnityClient to provide MQTT communication capabilities.
-/// It allows for subscribing to and publishing messages on various MQTT topics, handling received messages, and managing the connection state.
-/// The class includes methods for sending and receiving data related to game objects, such as their positions and rotations, as well as handling specific commands and events.
-/// It also provides functionality for registering and unregistering topic handlers, and for invoking methods by name.
-/// </summary>
 using System;
 using System.Reflection;
 using System.Collections;
@@ -15,7 +9,12 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 using System.Linq;
 
-
+/// <summary>
+/// The BaseClient class is a Unity component that extends the M2MqttUnityClient to provide MQTT communication capabilities.
+/// It allows for subscribing to and publishing messages on various MQTT topics, handling received messages, and managing the connection state.
+/// The class includes methods for sending and receiving data related to game objects, such as their positions and rotations, as well as handling specific commands and events.
+/// It also provides functionality for registering and unregistering topic handlers, and for invoking methods by name.
+/// </summary>
 namespace M2MqttUnity
 {
 	public class BaseClient : M2MqttUnityClient
