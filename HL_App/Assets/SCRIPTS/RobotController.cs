@@ -1,14 +1,13 @@
-/// <summary>
-/// The RobotController class is responsible for controlling the movement and behavior of a robot character in a Unity scene
-/// by following the capsule.
-/// It handles movement towards a target position, obstacle avoidance using SLAM, and animations based on the robot's state.
-/// </summary>
-
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// The RobotController class is responsible for controlling the movement and behavior of a robot character in a Unity scene
+/// by following the capsule.
+/// It handles movement towards a target position, obstacle avoidance using SLAM, and animations based on the robot's state.
+/// </summary>
 public class RobotController : MonoBehaviour
 {
     public float moveSpeed = 1f; // Movement speed

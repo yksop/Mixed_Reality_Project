@@ -1,14 +1,14 @@
-/// <summary>
-/// The DroppingCandies class is responsible for managing the behavior of dropping candy objects
-/// from a robot as it moves. It handles the instantiation of candy objects, the destruction of 
-/// candies when they get close to the main camera, and the communication of candy count to a base client.
-/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using M2MqttUnity;
 
+/// <summary>
+/// The DroppingCandies class is responsible for managing the behavior of dropping candy objects
+/// from a robot as it moves. It handles the instantiation of candy objects, the destruction of 
+/// candies when they get close to the main camera, and the communication of candy count to a base client.
+/// </summary>
 public class DroppingCandies : MonoBehaviour
 {
     public AudioClip disappearSound; // Sound to play when candy disappears

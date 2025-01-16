@@ -1,10 +1,10 @@
+using System.Collections;
+using UnityEngine;
+
 /// <summary>
 /// This class is responsible for toggling the visibility of a terrain GameObject with a fade in and fade out effect.
 /// It manages the activation and deactivation of the GameObject and smoothly transitions its transparency.
 /// </summary>
-using System.Collections;
-using UnityEngine;
-
 public class TerrainToggle : MonoBehaviour
 {
     // Public GameObject to be assigned from the Inspector

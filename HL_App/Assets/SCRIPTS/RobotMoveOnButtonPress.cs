@@ -1,4 +1,4 @@
-using System.Collections;
+/* using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Aggiungi questa riga per accedere agli elementi UI
@@ -72,3 +72,4 @@ public class RobotMoveOnButtonPress : MonoBehaviour
         }
     }
 }
+ */

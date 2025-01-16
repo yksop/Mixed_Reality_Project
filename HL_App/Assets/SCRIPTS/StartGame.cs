@@ -1,11 +1,11 @@
-/// <summary>
-/// This class is responsible for managing the activation and deactivation of a target GameObject.
-/// It ensures the target GameObject is initially active and provides a method to toggle its active state.
-/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is responsible for managing the activation and deactivation of a target GameObject.
+/// It ensures the target GameObject is initially active and provides a method to toggle its active state.
+/// </summary>
 public class StartGame : MonoBehaviour
 {
     // Public variable for the GameObject to activate/deactivate

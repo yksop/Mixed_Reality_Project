@@ -6,6 +6,11 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 using TMPro;
 
+/// <summary>
+/// The ChangeIp class provides functionality to change the IP address of a BaseClient instance.
+/// It includes methods to activate and deactivate an input interface, handle input from a virtual keyboard,
+/// and set the IP address based on the input provided.
+/// </summary>
 public class ChangeIp : MonoBehaviour
 {
     public BaseClient baseClient;

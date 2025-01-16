@@ -1,8 +1,3 @@
-/// <summary>
-/// The DataRobotExchange class is responsible for managing the interaction between a robot, a player, and the environment.
-/// It calculates and sends the positions and orientations of the robot and player relative to a central point.
-/// Additionally, it performs periodic spatial awareness checks using raycasts to detect obstacles and sends the impact points.
-/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +5,11 @@ using System;
 using M2MqttUnity;
 using System.Text;
 
+/// <summary>
+/// The DataRobotExchange class is responsible for managing the interaction between a robot, a player, and the environment.
+/// It calculates and sends the positions and orientations of the robot and player relative to a central point.
+/// Additionally, it performs periodic spatial awareness checks using raycasts to detect obstacles and sends the impact points.
+/// </summary>
 public class DataRobotExchange : MonoBehaviour
 {
     public GameObject Robottino; // Reference to the robot

@@ -1,4 +1,4 @@
-using Microsoft.MixedReality.Toolkit;
+/* using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,3 +74,4 @@ public class MeshProximityChecker : MonoBehaviour
         }
     }
 }
+ */

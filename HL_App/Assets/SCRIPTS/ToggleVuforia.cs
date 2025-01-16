@@ -1,11 +1,11 @@
-/// <summary>
-/// This class is responsible for toggling the Vuforia AR functionality on and off.
-/// It manages the VuforiaBehaviour component and updates the UI text elements accordingly.
-/// </summary>
 using UnityEngine;
 using Vuforia;
 using TMPro; // Make sure to include the TextMeshPro namespace
 
+/// <summary>
+/// This class is responsible for toggling the Vuforia AR functionality on and off.
+/// It manages the VuforiaBehaviour component and updates the UI text elements accordingly.
+/// </summary>
 public class ToggleVuforia : MonoBehaviour
 {
     // Variable to keep track of whether Vuforia is active or not

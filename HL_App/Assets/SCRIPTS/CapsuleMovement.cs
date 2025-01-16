@@ -1,13 +1,14 @@
-/// <summary>
-/// The <c>CapsuleMovement</c> class manages the movement of a capsule along a predefined trajectory.
-/// The capsule moves towards a series of points specified in an array of <c>Vector2</c>.
-/// The movement of the capsule is controlled by a PID controller that adjusts the robot's speed to follow the capsule.
-/// </summary>
+
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.WindowsDevicePortal;
 using UnityEngine;
 
+/// <summary>
+/// The <c>CapsuleMovement</c> class manages the movement of a capsule along a predefined trajectory.
+/// The capsule moves towards a series of points specified in an array of <c>Vector2</c>.
+/// The movement of the capsule is controlled by a PID controller that adjusts the robot's speed to follow the capsule.
+/// </summary>
 public class CapsuleMovement : MonoBehaviour
 {
     // Array di punti che rappresentano la traiettoria
