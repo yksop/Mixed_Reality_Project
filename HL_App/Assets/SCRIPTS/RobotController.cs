@@ -126,7 +126,10 @@ public class RobotController : MonoBehaviour
             footsteps.Play();
         }
         // Box dimensions for the BoxCast (rectangular in the x-y plane)
-        Vector3 boxSize = new Vector3(0.002f, 0.05f, 0.002f); // Adjust these dimensions based on the desired width and height
+        Vector3 boxSize = new Vector3(0.002f, 0.05f, 0.002f); // Adjust these dimensions based on the desired width and 
+        
+        // offset vertical position to boxcast to avoid collision with the ground
+        Vector3 boxSizeOffset = new Vector3(0, 0.2f, 0);
 
         // Calculate the direction towards the target position
         Vector3 direction = (target_position - transform.position).normalized;
@@ -134,7 +137,7 @@ public class RobotController : MonoBehaviour
         if (isManouvering == false)
         {
             // Use a BoxCast on the SLAM Mesh Layer to detect obstacles
-            if (Physics.BoxCast(transform.position, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.1f, spatialAwareness))
+            if (Physics.BoxCast(transform.position+boxSizeOffset, boxSize / 2, direction, out RaycastHit hit, Quaternion.identity, moveSpeed * Time.deltaTime + 0.1f, spatialAwareness))
             {
                 // If the hit object has the SLAM Mesh Layer, stop the movement
                 Debug.Log("Hit SLAMMesh object, stopping movement.");
