@@ -1,13 +1,13 @@
-/// <summary>
-/// The RetrieveData class is responsible for tracking and displaying the player's speed and distance 
-/// relative to a virtual robot in a mixed reality environment. It updates these values at regular intervals 
-/// and provides functionality to reset the data and clear graphical elements from the scene.
-/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// The RetrieveData class is responsible for tracking and displaying the player's speed and distance 
+/// relative to a virtual robot in a mixed reality environment. It updates these values at regular intervals 
+/// and provides functionality to reset the data and clear graphical elements from the scene.
+/// </summary>
 public class RetrieveData : MonoBehaviour
 {
     public int FATTORE_DI_SCALA = 1;

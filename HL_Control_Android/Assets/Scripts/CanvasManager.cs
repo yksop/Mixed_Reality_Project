@@ -1,12 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 /// <summary>
 /// The CanvasManager class is responsible for managing the visibility of different canvases in the application.
 /// It allows switching between the main canvas and the graph canvas, and interacts with the RetrieveData class
 /// to reset graph data when returning to the main canvas.
 /// </summary>
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CanvasManager : MonoBehaviour
 {
     public GameObject MainCanvas;  // Reference to the main Canvas

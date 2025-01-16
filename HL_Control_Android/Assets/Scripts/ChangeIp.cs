@@ -7,7 +7,9 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 using TMPro;
 
-/* This class is responsible for managing the broker IP change UI and setting it in Base Client*/
+/// <summary>
+/// This class is responsible for managing the broker IP change UI and setting it in Base Client
+/// </summary>
 public class ChangeIp : MonoBehaviour
 {
     public BaseClient baseClient;
