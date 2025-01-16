@@ -11,7 +11,7 @@ using M2MqttUnity;
 /// </summary>
 public class DrawTrajectory : MonoBehaviour
 {
-    public GameObject centerGO;
+    //public GameObject centerGO;
     // Prefab di un punto da disegnare sul canvas
     [SerializeField] private GameObject pointPrefab;
 
@@ -22,7 +22,7 @@ public class DrawTrajectory : MonoBehaviour
     [SerializeField] private RectTransform targetImage;
 
     // Scaling the trajectory to match the representation of the room
-    public float scalingFactor = 0.1f;
+    public float scalingFactor = 0.01f;
 
     // Lista per memorizzare i punti
     private List<GameObject> instantiatedPoints = new List<GameObject>();
@@ -152,7 +152,17 @@ public class DrawTrajectory : MonoBehaviour
     // Calcola il centro dell'immagine target nello spazio del canvas
     private Vector2 GetTargetImageCenter()
     {
-        Vector2 localCenter = new Vector2(centerGO.transform.position.x, centerGO.transform.position.y);
+        //Vector2 localCenter = new Vector2(centerGO.transform.position.x, centerGO.transform.position.y);
+        Vector3[] worldCorners = new Vector3[4];
+        targetImage.GetWorldCorners(worldCorners);
+
+        // Media dei quattro angoli per ottenere il centro
+        Vector3 center = (worldCorners[0] + worldCorners[2]) / 2f;
+
+        // Converte il centro nello spazio locale del canvas
+        Vector2 localCenter;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, center), canvas.worldCamera, out localCenter);
+
         return localCenter;
     }
 
@@ -165,6 +175,7 @@ public class DrawTrajectory : MonoBehaviour
         }
         //Debug.Log("Points Sent!");
         Vector2[] pointsArray = relativePoints.ToArray();
+        Debug.Log(pointsArray[0].ToString());
         baseClient.SendTrajectory(pointsArray);
     }
 }
