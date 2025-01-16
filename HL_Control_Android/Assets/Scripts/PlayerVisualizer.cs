@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-This class is responsible for visualizing the position/rotation of the player and the avatar updated from the Holo Lens app through he Base Client
-*/
+/// <summary>
+/// This class is responsible for visualizing the position/rotation of the player and the avatar updated from the Holo Lens app through he Base Client
+/// </summary>
 public class PlayerVisualizer : MonoBehaviour
 {
     Vector3 position; // Stores the position of the player

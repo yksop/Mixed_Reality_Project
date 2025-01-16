@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+/// <summary>
+/// 
+/// </summary>
 public class Window_Graph : MonoBehaviour
 {
     public RetrieveData retrieveData; // Reference to the RetrieveData script

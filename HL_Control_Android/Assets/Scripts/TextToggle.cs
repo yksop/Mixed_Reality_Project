@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/* This class toggles a flag and changes the text on the button to toggle it (label + "on"/"off") when it is pressed*/
+/// <summary>
+/// This class toggles a flag and changes the text on the button to toggle it (label + "on"/"off") when it is pressed
+/// </summary>
 public class TextToggle : MonoBehaviour
 {
     public string label;
