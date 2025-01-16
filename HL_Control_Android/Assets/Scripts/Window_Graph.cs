@@ -5,7 +5,10 @@ using UnityEngine.UI;
 using System.Linq;
 
 /// <summary>
-/// 
+/// The Window_Graph class is responsible for creating and displaying a graphical representation
+/// of data within a Unity UI. It retrieves data from a linked RetrieveData script, and uses this
+/// data to plot points, draw lines between points, and display labels on a graph. The class also
+/// includes functionality to display an information box with average values above the graph.
 /// </summary>
 public class Window_Graph : MonoBehaviour
 {
