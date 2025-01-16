@@ -133,7 +133,7 @@ public class DataRobotExchange : MonoBehaviour
             }
         }
 
-        if (height == lowRayHeight)
+        if (height == lowRayHeight + Center.transform.position.y)
         {
             h = "low";
         }
