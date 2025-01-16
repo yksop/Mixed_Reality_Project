@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-///<summary>
-///
+/// <summary>
+/// The Position_Graph_Window class is responsible for displaying a graphical representation of player distances
+/// on a UI canvas in Unity. It retrieves data from the RetrieveData script, calculates averages, and creates
+/// visual elements such as circles, lines, and labels to represent the data points on the graph. Additionally,
+/// it provides functionality to display an info box with average distance information above the graph.
 /// </summary>
 public class Position_Graph_Window : MonoBehaviour
 {
