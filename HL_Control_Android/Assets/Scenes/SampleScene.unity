@@ -2884,9 +2884,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 939685884}
-        m_TargetAssemblyTypeName: ResetSceneClient, Assembly-CSharp
-        m_MethodName: SendResetCommand
+      - m_Target: {fileID: 613489810}
+        m_TargetAssemblyTypeName: M2MqttUnity.BaseClient, Assembly-CSharp
+        m_MethodName: SendResetScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3667,7 +3667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504128022f7e7a04dbcad8fa8ba790bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 192.168.1.6
+  brokerAddress: localhost
   brokerPort: 8000
   isEncrypted: 0
   connectionDelay: 500
@@ -3677,6 +3677,7 @@ MonoBehaviour:
   playerVisualizer: {fileID: 1381591807}
   pointSpawner: {fileID: 1381591808}
   donutCounter: {fileID: 1232405860}
+  donutVisualizer: {fileID: 1381591809}
   autoTest: 0
   stopConnection: 0
   restart: 0
@@ -6461,6 +6462,7 @@ GameObject:
   - component: {fileID: 1381591806}
   - component: {fileID: 1381591807}
   - component: {fileID: 1381591808}
+  - component: {fileID: 1381591809}
   m_Layer: 0
   m_Name: Visualizer
   m_TagString: Untagged
@@ -6517,6 +6519,19 @@ MonoBehaviour:
   parentImage: {fileID: 426257556}
   markerPrefab: {fileID: 7596813340116053922, guid: 8e0380f7db04e534ebb02376d4ab49a5, type: 3}
   movemetMultiplier: 10
+--- !u!114 &1381591809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381591805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30020ad35045514cb34451d7c5a8d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4554438802440570289, guid: b3fc5148e36b26e41b8fa735a05d74c0, type: 3}
 --- !u!1 &1384231868
 GameObject:
   m_ObjectHideFlags: 0
