@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 /// <summary>
@@ -21,22 +22,22 @@ public class DonutVisualizer : MonoBehaviour
     }
 
     // Generate donuts in the requested position newVector2
-    public void CreateDonutAtPosition(Vector2 newVector2)
+    public void CreateDonutAtPosition(UnityEngine.Vector2 newVector2)
     {
-        Vector3 position = newVector2*multiplier;
+        UnityEngine.Vector3 position = newVector2*multiplier;
         Debug.Log("Spawning a donut in " + position);
-        GameObject instDonut = Instantiate(prefab, position + center.transform.position, Quaternion.identity, visualizer.transform);
+        GameObject instDonut = Instantiate(prefab, position + center.transform.position, UnityEngine.Quaternion.identity, visualizer.transform);
         donuts.Add(instDonut);
         donutCounter.UpdateCounter(0, 1);
     }
 
     // Destory the donut in the position pos
-    public void DestroyDonutAtPosition(Vector2 pos)
+    public void DestroyDonutAtPosition(UnityEngine.Vector2 pos)
     {
-        Vector3 position = pos * multiplier;
+        UnityEngine.Vector3 position = pos * multiplier;
         foreach (GameObject donut in donuts)
         {
-            if (donut.transform.position == position + center.transform.position)
+            if ((donut.transform.position - (position + center.transform.position)).sqrMagnitude <= 0.01f)
             {
                 Destroy(donut);
                 donuts.Remove(donut);
