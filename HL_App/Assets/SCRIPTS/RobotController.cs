@@ -200,7 +200,7 @@ public class RobotController : MonoBehaviour
         if (isManouvering == true)
         {
             animator.SetBool("isFloating", true);
-            avatar_color.materials[1].color = new Color32(0x43, 0xFF, 0x00, 0xFF);
+            avatar_color.materials[1].color = new Color32(0x80, 0x00, 0x80, 0xFF); // Purple color
         }
         else
         {
