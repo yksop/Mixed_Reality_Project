@@ -87,7 +87,7 @@ public class RobotController : MonoBehaviour
         // Set target_position to the capsule's position
         target_position = capsule.transform.position;
 
-        if (isMoving)
+        if (isMoving  && (IsPlayerBehind() || isManouvering == true))
         {
             MoveRobot(target_position); // Move the robot towards its target position
 
@@ -155,13 +155,14 @@ public class RobotController : MonoBehaviour
         Vector2 player = new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.z);
         Vector2 avatar = new Vector2(transform.position.x, transform.position.z);
         float dist_2_user = Vector2.Distance(player, avatar);
-
+        
+        // Velocity is inver Proportianal to the distance from the player to the robot
         if (dist_2_user > distanceFromPlayer)
         {
             avatar_vel = avatar_vel / Mathf.Pow(dist_2_user - distanceFromPlayer, 4);
             if (avatar_vel > 1.25f * moveSpeed)
             {
-                avatar_vel = 1.25f * moveSpeed;
+                avatar_vel = moveSpeed;
             }
             else if (isManouvering == true)
             {
@@ -223,5 +224,22 @@ public class RobotController : MonoBehaviour
     {
         target_position = new Vector3(newPos.x, transform.position.y, newPos.y);
         // return target_position;
+    }
+
+    private bool IsPlayerBehind()
+    {
+        // Get the direction from the robot to the camera
+        Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+        directionToCamera.y = 0; // Ignore the Y component to keep the calculation on the horizontal plane
+
+        // Get the forward direction of the robot
+        Vector3 robotForward = transform.forward;
+        robotForward.y = 0; // Ignore the Y component to keep the calculation on the horizontal plane
+
+        // Calculate the angle between the robot's forward direction and the direction to the camera
+        float angle = Vector3.Angle(robotForward, directionToCamera);
+
+        // Check if the angle is within ±90 degrees
+        return angle > 100;
     }
 }
