@@ -23,7 +23,7 @@ public class DonutVisualizer : MonoBehaviour
     public void CreateDonutAtPosition(Vector2 newVector2)
     {
         Vector3 position = newVector2*multiplier;
-        Debug.Log("Spawning a donut in " + position);   
+        Debug.Log("Spawning a donut in " + position);
         GameObject instDonut = Instantiate(prefab, position + center.transform.position, Quaternion.identity, visualizer.transform);
         donuts.Add(instDonut);
     }
