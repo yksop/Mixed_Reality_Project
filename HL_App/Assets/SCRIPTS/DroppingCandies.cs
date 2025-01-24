@@ -56,7 +56,7 @@ public class DroppingCandies : MonoBehaviour
                                                       new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.z));
             //Debug.Log("Distance to camera: " + distanceToCamera); // Add this log
 
-            if (distanceToCamera <= 1f)
+            if (distanceToCamera <= 0.5f)
             {
                 //Debug.Log("Candy is close to the camera"); 
                 audioSource.PlayOneShot(disappearSound); // Play disappear sound
@@ -92,37 +92,7 @@ public class DroppingCandies : MonoBehaviour
         }
         isDropping = false; // Set isDropping to false
     }
-    /* private IEnumerator DropCandies()
-    {
-        isDropping = true; // Set isDropping to true
-        while (robotController.isMoving)
-        {
-            Vector3 dropPosition = new Vector3(robotController.transform.position.x, 0.05f, robotController.transform.position.z);
-            GameObject candy = Instantiate(candyPrefab, dropPosition, Quaternion.identity); // Instantiate a new candy
-            candy.tag = "Candy"; // Set the tag to "Candy"
-            candy.SetActive(true); // Activate the candy
-            yield return new WaitForSeconds(2f); // Wait for 2 seconds
-        }
-        isDropping = false; // Set isDropping to false
-    } */
-
-    /* private IEnumerator DestroyAfterSound(GameObject candy, bool isFirstTime)
-    {
-        candy.tag = "Untagged";
-        yield return new WaitForSeconds(disappearSound.length*0.5f);
-        if(isFirstTime)
-        {
-            isFirstTime = false;
-            candy.SetActive(false);
-            //Debug.Log("Candy inactive.");
-        }else{
-            Destroy(candy);
-            //Debug.Log("Candy destroyed.");
-        }
-        takeDonutCounter++;
-        //Debug.Log("Donuts taken: " + takeDonutCounter);
-    }  */
-
+    
     public void ToggleCandyDrop()
     {
         canDrop = !canDrop; // Toggle the canDrop flag
