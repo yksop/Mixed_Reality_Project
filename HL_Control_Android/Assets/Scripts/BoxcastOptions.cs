@@ -11,6 +11,7 @@ using TMPro;
 /// The BoxcastOptions class is responsible for handling user input for boxcast parameters
 /// such as low height, high height, and bubble radius. It provides methods to activate and 
 /// deactivate the input fields and update the corresponding parameters in the BaseClient.
+/// Note: Use the OS decimal separator! (. or ,)
 /// </summary>
 public class BoxcastOptions : MonoBehaviour
 {

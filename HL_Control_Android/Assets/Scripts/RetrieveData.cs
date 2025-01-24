@@ -41,7 +41,7 @@ public class RetrieveData : MonoBehaviour
         if (robotVirtual == null || playerTransform == null) return;
 
         float distance = Vector2.Distance(playerTransform.position, robotVirtual.position) / FATTORE_DI_SCALA;
-        textDistanza.text = $"Distance: {distance:F2} m";
+        textDistanza.text = $"Relative distance: {distance:F2} m";
 
         // Save the distance in the list
         //playerDistances.Add(distance);
@@ -59,7 +59,7 @@ public class RetrieveData : MonoBehaviour
             if (playerTransform != null && robotVirtual != null)
             {
                 playerSpeed = (Vector2.Distance(playerTransform.position, previousPosition)) / FATTORE_DI_SCALA;
-                textVelocita.text = $"Speed: {playerSpeed:F2} m/s";
+                textVelocita.text = $"User speed: {playerSpeed:F2} m/s";
                 previousPosition = playerTransform.position;
 
                 // Add the current speed to the list
