@@ -86,6 +86,8 @@ public class DroppingCandies : MonoBehaviour
                 candy.tag = "Candy"; // Set the tag to "Candy"
                 candy.SetActive(true); // Activate the candy
                 distanceTraveled = 0f; // Reset the distance traveled
+                // Send donut dropped position through baseClient to visualize it in Android app
+                baseClient.SendDonutPos(dropPosition);
             }
 
             yield return null; // Wait for the next frame

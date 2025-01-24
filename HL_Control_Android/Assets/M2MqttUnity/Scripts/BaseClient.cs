@@ -21,6 +21,7 @@ namespace M2MqttUnity
 		public PlayerVisualizer playerVisualizer;
 		public PointSpawner pointSpawner;
 		public DonutCounter donutCounter;
+		public DonutVisualizer donutVisualizer;
 
 		public delegate void MessageReceivedDelegate(string topic, string message);
 		private Dictionary<string, MessageReceivedDelegate> m_messageHandlers = new Dictionary<string, MessageReceivedDelegate>();
@@ -283,7 +284,13 @@ namespace M2MqttUnity
 					}
 				}
 			}
-		}
+            if (_topic == "M2MQTT/donut/spawned")
+            {
+                Vector2 dPos = BytesToVector2(message);
+                // Update the visualization of the donuts
+                donutVisualizer.CreateDonutAtPosition(dPos);
+            }
+        }
 
 		// Function to send an array of Vector2 (the trajectory the avatar has to follow)
 		public void SendTrajectory(Vector2[] trajectoryPoints)
@@ -310,8 +317,22 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/Trajectory", byteArray, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+        // Method to convert byte array to Vector2
+        private Vector3 BytesToVector2(byte[] bytes)
+        {
+            if (bytes.Length != 16)
+            {
+                throw new ArgumentException("Byte array length must be 16 bytes (2 doubles).");
+            }
 
-		private void OnDestroy()
+            double x = BitConverter.ToDouble(bytes, 0);
+            double y = BitConverter.ToDouble(bytes, 8);
+
+            return new Vector2((float)x, (float)y);
+        }
+
+
+        private void OnDestroy()
 		{
 			Disconnect();
 		}
