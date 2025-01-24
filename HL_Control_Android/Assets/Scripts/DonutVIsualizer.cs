@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DonutVIsualizer : MonoBehaviour
+public class DonutVisualizer : MonoBehaviour
 {
 
     public GameObject prefab;
