@@ -177,13 +177,6 @@ namespace M2MqttUnity
 			brokerAddress = IP;
 		}
 
-		// Function that sends the number of the collected items
-		public void SendCandyCount(int count)
-		{
-			byte[] c = BitConverter.GetBytes(count);
-			client.Publish("M2MQTT/counter/num", c, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-		}
-
         // Function that sends the position of the spawned donut
         public void SendDonutPos(Vector3 position)
         {
@@ -300,11 +293,6 @@ namespace M2MqttUnity
 				{
 					Debug.LogError("Il formato dell'array di beat non è corretto.");
 				}
-			}
-			if(_topic == "M2MQTT/counter/reset")
-			{
-				// Reset the counter
-				droppingCandies.SetCounter(0);
 			}
 			if (_topic == "M2MQTT/ToggleTerrain")
 			{

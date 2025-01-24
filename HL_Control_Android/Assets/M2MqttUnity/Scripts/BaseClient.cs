@@ -149,13 +149,6 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
-		// Function called to reset the donut counter in the HL app
-		public void SendCounterReset()
-		{
-			byte[] res = BitConverter.GetBytes(1);
-			client.Publish("M2MQTT/counter/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-        }
-
 		// Function to change the IP of the broker
 		public void BCChangeIp(string IP)
 		{
@@ -264,11 +257,6 @@ namespace M2MqttUnity
 				height = "high";
 				//Debug.Log("Room - receiving:  M2MQTT/room/high" + " ---- " + message.Length / 8 + " points: " + BitConverter.ToString(message));
 				pointSpawner.UpdateMarkers(message, height);
-			}
-			if (_topic == "M2MQTT/counter/num")
-			{
-				// Reset the counter of the collected items
-				donutCounter.UpdateCounter(BitConverter.ToInt32(message, 0));
 			}
 			if (_topic == "M2MQTT/function")
 			{

@@ -6010,8 +6010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 748.7565, y: 397}
-  m_SizeDelta: {x: 419.5043, y: 75.3541}
+  m_AnchoredPosition: {x: 753.6, y: 397}
+  m_SizeDelta: {x: 465, y: 75.3541}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1232405860
 MonoBehaviour:
@@ -6027,6 +6027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   counterText: {fileID: 1232405861}
   baseClient: {fileID: 613489810}
+  donutVisualizer: {fileID: 1381591809}
 --- !u!114 &1232405861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6492,6 +6493,7 @@ MonoBehaviour:
   donuts: []
   multiplier: 100
   center: {fileID: 426257555}
+  donutCounter: {fileID: 1232405860}
 --- !u!1 &1384231868
 GameObject:
   m_ObjectHideFlags: 0

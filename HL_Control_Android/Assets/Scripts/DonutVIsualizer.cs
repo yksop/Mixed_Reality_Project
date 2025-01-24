@@ -13,6 +13,7 @@ public class DonutVisualizer : MonoBehaviour
     public float multiplier = 100f;
     public GameObject center;
     private GameObject visualizer;
+    public DonutCounter donutCounter;
 
     public void Start()
     {
@@ -26,6 +27,7 @@ public class DonutVisualizer : MonoBehaviour
         Debug.Log("Spawning a donut in " + position);
         GameObject instDonut = Instantiate(prefab, position + center.transform.position, Quaternion.identity, visualizer.transform);
         donuts.Add(instDonut);
+        donutCounter.UpdateCounter(0, 1);
     }
 
     // Destory the donut in the position pos
@@ -38,6 +40,7 @@ public class DonutVisualizer : MonoBehaviour
             {
                 Destroy(donut);
                 donuts.Remove(donut);
+                donutCounter.UpdateCounter(1, 0);
                 break;
             }
         }
