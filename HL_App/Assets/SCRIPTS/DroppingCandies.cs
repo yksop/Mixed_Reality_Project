@@ -61,8 +61,10 @@ public class DroppingCandies : MonoBehaviour
                 //Debug.Log("Candy is close to the camera"); 
                 audioSource.PlayOneShot(disappearSound); // Play disappear sound
                 //StartCoroutine(DestroyAfterSound(candy, isFirstTime));
+                baseClient.SendCollectedPos(candy.transform.position); // Send the position of the collected candy to update the visualization
                 DestroyCandySingular(candy, isFirstTime); // Destroy the candy
                 baseClient.SendCandyCount(takeDonutCounter); // Send the candy count
+                
             }
         }
     }

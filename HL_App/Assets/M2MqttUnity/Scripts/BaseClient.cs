@@ -183,7 +183,7 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/counter/num", c, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
-        // Function that sends the position of the collected donut
+        // Function that sends the position of the spawned donut
         public void SendDonutPos(Vector3 position)
         {
             if (client == null)
@@ -195,6 +195,20 @@ namespace M2MqttUnity
             byte[] pos = GetBytesBlock(p);
 
             client.Publish("M2MQTT/donut/spawned", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+        }
+
+        // Function that sends the position of the collected donut
+        public void SendCollectedPos(Vector3 position)
+        {
+            if (client == null)
+            {
+                Debug.LogError("MQTT client is not initialized.");
+                return;
+            }
+            double[] p = new double[] { position[0], position[2] };
+            byte[] pos = GetBytesBlock(p);
+
+            client.Publish("M2MQTT/donut/collected", pos, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
 
         // Function that converts an array of doubles to an array of bytes

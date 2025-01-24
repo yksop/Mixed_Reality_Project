@@ -290,6 +290,12 @@ namespace M2MqttUnity
                 // Update the visualization of the donuts
                 donutVisualizer.CreateDonutAtPosition(dPos);
             }
+            if (_topic == "M2MQTT/donut/collected")
+            {
+                Vector2 dPos = BytesToVector2(message);
+                // Update the visualization of the donuts
+                donutVisualizer.DestroyDonutAtPosition(dPos);
+            }
         }
 
 		// Function to send an array of Vector2 (the trajectory the avatar has to follow)
