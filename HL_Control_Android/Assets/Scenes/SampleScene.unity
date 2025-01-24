@@ -6489,6 +6489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4554438802440570289, guid: b3fc5148e36b26e41b8fa735a05d74c0, type: 3}
+  donuts: []
+  multiplier: 100
+  center: {fileID: 426257555}
 --- !u!1 &1384231868
 GameObject:
   m_ObjectHideFlags: 0
