@@ -8,6 +8,7 @@ using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using M2MqttUnity;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// The BaseClient class is a Unity component that extends the M2MqttUnityClient to provide MQTT communication capabilities.
@@ -303,7 +304,6 @@ namespace M2MqttUnity
 			if(_topic == "M2MQTT/counter/reset")
 			{
 				// Reset the counter
-				//dCandy.SetCounter(0);
 				droppingCandies.SetCounter(0);
 			}
 			if (_topic == "M2MQTT/ToggleTerrain")
@@ -342,6 +342,14 @@ namespace M2MqttUnity
 				Debug.Log("Received low boxcast change");
 				dataRobotExchange.ChangeBubble(System.BitConverter.ToSingle(message, 0));
 			}
+			if (_topic == "M2MQTT/Reset_Scene")
+            {
+                // Resets the scene
+                Debug.Log("Received reset scene");
+                SceneManager.LoadScene(0);
+				droppingCandies.SetCounter(0);
+
+            }
 		}
 
 		private void OnDestroy()

@@ -342,5 +342,14 @@ namespace M2MqttUnity
 		{
 			Disconnect();
 		}
+
+		public void SendResetScene()
+		{
+			Debug.Log("Sent message to reset scene");
+			byte[] res = BitConverter.GetBytes(1);
+			client.Publish("M2MQTT/Reset_Scene", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+		}
 	}
+
+	
 }
