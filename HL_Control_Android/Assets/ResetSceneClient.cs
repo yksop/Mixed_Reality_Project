@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+/// <summary>
+/// client-side script that sends a POST request to the server to reset the scene.
+/// </summary>
 public class ResetSceneClient : MonoBehaviour
 {
     private const string ServerUrl = "http://localhost:8080/reset-scene";

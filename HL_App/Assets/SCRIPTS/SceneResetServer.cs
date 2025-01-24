@@ -43,7 +43,8 @@ public class SceneResetServer : MonoBehaviour
         if (request.HttpMethod == "POST" && request.RawUrl == "/reset-scene")
         {
           Debug.Log("Received scene reset command!");
-          ResetScene();
+          _serverThread.Abort();
+          SceneManager.LoadScene(0); // SceneManager.GetActiveScene().
 
           // Respond to the client
           var response = context.Response;
@@ -65,9 +66,18 @@ public class SceneResetServer : MonoBehaviour
     }
   }
 
-  private void ResetScene()
+  // private void ResetScene()
+  // {
+  //   // Reload the current scene
+  //   Debug.Log("Reset Scene");
+  // }
+
+  /* void Update()
   {
-    // Reload the current scene
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-  }
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      Debug.Log("Spacebar pressed. Resetting scene.");
+      ResetScene();
+    }
+  } */
 }
