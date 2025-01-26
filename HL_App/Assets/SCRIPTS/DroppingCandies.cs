@@ -73,13 +73,13 @@ public class DroppingCandies : MonoBehaviour
         Vector3 lastPosition = robotController.transform.position; // Store the initial position
         float distanceTraveled = 0f; // Initialize the distance traveled
 
-        while (robotController.isMoving)
+        while (robotController.isMoving && canDrop && robotController.isManouvering==false) // Check if the robot is moving and can drop candies
         {
             Vector3 currentPosition = robotController.transform.position; // Get the current position
             distanceTraveled += Vector3.Distance(lastPosition, currentPosition); // Calculate the distance traveled
             lastPosition = currentPosition; // Update the last position
 
-            if (distanceTraveled >= 1f) // Check if the robot has traveled 0.5 meters
+            if (distanceTraveled >= 1f) // Check if the robot has traveled 1 meters
             {
                 Vector3 dropPosition = new Vector3(currentPosition.x, 0.025f, currentPosition.z);
                 GameObject candy = Instantiate(candyPrefab, dropPosition, Quaternion.identity); // Instantiate a new candy

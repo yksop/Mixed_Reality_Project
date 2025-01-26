@@ -93,7 +93,7 @@ public class DataRobotExchange : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(5);
-            Debug.Log("Calculating impact points");
+            //Debug.Log("Calculating impact points");
             CalcolaPuntiImpattoCircolari(highRayHeight + Center.transform.position.y);
             CalcolaPuntiImpattoCircolari(lowRayHeight + Center.transform.position.y);
         }
