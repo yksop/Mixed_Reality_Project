@@ -41,9 +41,20 @@ public class DonutVisualizer : MonoBehaviour
             {
                 Destroy(donut);
                 donuts.Remove(donut);
+                // The donut was collected, so add 1 to collected donuts
                 donutCounter.UpdateCounter(1, 0);
                 break;
             }
         }
+    }
+
+    // Destroy all donuts
+    public void DestroyAllDonuts()
+    {
+        foreach (GameObject donut in donuts)
+        {
+            Destroy(donut);
+        }
+        donuts.Clear();
     }
 }
