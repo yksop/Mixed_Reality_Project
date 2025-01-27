@@ -338,6 +338,11 @@ namespace M2MqttUnity
 				droppingCandies.SetCounter(0);
 
             }
+			if (_topic == "M2MQTT/donut/reset")
+            {
+                Debug.Log("Received destroy donut reset");
+				droppingCandies.DestroyAllCandies();
+            }
 		}
 
 		private void OnDestroy()

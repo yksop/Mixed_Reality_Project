@@ -149,6 +149,14 @@ namespace M2MqttUnity
 			client.Publish("M2MQTT/" + name + "/rotation", rot, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
 		}
 
+		// Function called to destroy the donut in the HL app
+		public void SendDonutDestroy()
+		{
+			byte[] res = BitConverter.GetBytes(1);
+			client.Publish("M2MQTT/donut/reset", res, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+        }
+
+
 		// Function to change the IP of the broker
 		public void BCChangeIp(string IP)
 		{
@@ -330,6 +338,9 @@ namespace M2MqttUnity
 		{
 			Disconnect();
 		}
+
+
+
 
 		public void SendResetScene()
 		{
